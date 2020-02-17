@@ -133,22 +133,25 @@ end
 -- Buy Aircraft License Menu
 function BuyAircraftLicenseMenu(zone)
 	ESX.UI.Menu.CloseAll()
-
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'aircraft_license', {
 		title = _U('buy_license'),
 		align = 'top-left',
 		elements = {
 			{ label = _U('no'), value = 'no' },
 			{ label = _U('yes', ('<span style="color: green;">%s</span>'):format((_U('generic_shopitem', ESX.Math.GroupDigits(Config.AircraftLicense))))), value = 'yes' },
-		}
-	}, function(data, menu)
+	}}, function(data, menu)
 		if data.current.value == 'yes' then
-			ESX.TriggerServerCallback('esx_advancedvehicleshop:buyAircraftLicense', function(bought)
-				if bought then
+			ESX.TriggerServerCallback('esx_advancedvehicleshop:buyAircraftLicense', function(success)
+				if success then
 					menu.close()
 					BuyAircraftMenu()
+				else
+					ESX.ShowNotification(_U('not_enough_money'))
+					menu.close()
 				end
 			end)
+		else
+			menu.close()
 		end
 	end, function(data, menu)
 		menu.close()
@@ -158,22 +161,25 @@ end
 -- Buy Boat License Menu
 function BuyBoatLicenseMenu(zone)
 	ESX.UI.Menu.CloseAll()
-
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'boat_license', {
 		title = _U('buy_license'),
 		align = 'top-left',
 		elements = {
 			{ label = _U('no'), value = 'no' },
 			{ label = _U('yes', ('<span style="color: green;">%s</span>'):format((_U('generic_shopitem', ESX.Math.GroupDigits(Config.BoatLicense))))), value = 'yes' },
-		}
-	}, function(data, menu)
+	}}, function(data, menu)
 		if data.current.value == 'yes' then
-			ESX.TriggerServerCallback('esx_advancedvehicleshop:buyBoatLicense', function(bought)
-				if bought then
+			ESX.TriggerServerCallback('esx_advancedvehicleshop:buyBoatLicense', function(success)
+				if success then
 					menu.close()
 					BuyBoatMenu()
+				else
+					ESX.ShowNotification(_U('not_enough_money'))
+					menu.close()
 				end
 			end)
+		else
+			menu.close()
 		end
 	end, function(data, menu)
 		menu.close()

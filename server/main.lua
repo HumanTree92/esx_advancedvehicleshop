@@ -118,7 +118,6 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyAircraftLicense', functio
 			cb(true)
 		end)
 	else
-		TriggerClientEvent('esx:showNotification', source, _U('not_enough_money'))
 		cb(false)
 	end
 end)
@@ -133,7 +132,6 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyBoatLicense', function(so
 			cb(true)
 		end)
 	else
-		TriggerClientEvent('esx:showNotification', source, _U('not_enough_money'))
 		cb(false)
 	end
 end)
