@@ -4,6 +4,12 @@ Config.Locale = 'en'
 Config.DrawDistance = 100
 Config.MarkerColor  = {r = 120, g = 120, b = 240}
 
+Config.UseAircraftShop = true -- Keep true until kinks are fixed
+Config.UseBoatShop     = true -- Keep true until kinks are fixed
+Config.UseCarShop      = true -- Keep true until kinks are fixed
+Config.UseTruckShop    = true -- Keep true until kinks are fixed
+--Config.UseVIPShop      = true -- Keep true until kinks are fixed
+
 Config.ResellPercentage = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 Config.LicenseEnable    = true -- Requires licenses to buy Aircrafts, Boats, Cars, & Trucks.
 Config.AircraftLicense  = 25000 -- Aircraft License Price
@@ -138,4 +144,27 @@ Config.Zones = {
 		Size  = {x = 3.0, y = 3.0, z = 1.0},
 		Type  = 1
 	}
+	-- VIP Shop
+	--ShopEnteringVIP = {
+		--Pos   = vector3(900.4, -1155.0, 24.1),
+		--Size  = {x = 1.5, y = 1.5, z = 1.0},
+		--Type  = 1
+	--},
+	--ShopInsideVIP = {
+		--Pos     = vector3(927.5, -1226.8, 24.6),
+		--Size    = {x = 1.5, y = 1.5, z = 1.0},
+		--Heading = 102.93,
+		--Type    = -1
+	--},
+	--ShopOutsideVIP = {
+		--Pos     = vector3(994.7, -1186.4, 24.5),
+		--Size    = {x = 1.5, y = 1.5, z = 1.0},
+		--Heading = 93.19,
+		--Type    = -1
+	--},
+	--ResellVehicleVIP= {
+		--Pos   = vector3(879.2, -1168.5, 24.0),
+		--Size  = {x = 3.0, y = 3.0, z = 1.0},
+		--Type  = 1
+	--}
 }

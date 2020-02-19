@@ -6,7 +6,7 @@ INSERT INTO `licenses` (`type`, `label`) VALUES
 ;
 
 CREATE TABLE `owned_vehicles` (
-	`owner` varchar(22) NOT NULL,
+	`owner` varchar(40) NOT NULL,
 	`plate` varchar(12) NOT NULL,
 	`vehicle` longtext,
 	`type` VARCHAR(20) NOT NULL DEFAULT 'car',
@@ -16,45 +16,45 @@ CREATE TABLE `owned_vehicles` (
 	PRIMARY KEY (`plate`)
 );
 
-CREATE TABLE `aircraft_categories` (
+CREATE TABLE `vs_aircraft_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
 	PRIMARY KEY (`name`)
 );
 
-CREATE TABLE `boat_categories` (
+CREATE TABLE `vs_boat_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
 	PRIMARY KEY (`name`)
 );
 
-CREATE TABLE `car_categories` (
+CREATE TABLE `vs_car_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
 	PRIMARY KEY (`name`)
 );
 
-CREATE TABLE `truck_categories` (
+CREATE TABLE `vs_truck_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
 	PRIMARY KEY (`name`)
 );
 
-INSERT INTO `aircraft_categories` (name, label) VALUES
+INSERT INTO `vs_aircraft_categories` (name, label) VALUES
 	('plane','Planes'),
 	('heli','Helicopters')
 ;
 
-INSERT INTO `boat_categories` (name, label) VALUES
+INSERT INTO `vs_boat_categories` (name, label) VALUES
 	('boat','Boats'),
 	('subs','Submersibles')
 ;
 
-INSERT INTO `car_categories` (name, label) VALUES
+INSERT INTO `vs_car_categories` (name, label) VALUES
 	('compacts','Compacts'),
 	('coupes','Coupes'),
 	('sedans','Sedans'),
@@ -68,14 +68,14 @@ INSERT INTO `car_categories` (name, label) VALUES
 	('motorcycles','Motos')
 ;
 
-INSERT INTO `truck_categories` (name, label) VALUES
+INSERT INTO `vs_truck_categories` (name, label) VALUES
 	('haul','Haulers'),
 	('box','Boxed Trucks'),
 	('trans','Transport Trucks'),
 	('other','Other Trucks')
 ;
 
-CREATE TABLE `aircrafts` (
+CREATE TABLE `vs_aircrafts` (
 	`name` varchar(60) NOT NULL,
 	`model` varchar(60) NOT NULL,
 	`price` int(11) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE `aircrafts` (
 	PRIMARY KEY (`model`)
 );
 
-CREATE TABLE `boats` (
+CREATE TABLE `vs_boats` (
 	`name` varchar(60) NOT NULL,
 	`model` varchar(60) NOT NULL,
 	`price` int(11) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `boats` (
 	PRIMARY KEY (`model`)
 );
 
-CREATE TABLE `cars` (
+CREATE TABLE `vs_cars` (
 	`name` varchar(60) NOT NULL,
 	`model` varchar(60) NOT NULL,
 	`price` int(11) NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE `cars` (
 	PRIMARY KEY (`model`)
 );
 
-CREATE TABLE `trucks` (
+CREATE TABLE `vs_trucks` (
 	`name` varchar(60) NOT NULL,
 	`model` varchar(60) NOT NULL,
 	`price` int(11) NOT NULL,
