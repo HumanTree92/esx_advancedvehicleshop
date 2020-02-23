@@ -1064,7 +1064,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 				}
 			end
 		end
-	elseif zone == 'ResellVehiclecar' then
+	elseif zone == 'ResellVehicleCar' then
 		local playerPed = PlayerPedId()
 
 		if IsPedSittingInAnyVehicle(playerPed) then
