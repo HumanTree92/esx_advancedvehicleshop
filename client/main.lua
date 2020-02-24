@@ -49,7 +49,7 @@ Citizen.CreateThread(function()
 
 	if Config.UseCarShop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesC', function(categoriesc)
-			Categoriesc = categoriesc
+			CategoriesC = categoriesc
 		end)
 
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getVehiclesC', function(vehiclesc)
