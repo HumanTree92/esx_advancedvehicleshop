@@ -3,7 +3,6 @@ local categoriesa, vehiclesa = {}, {}
 local categoriesb, vehiclesb = {}, {}
 local categoriesc, vehiclesc = {}, {}
 local categoriest, vehiclest = {}, {}
---local categoriesv, vehiclesv = {}, {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
@@ -115,29 +114,6 @@ MySQL.ready(function()
 			end)
 		end)
 	end
-
-	--[[if Config.UseVIPShop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_vip_categories', {}, function(_categories)
-			categoriesv = _categories
-
-			MySQL.Async.fetchAll('SELECT * FROM vs_vips', {}, function(_vehicles)
-				vehiclesv = _vehicles
-
-				for k,v in ipairs(vehiclesv) do
-					for k2,v2 in ipairs(categoriesv) do
-						if v2.name == v.category then
-							vehiclesv[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesv', -1, categoriesv)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesv', -1, vehiclesv)
-			end)
-		end)
-	end]]--
 end)
 
 ESX.RegisterServerCallback('esx_advancedvehicleshop:buyAircraftLicense', function(source, cb)
@@ -192,10 +168,10 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleA', function(sourc
 		xPlayer.removeMoney(modelPrice)
 
 		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
-			['@owner']   = xPlayer.identifier,
-			['@plate']   = plate,
+			['@owner'] = xPlayer.identifier,
+			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type']    = 'aircraft'
+			['@type'] = 'aircraft'
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('aircraft_belongs', plate))
 			cb(true)
@@ -269,10 +245,10 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleB', function(sourc
 		xPlayer.removeMoney(modelPrice)
 
 		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
-			['@owner']   = xPlayer.identifier,
-			['@plate']   = plate,
+			['@owner'] = xPlayer.identifier,
+			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type']    = 'boat'
+			['@type'] = 'boat'
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('boat_belongs', plate))
 			cb(true)
@@ -346,10 +322,10 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleC', function(sourc
 		xPlayer.removeMoney(modelPrice)
 
 		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
-			['@owner']   = xPlayer.identifier,
-			['@plate']   = plate,
+			['@owner'] = xPlayer.identifier,
+			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type']    = 'car'
+			['@type'] = 'car'
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('car_belongs', plate))
 			cb(true)
@@ -423,10 +399,10 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleT', function(sourc
 		xPlayer.removeMoney(modelPrice)
 
 		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
-			['@owner']   = xPlayer.identifier,
-			['@plate']   = plate,
+			['@owner'] = xPlayer.identifier,
+			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type']    = 'car'
+			['@type'] = 'car'
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('truck_belongs', plate))
 			cb(true)
@@ -475,83 +451,6 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleT', function(so
 		end)
 	end
 end)
-
--- VIP Shop
---[[ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesV', function(source, cb)
-	cb(categoriesv)
-end)]]--
-
---[[ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesV', function(source, cb)
-	cb(vehiclesv)
-end)]]--
-
---[[ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleV', function(source, cb, model, plate)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	local modelPrice
-
-	for k,v in ipairs(vehiclesv) do
-		if model == v.model then
-			modelPrice = v.price
-			break
-		end
-	end
-
-	if modelPrice and xPlayer.getMoney() >= modelPrice then
-		xPlayer.removeMoney(modelPrice)
-
-		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
-			['@owner']   = xPlayer.identifier,
-			['@plate']   = plate,
-			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type']    = 'car'
-		}, function(rowsChanged)
-			xPlayer.showNotification(_U('vip_belongs', plate))
-			cb(true)
-		end)
-	else
-		cb(false)
-	end
-end)]]--
-
---[[ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleV', function(source, cb, plate, model)
-	local xPlayer, resellPrice = ESX.GetPlayerFromId(source)
-
-	-- calculate the resell price
-	for i=1, #vehiclesv, 1 do
-		if GetHashKey(vehiclesv[i].model) == model then
-			resellPrice = ESX.Math.Round(vehiclesv[i].price / 100 * Config.ResellPercentage)
-			break
-		end
-	end
-
-	if not resellPrice then
-		print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an unknown vehicle!'):format(GetPlayerIdentifiers(source)[1]))
-		cb(false)
-	else
-		MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE owner = @owner AND @plate = plate', {
-			['@owner'] = xPlayer.identifier,
-			['@plate'] = plate
-		}, function(result)
-			if result[1] then -- does the owner match?
-				local vehicle = json.decode(result[1].vehicle)
-
-				if vehicle.model == model then
-					if vehicle.plate == plate then
-						xPlayer.addMoney(resellPrice)
-						RemoveOwnedVehicle(plate)
-						cb(true)
-					else
-						print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with plate mismatch!'):format(xPlayer.identifier))
-						cb(false)
-					end
-				else
-					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
-					cb(false)
-				end
-			end
-		end)
-	end
-end)]]--
 
 -- Shared
 ESX.RegisterServerCallback('esx_advancedvehicleshop:isPlateTaken', function(source, cb, plate)
