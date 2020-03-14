@@ -10,6 +10,7 @@ This is a New Script where i have Combined all of my Custom Vehicle Shop Scripts
 * Players can Buy/Sell Aircrafts, Boats, Cars, & Trucks.
 * This is mainly for those that don't want to have/use the esx_vehicleshop Car Dealer Job.
   * I don't have the need to use Car Dealer Job. (This script will never support it.)
+* To make this Script fully work with `esx_policejob` edit `client/vehicle.lua` and do a search for `esx_vehicleshop` & change it to `esx_advancedvehicleshop` then edit `fxmanifest.lua` & remove the dependency for `esx_vehicleshop`.
 * THIS IS A NEW SCRIPT THAT I HAVEN'T FULLY TESTED
 
 # Requirements:
