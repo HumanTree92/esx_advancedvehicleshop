@@ -1,11 +1,9 @@
 # About esx_advancedvehicleshop:
-Advanced Vehicle Shop for ESX Servers
+Advanced Vehicle Shop for ESX
 
 I did NOT create the Code. I only edited the esx_vehicleshop code to create this new shop.
 
-This is a New Script where i have Combined all of my Custom Vehicle Shop Scripts into 1 script. I have done this so i can easily manage it.
-
-# Helpfull Info
+# Helpfull Info:
 * This Vehicle Shops works exactly like esx_vehicleshop.
 * Players can Buy/Sell Aircrafts, Boats, Cars, & Trucks.
 * This is mainly for those that don't want to have/use the esx_vehicleshop Car Dealer Job.
@@ -15,9 +13,10 @@ This is a New Script where i have Combined all of my Custom Vehicle Shop Scripts
 
 # Requirements:
 * Required:
-  * NONE
+  * [es_extended](https://github.com/ESX-Org/es_extended)
 * Optional:
   * [esx_advancedgarage](https://github.com/HumanTree92/esx_advancedgarage)
+  * [esx_licenseshop](https://github.com/HumanTree92/esx_licenseshop)
 
 # Download & Installation:
 1) Download the .zip.
@@ -35,6 +34,8 @@ If you like this please check out some of my other stuff like
 * [esx_advancedgarage](https://github.com/HumanTree92/esx_advancedgarage)
 * [esx_advancedvehicleshop](https://github.com/HumanTree92/esx_advancedvehicleshop)
 * [esx_advancedhospital](https://github.com/HumanTree92/esx_advancedhospital)
+* [esx_advancedweaponshop](https://github.com/HumanTree92/esx_advancedweaponshop)
+* [esx_advancedfuel](https://github.com/HumanTree92/esx_advancedfuel)
 * [esx_extraitems](https://github.com/HumanTree92/esx_extraitems)
 * [esx_licenseshop](https://github.com/HumanTree92/esx_licenseshop)
 * [esx_vehiclespawner](https://github.com/HumanTree92/esx_vehiclespawner)
@@ -65,7 +66,7 @@ Scripts that will no longer be Maintained.
 
 # Legal
 ### License
-esx_advancedvehicleshop - Multi Vehicle Shop for ESX Servers.
+esx_advancedvehicleshop - Multi Vehicle Shop for ESX
 
 Copyright (C) 2011-2020 Velociti Entertainment
 
