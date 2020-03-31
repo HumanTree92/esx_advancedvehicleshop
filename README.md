@@ -9,14 +9,14 @@ I did NOT create the Code. I only edited the esx_vehicleshop code to create this
 * This is mainly for those that don't want to have/use the esx_vehicleshop Car Dealer Job.
   * I don't have the need to use Car Dealer Job. (This script will never support it.)
 * To make this Script fully work with `esx_policejob` edit `client/vehicle.lua` and do a search for `esx_vehicleshop` & change it to `esx_advancedvehicleshop` then edit `fxmanifest.lua` & remove the dependency for `esx_vehicleshop`.
-* THIS IS A NEW SCRIPT THAT I HAVEN'T FULLY TESTED
+* If you a buy a vehicle at the Truck Shop you won't be able to sell it at the Car Shop.
 
 # Requirements:
 * Required:
   * [es_extended](https://github.com/ESX-Org/es_extended)
+  * [esx_licenseshop](https://github.com/HumanTree92/esx_licenseshop)
 * Optional:
   * [esx_advancedgarage](https://github.com/HumanTree92/esx_advancedgarage)
-  * [esx_licenseshop](https://github.com/HumanTree92/esx_licenseshop)
 
 # Download & Installation:
 1) Download the .zip.

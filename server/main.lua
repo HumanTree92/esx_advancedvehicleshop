@@ -116,34 +116,6 @@ MySQL.ready(function()
 	end
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyAircraftLicense', function(source, cb)
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	if xPlayer.getMoney() >= Config.AircraftLicense then
-		xPlayer.removeMoney(Config.AircraftLicense)
-
-		TriggerEvent('esx_license:addLicense', source, 'aircraft', function()
-			cb(true)
-		end)
-	else
-		cb(false)
-	end
-end)
-
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyBoatLicense', function(source, cb)
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	if xPlayer.getMoney() >= Config.BoatLicense then
-		xPlayer.removeMoney(Config.BoatLicense)
-
-		TriggerEvent('esx_license:addLicense', source, 'boating', function()
-			cb(true)
-		end)
-	else
-		cb(false)
-	end
-end)
-
 -- Aircraft Shop
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesA', function(source, cb)
 	cb(categoriesa)
