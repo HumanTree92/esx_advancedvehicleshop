@@ -12,8 +12,19 @@ Locales['en'] = {
   ['sold_for'] = 'the ~b~%s~s~ has been ~y~sold~s~ for ~g~$%s~s~',
   ['license_missing'] = 'License Missing',
   ['go_to'] = 'you must go to a License Shop to purchase Licenses.',
+  ['your_rank'] = 'This vehicle is not for your rank!',
+  -- Ambulance Shop
+  ['ambulance_menu'] = 'press ~INPUT_CONTEXT~ to access the ~r~Ambulance Shop',
+  ['ambulance_dealer'] = 'dealership | Ambulance',
+  ['ambulance_belongs'] = 'an Ambulance with plate ~y~%s~s~ now belongs to ~b~you~s~',
+  ['ambulance_purchased'] = 'you bought a Ambulance',
+  -- Police Shop
+  ['police_menu'] = 'press ~INPUT_CONTEXT~ to access the ~b~Police Shop',
+  ['police_dealer'] = 'dealership | Police',
+  ['police_belongs'] = 'an Police Vehicle with plate ~y~%s~s~ now belongs to ~b~you~s~',
+  ['police_purchased'] = 'you bought a Police Vehicle',
   -- Aircraft Shop
-  ['aircraft_menu'] = 'press ~INPUT_CONTEXT~ to access the ~p~Aricraft Shop',
+  ['aircraft_menu'] = 'press ~INPUT_CONTEXT~ to access the ~p~Aircraft Shop',
   ['aircraft_dealer'] = 'dealership | Aircraft',
   ['aircraft_missing'] = 'you don\'t have a Aircraft License!',
   ['aircraft_belongs'] = 'an Aircraft with plate ~y~%s~s~ now belongs to ~b~you~s~',
@@ -36,4 +47,11 @@ Locales['en'] = {
   ['truck_missing'] = 'you don\'t have a commercial License!',
   ['truck_belongs'] = 'an Truck with plate ~y~%s~s~ now belongs to ~b~you~s~',
   ['truck_purchased'] = 'you bought a Truck',
+  -- VIP Shop
+  ['vip_menu'] = 'press ~INPUT_CONTEXT~ to access the ~y~VIP Shop',
+  ['vip_dealer'] = 'dealership | VIP',
+  ['vip_missing'] = 'you don\'t have a driver\'s License!',
+  ['vip_belongs'] = 'an VIP Vehicle with plate ~y~%s~s~ now belongs to ~b~you~s~',
+  ['vip_purchased'] = 'you bought a VIP Vehicle',
+  ['vip_no'] = 'you are ~r~NOT ~w~ a ~y~VIP!',
 }

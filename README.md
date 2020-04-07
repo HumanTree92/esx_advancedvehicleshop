@@ -1,15 +1,19 @@
 # About esx_advancedvehicleshop:
 Advanced Vehicle Shop for ESX
 
-I did NOT create the Code. I only edited the esx_vehicleshop code to create this new shop.
+I did NOT create the Code. I only edited the esx_vehicleshop code to create this new Advanced Shop.
 
 # Helpfull Info:
 * This Vehicle Shops works exactly like esx_vehicleshop.
 * Players can Buy/Sell Aircrafts, Boats, Cars, & Trucks.
+* Ambulance/Police can Buy/Sell Cars & Helicopters
 * This is mainly for those that don't want to have/use the esx_vehicleshop Car Dealer Job.
   * I don't have the need to use Car Dealer Job. (This script will never support it.)
 * To make this Script fully work with `esx_policejob & esx_ambulancejob` edit `client/vehicle.lua` and do a search for `esx_vehicleshop` & change it to `esx_advancedvehicleshop` then edit the `fxmanifest.lua` & remove the dependency for `esx_vehicleshop`.
-* If you a buy a vehicle at the Truck Shop you won't be able to sell it at the Car Shop.
+* You can only sell vehicles at the shop you bought it from.
+  * Example: If you a buy a vehicle at the Truck Shop you won't be able to sell it at the Car Shop.
+* If you want to use the Ambulance or Police Shop you will need to Edit the sql to your needs before you upload it.
+* I have added my VIP Shop but you will need to setup that on your own. There will be no help from me.
 
 # Requirements:
 * Required:
@@ -24,6 +28,18 @@ I did NOT create the Code. I only edited the esx_vehicleshop code to create this
 3) Import the `esx_advancedvehicleshop.sql` into your database.
 4) Place `esx_advancedvehicleshop` in your ESX Directory
 5) Add `start esx_advancedvehicleshop` to your server.cfg
+
+# How to use Ambulance or Police Shop
+1) For `vs_ambulance_categories` &/or `vs_police_categories`
+  * The column `name` should be the job_grades name
+  * The column `label` should be the job_grades label
+2) For `vs_ambulance` &/or `vs_police`
+  * The column `id` should start at 1 and so on.
+  * The column `name` should be the vehicle name.
+  * The column `model` should be spawn name.
+  * The column `price` should be the vehicles price.
+  * The column `category` should be the job_grades name
+3) You can find Examples in the `esx_advancedvehicleshop.sql`
 
 # Credits/Original Code:
 * [ESX-Org](https://github.com/ESX-Org)

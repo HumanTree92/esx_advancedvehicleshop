@@ -1,8 +1,8 @@
 USE `essentialmode`;
 
 INSERT INTO `licenses` (`type`, `label`) VALUES
-	('aircraft', 'Aircraft License'),
-	('boating', 'Boating License')
+	('aircraft','Aircraft License'),
+	('boating','Boating License')
 ;
 
 CREATE TABLE `owned_vehicles` (
@@ -16,28 +16,82 @@ CREATE TABLE `owned_vehicles` (
 	PRIMARY KEY (`plate`)
 );
 
+CREATE TABLE `vs_ambulance_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_ambulance_categories` (name, label) VALUES
+	('ambulance','Jr. EMT'),
+	('doctor','EMT'),
+	('chief_doctor','Sr. EMT'),
+	('boss','EMT Supervisor')
+;
+
+CREATE TABLE `vs_ambulance` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `vs_ambulance` (id, name, model, price, category) VALUES
+	(1,'Ambulance','ambulance',500,'ambulance'),
+	(2,'Fire Truck','firetruk',750,'ambulance'),
+	(3,'Ambulance','ambulance',500,'doctor'),
+	(4,'Fire Truck','firetruk',750,'doctor'),
+	(5,'Ambulance','ambulance',500,'chief_doctor'),
+	(6,'Fire Truck','firetruk',750,'chief_doctor'),
+	(7,'Ambulance','ambulance',500,'boss'),
+	(8,'Fire Truck','firetruk',750,'boss'),
+	(9,'Maverick','polmav',1000,'boss')
+;
+
+CREATE TABLE `vs_police_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_police_categories` (name, label) VALUES
+	('recruit','Recruit'),
+	('officer','Officer'),
+	('sergeant','Sergeant'),
+	('lieutenant','Lieutenant'),
+	('boss','Chief')
+;
+
+CREATE TABLE `vs_police` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `vs_police` (id, name, model, price, category) VALUES
+	(1,'Police Cruiser','police',500,'recruit'),
+	(2,'Police Cruiser','police2',750,'recruit'),
+	(3,'Police Cruiser','police',500,'officer'),
+	(4,'Police Cruiser','police2',750,'officer'),
+	(5,'Police Cruiser','police',500,'sergeant'),
+	(6,'Police Cruiser','police2',750,'sergeant'),
+	(7,'Police Cruiser','police',500,'lieutenant'),
+	(8,'Police Cruiser','police2',750,'lieutenant'),
+	(9,'Police Cruiser','police',500,'boss'),
+	(10,'Police Cruiser','police2',750,'boss'),
+	(11,'Maverick','polmav',1000,'boss')
+;
+
 CREATE TABLE `vs_aircraft_categories` (
-	`name` varchar(60) NOT NULL,
-	`label` varchar(60) NOT NULL,
-
-	PRIMARY KEY (`name`)
-);
-
-CREATE TABLE `vs_boat_categories` (
-	`name` varchar(60) NOT NULL,
-	`label` varchar(60) NOT NULL,
-
-	PRIMARY KEY (`name`)
-);
-
-CREATE TABLE `vs_car_categories` (
-	`name` varchar(60) NOT NULL,
-	`label` varchar(60) NOT NULL,
-
-	PRIMARY KEY (`name`)
-);
-
-CREATE TABLE `vs_truck_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
@@ -49,60 +103,7 @@ INSERT INTO `vs_aircraft_categories` (name, label) VALUES
 	('heli','Helicopters')
 ;
 
-INSERT INTO `vs_boat_categories` (name, label) VALUES
-	('boat','Boats'),
-	('subs','Submersibles')
-;
-
-INSERT INTO `vs_car_categories` (name, label) VALUES
-	('compacts','Compacts'),
-	('coupes','Coupes'),
-	('sedans','Sedans'),
-	('sports','Sports'),
-	('sportsclassics','Sports Classics'),
-	('super','Super'),
-	('muscle','Muscle'),
-	('offroad','Off Road'),
-	('suvs','SUVs'),
-	('vans','Vans'),
-	('motorcycles','Motos')
-;
-
-INSERT INTO `vs_truck_categories` (name, label) VALUES
-	('haul','Haulers'),
-	('box','Boxed Trucks'),
-	('trans','Transport Trucks'),
-	('other','Other Trucks')
-;
-
 CREATE TABLE `vs_aircrafts` (
-	`name` varchar(60) NOT NULL,
-	`model` varchar(60) NOT NULL,
-	`price` int(11) NOT NULL,
-	`category` varchar(60) DEFAULT NULL,
-
-	PRIMARY KEY (`model`)
-);
-
-CREATE TABLE `vs_boats` (
-	`name` varchar(60) NOT NULL,
-	`model` varchar(60) NOT NULL,
-	`price` int(11) NOT NULL,
-	`category` varchar(60) DEFAULT NULL,
-
-	PRIMARY KEY (`model`)
-);
-
-CREATE TABLE `vs_cars` (
-	`name` varchar(60) NOT NULL,
-	`model` varchar(60) NOT NULL,
-	`price` int(11) NOT NULL,
-	`category` varchar(60) DEFAULT NULL,
-
-	PRIMARY KEY (`model`)
-);
-
-CREATE TABLE `vs_trucks` (
 	`name` varchar(60) NOT NULL,
 	`model` varchar(60) NOT NULL,
 	`price` int(11) NOT NULL,
@@ -141,6 +142,27 @@ INSERT INTO `vs_aircrafts` (name, model, price, category) VALUES
 	('Volatus','volatus',1250000,'heli')
 ;
 
+CREATE TABLE `vs_boat_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_boat_categories` (name, label) VALUES
+	('boat','Boats'),
+	('subs','Submersibles')
+;
+
+CREATE TABLE `vs_boats` (
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`model`)
+);
+
 INSERT INTO `vs_boats` (name, model, price, category) VALUES
 	('Dinghy 4Seat','dinghy',25000,'boat'),
 	('Dinghy 2Seat','dinghy2',20000,'boat'),
@@ -159,6 +181,36 @@ INSERT INTO `vs_boats` (name, model, price, category) VALUES
 	('Kraken','submersible2',31000,'subs'),
 	('Submarine','submersible',29000,'subs')
 ;
+
+CREATE TABLE `vs_car_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_car_categories` (name, label) VALUES
+	('compacts','Compacts'),
+	('coupes','Coupes'),
+	('sedans','Sedans'),
+	('sports','Sports'),
+	('sportsclassics','Sports Classics'),
+	('super','Super'),
+	('muscle','Muscle'),
+	('offroad','Off Road'),
+	('suvs','SUVs'),
+	('vans','Vans'),
+	('motorcycles','Motos')
+;
+
+CREATE TABLE `vs_cars` (
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`model`)
+);
 
 INSERT INTO `vs_cars` (name, model, price, category) VALUES
 	('Blade','blade',15000,'muscle'),
@@ -403,6 +455,29 @@ INSERT INTO `vs_cars` (name, model, price, category) VALUES
 	('Zombie Luxuary','zombieb',12000,'motorcycles')
 ;
 
+CREATE TABLE `vs_truck_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_truck_categories` (name, label) VALUES
+	('haul','Haulers'),
+	('box','Boxed Trucks'),
+	('trans','Transport Trucks'),
+	('other','Other Trucks')
+;
+
+CREATE TABLE `vs_trucks` (
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`model`)
+);
+
 INSERT INTO `vs_trucks` (name, model, price, category) VALUES
 	('Hauler','hauler',100000,'haul'),
 	('Packer','packer',100000,'haul'),
@@ -433,3 +508,28 @@ INSERT INTO `vs_trucks` (name, model, price, category) VALUES
 	('Tipper 1','tiptruck',30000,'other'),
 	('Tipper 2','tiptruck2',30000,'other')
 ;
+
+CREATE TABLE `vs_vip_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_vip_categories` (name, label) VALUES
+	('motorcycles','Motos')
+;
+
+CREATE TABLE `vs_vips` (
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`model`)
+);
+
+INSERT INTO `vs_vips` (name, model, price, category) VALUES
+	('Shotaro','shotaro',30000,'motorcycles')
+;
+
