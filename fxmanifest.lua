@@ -27,6 +27,7 @@ client_scripts {
 
 dependencies {
 	'es_extended',
+	'esx_dmvschool',
 	'esx_licenseshop'
 }
 

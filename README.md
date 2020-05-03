@@ -16,6 +16,7 @@ Advanced Vehicle Shop for ESX - Edited/Made by Human Tree92 ([Velociti Entertain
 # Requirements:
 * Required:
   * [es_extended](https://github.com/ESX-Org/es_extended)
+  * [esx_dmvschool](https://github.com/ESX-Org/esx_dmvschool)
   * [esx_licenseshop](https://github.com/HumanTree92/esx_licenseshop)
 * Optional:
   * [esx_advancedgarage](https://github.com/HumanTree92/esx_advancedgarage)
