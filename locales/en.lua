@@ -13,6 +13,7 @@ Locales['en'] = {
   ['license_missing'] = 'License Missing',
   ['go_to'] = 'you must go to a License Shop to purchase Licenses.',
   ['your_rank'] = 'This vehicle is not for your rank!',
+  ['cant_sell'] = 'You must sell this Vehicle where you bought it from.',
   -- Ambulance Shop
   ['ambulance_menu'] = 'press ~INPUT_CONTEXT~ to access the ~r~Ambulance Shop',
   ['ambulance_dealer'] = 'dealership | Ambulance',

@@ -1327,13 +1327,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							end
 						end
 
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-						model = GetEntityModel(vehicle)
-						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+						if vehicleData == nil then
+							ESX.ShowNotification(_U('cant_sell'))
+							Citizen.Wait(10000)
+						else
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+							model = GetEntityModel(vehicle)
+							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-						CurrentAction = 'ambulance_resell'
-						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+							CurrentAction = 'ambulance_resell'
+							CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+							CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						end
 					end
 				end
 			end
@@ -1355,13 +1360,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							end
 						end
 
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-						model = GetEntityModel(vehicle)
-						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+						if vehicleData == nil then
+							ESX.ShowNotification(_U('cant_sell'))
+							Citizen.Wait(10000)
+						else
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+							model = GetEntityModel(vehicle)
+							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-						CurrentAction    = 'ambulance_resell'
-						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+							CurrentAction    = 'ambulance_resell'
+							CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+							CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						end
 					end
 				end
 			end
@@ -1391,13 +1401,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							end
 						end
 
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-						model = GetEntityModel(vehicle)
-						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+						if vehicleData == nil then
+							ESX.ShowNotification(_U('cant_sell'))
+							Citizen.Wait(10000)
+						else
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+							model = GetEntityModel(vehicle)
+							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-						CurrentAction    = 'police_resell'
-						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+							CurrentAction    = 'police_resell'
+							CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+							CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						end
 					end
 				end
 			end
@@ -1419,13 +1434,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							end
 						end
 
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-						model = GetEntityModel(vehicle)
-						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+						if vehicleData == nil then
+							ESX.ShowNotification(_U('cant_sell'))
+							Citizen.Wait(10000)
+						else
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+							model = GetEntityModel(vehicle)
+							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-						CurrentAction    = 'police_resell'
-						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+							CurrentAction    = 'police_resell'
+							CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+							CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						end
 					end
 				end
 			end
@@ -1452,13 +1472,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						end
 					end
 
-					resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-					model = GetEntityModel(vehicle)
-					plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+					if vehicleData == nil then
+						ESX.ShowNotification(_U('cant_sell'))
+						Citizen.Wait(10000)
+					else
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						model = GetEntityModel(vehicle)
+						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-					CurrentAction    = 'aircraft_resell'
-					CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-					CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						CurrentAction    = 'aircraft_resell'
+						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+					end
 				end
 			end
 		end
@@ -1484,13 +1509,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						end
 					end
 
-					resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-					model = GetEntityModel(vehicle)
-					plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+					if vehicleData == nil then
+						ESX.ShowNotification(_U('cant_sell'))
+						Citizen.Wait(10000)
+					else
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						model = GetEntityModel(vehicle)
+						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-					CurrentAction    = 'boat_resell'
-					CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-					CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						CurrentAction    = 'boat_resell'
+						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+					end
 				end
 			end
 		end
@@ -1516,13 +1546,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						end
 					end
 
-					resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-					model = GetEntityModel(vehicle)
-					plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+					if vehicleData == nil then
+						ESX.ShowNotification(_U('cant_sell'))
+						Citizen.Wait(10000)
+					else
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						model = GetEntityModel(vehicle)
+						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-					CurrentAction    = 'car_resell'
-					CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-					CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						CurrentAction    = 'car_resell'
+						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+					end
 				end
 			end
 		end
@@ -1548,13 +1583,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						end
 					end
 
-					resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-					model = GetEntityModel(vehicle)
-					plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+					if vehicleData == nil then
+						ESX.ShowNotification(_U('cant_sell'))
+						Citizen.Wait(10000)
+					else
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						model = GetEntityModel(vehicle)
+						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-					CurrentAction    = 'truck_resell'
-					CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-					CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						CurrentAction    = 'truck_resell'
+						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+					end
 				end
 			end
 		end
@@ -1580,13 +1620,18 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						end
 					end
 
-					resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
-					model = GetEntityModel(vehicle)
-					plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+					if vehicleData == nil then
+						ESX.ShowNotification(_U('cant_sell'))
+						Citizen.Wait(10000)
+					else
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						model = GetEntityModel(vehicle)
+						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-					CurrentAction    = 'vip_resell'
-					CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
-					CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						CurrentAction    = 'vip_resell'
+						CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+						CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+					end
 				end
 			end
 		end
@@ -2002,7 +2047,7 @@ Citizen.CreateThread(function()
 				elseif CurrentAction == 'vip_menu' then
 					if Config.UseVIPShop then
 						if Config.LicenseEnable then
-							--[[ESX.TriggerServerCallback('SET_VIP_SERVER_CALLBACK_HERE', function(success)
+							--[[ESX.TriggerServerCallback('VIPSCRIPT:VIPSCRIPT', function(success)
 								if success then
 									ESX.TriggerServerCallback('esx_license:checkLicense', function(hasdriverLicense)
 										if hasdriverLicense then

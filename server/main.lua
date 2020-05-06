@@ -240,12 +240,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(sour
 end)
 
 ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleAJ', function(source, cb, plate, model)
-	local xPlayer, resellPrice = ESX.GetPlayerFromId(source)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
 
 	-- calculate the resell price
 	for i=1, #vehiclesaj, 1 do
 		if GetHashKey(vehiclesaj[i].model) == model then
 			resellPrice = ESX.Math.Round(vehiclesaj[i].price / 100 * Config.ResellPercentage)
+			vehicleName = vehiclesaj[i].model
 			break
 		end
 	end
@@ -275,6 +276,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleAJ', function(s
 					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
 					cb(false)
 				end
+			else
+				cb(false)
 			end
 		end)
 	end
@@ -332,12 +335,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(sour
 end)
 
 ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehiclePJ', function(source, cb, plate, model)
-	local xPlayer, resellPrice = ESX.GetPlayerFromId(source)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
 
 	-- calculate the resell price
 	for i=1, #vehiclespj, 1 do
 		if GetHashKey(vehiclespj[i].model) == model then
 			resellPrice = ESX.Math.Round(vehiclespj[i].price / 100 * Config.ResellPercentage)
+			vehicleName = vehiclespj[i].model
 			break
 		end
 	end
@@ -367,6 +371,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehiclePJ', function(s
 					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
 					cb(false)
 				end
+			else
+				cb(false)
 			end
 		end)
 	end
@@ -410,12 +416,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleA', function(sourc
 end)
 
 ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleA', function(source, cb, plate, model)
-	local xPlayer, resellPrice = ESX.GetPlayerFromId(source)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
 
 	-- calculate the resell price
 	for i=1, #vehiclesa, 1 do
 		if GetHashKey(vehiclesa[i].model) == model then
 			resellPrice = ESX.Math.Round(vehiclesa[i].price / 100 * Config.ResellPercentage)
+			vehicleName = vehiclesa[i].model
 			break
 		end
 	end
@@ -445,6 +452,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleA', function(so
 					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
 					cb(false)
 				end
+			else
+				cb(false)
 			end
 		end)
 	end
@@ -488,12 +497,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleB', function(sourc
 end)
 
 ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleB', function(source, cb, plate, model)
-	local xPlayer, resellPrice = ESX.GetPlayerFromId(source)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
 
 	-- calculate the resell price
 	for i=1, #vehiclesb, 1 do
 		if GetHashKey(vehiclesb[i].model) == model then
 			resellPrice = ESX.Math.Round(vehiclesb[i].price / 100 * Config.ResellPercentage)
+			vehicleName = vehiclesb[i].model
 			break
 		end
 	end
@@ -523,6 +533,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleB', function(so
 					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
 					cb(false)
 				end
+			else
+				cb(false)
 			end
 		end)
 	end
@@ -566,12 +578,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleC', function(sourc
 end)
 
 ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleC', function(source, cb, plate, model)
-	local xPlayer, resellPrice = ESX.GetPlayerFromId(source)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
 
 	-- calculate the resell price
 	for i=1, #vehiclesc, 1 do
 		if GetHashKey(vehiclesc[i].model) == model then
 			resellPrice = ESX.Math.Round(vehiclesc[i].price / 100 * Config.ResellPercentage)
+			vehicleName = vehiclesc[i].model
 			break
 		end
 	end
@@ -601,6 +614,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleC', function(so
 					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
 					cb(false)
 				end
+			else
+				cb(false)
 			end
 		end)
 	end
@@ -644,12 +659,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleT', function(sourc
 end)
 
 ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleT', function(source, cb, plate, model)
-	local xPlayer, resellPrice = ESX.GetPlayerFromId(source)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
 
 	-- calculate the resell price
 	for i=1, #vehiclest, 1 do
 		if GetHashKey(vehiclest[i].model) == model then
 			resellPrice = ESX.Math.Round(vehiclest[i].price / 100 * Config.ResellPercentage)
+			vehicleName = vehiclest[i].model
 			break
 		end
 	end
@@ -679,6 +695,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleT', function(so
 					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
 					cb(false)
 				end
+			else
+				cb(false)
 			end
 		end)
 	end
@@ -722,12 +740,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleV', function(sourc
 end)
 
 ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleV', function(source, cb, plate, model)
-	local xPlayer, resellPrice = ESX.GetPlayerFromId(source)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
 
 	-- calculate the resell price
 	for i=1, #vehiclesv, 1 do
 		if GetHashKey(vehiclesv[i].model) == model then
 			resellPrice = ESX.Math.Round(vehiclesv[i].price / 100 * Config.ResellPercentage)
+			vehicleName = vehiclesv[i].model
 			break
 		end
 	end
@@ -757,6 +776,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleV', function(so
 					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
 					cb(false)
 				end
+			else
+				cb(false)
 			end
 		end)
 	end
