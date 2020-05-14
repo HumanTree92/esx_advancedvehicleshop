@@ -1640,13 +1640,14 @@ end)
 
 -- Exited Marker
 AddEventHandler('esx_advancedvehicleshop:hasExitedMarker', function(zone)
-	if not IsInMainMenu then
+	if not IsInMainMenu or IsInMainMenu then
 		ESX.UI.Menu.CloseAll()
 	end
 
 	CurrentAction = nil
 end)
 
+-- Resource Stop
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		if IsInMainMenu then
