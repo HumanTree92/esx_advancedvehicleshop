@@ -1640,7 +1640,7 @@ end)
 
 -- Exited Marker
 AddEventHandler('esx_advancedvehicleshop:hasExitedMarker', function(zone)
-	if not IsInMainMenu or IsInMainMenu then
+	if not IsInMainMenu then
 		ESX.UI.Menu.CloseAll()
 	end
 
