@@ -1,6 +1,8 @@
 # About esx_advancedvehicleshop:
 Advanced Vehicle Shop for ESX - Edited/Made by Human Tree92 ([Velociti Entertainment Customs & Wiki](http://www.velocitientertainment.com/customs/))
 
+I can not Guarantee that this will work with the Latest es_extended V2.
+
 # Helpfull Info:
 * This Vehicle Shops works exactly like esx_vehicleshop.
 * Players can Buy/Sell Aircrafts, Boats, Cars, & Trucks.
@@ -15,7 +17,7 @@ Advanced Vehicle Shop for ESX - Edited/Made by Human Tree92 ([Velociti Entertain
 
 # Requirements:
 * Required:
-  * [es_extended](https://github.com/ESX-Org/es_extended)
+  * [es_extended V1 Final](https://github.com/ESX-Org/es_extended) or [extendedmode](https://github.com/extendedmode/extendedmode)
   * [esx_dmvschool](https://github.com/ESX-Org/esx_dmvschool)
   * [esx_licenseshop](https://github.com/HumanTree92/esx_licenseshop)
 * Optional:
