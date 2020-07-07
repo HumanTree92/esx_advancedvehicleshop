@@ -1,7 +1,5 @@
 # About esx_advancedvehicleshop:
-Advanced Vehicle Shop for ESX - Edited/Made by Human Tree92 ([Velociti Entertainment Customs & Wiki](http://www.velocitientertainment.com/customs/))
-
-I can not Guarantee that this will work with the Latest es_extended V2.
+Advanced Vehicle Shop for ESX V1 Final or EXM - Edited/Made by Human Tree92 ([Velociti Entertainment Customs & Wiki](http://www.velocitientertainment.com/customs/))
 
 # Creating Issues
 * Check the [Closed Topics](https://github.com/HumanTree92/esx_advancedvehicleshop/issues?q=is%3Aissue+is%3Aclosed) & [Wiki](http://www.velocitientertainment.com/customs/) before opening an issue to see if your issue has already been Answered.
@@ -22,7 +20,7 @@ I can not Guarantee that this will work with the Latest es_extended V2.
 
 # Requirements:
 * Required:
-  * [es_extended V1 Final](https://github.com/ESX-Org/es_extended) or [extendedmode](https://github.com/extendedmode/extendedmode)
+  * [es_extended V1 Final](https://github.com/esx-framework/es_extended/tree/v1-final) or [extendedmode](https://github.com/extendedmode/extendedmode)
   * [esx_dmvschool](https://github.com/ESX-Org/esx_dmvschool)
   * [esx_licenseshop](https://github.com/HumanTree92/esx_licenseshop)
 * Optional:
@@ -92,7 +90,7 @@ Scripts that will no longer be Maintained.
 
 # Legal
 ### License
-esx_advancedvehicleshop - Multi Vehicle Shop for ESX
+esx_advancedvehicleshop - Multi Vehicle Shop for ESX V1 Final or EXM
 
 Copyright (C) 2011-2020 Velociti Entertainment
 
