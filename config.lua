@@ -2,7 +2,7 @@ Config = {}
 Config.Locale = 'en'
 
 Config.MenuAlign = 'top-left'
-Config.DrawDistance = 100
+Config.DrawDistance = 20
 
 Config.UseAmbulanceShop = false -- true = Use Ambulance Shop | false = Does Opposite
 Config.UseAmbulanceBlip = false -- true = Use Ambulance Blip | false = Does Opposite

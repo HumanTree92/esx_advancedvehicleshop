@@ -19,7 +19,28 @@ ESX.RegisterServerCallback('esx_lscustom:getVehiclesPrices', function(source, cb
 	end
 end)
 
--- Example if you are using all Vehicle Shops
+-- New Fix
+ESX.RegisterServerCallback('esx_lscustom:getVehiclesPrices', function(source, cb)
+	if not Vehicles then
+		MySQL.Async.fetchAll('SELECT model, price FROM vs_ambulance UNION SELECT model, price FROM vs_police UNION SELECT model, price FROM vs_aircrafts UNION SELECT model, price FROM vs_boats UNION SELECT model, price FROM vs_cars UNION SELECT model, price FROM vs_trucks UNION SELECT model, price FROM vs_vips;', {}, function(result)
+			local vehicles = {}
+
+			for i=1, #result, 1 do
+				table.insert(vehicles, {
+					model = result[i].model,
+					price = result[i].price
+				})
+			end
+
+			Vehicles = vehicles
+			cb(Vehicles)
+		end)
+	else
+		cb(Vehicles)
+	end
+end)
+
+-- Old Fix
 ESX.RegisterServerCallback('esx_lscustom:getVehiclesPrices', function(source, cb)
 	if not Vehicles then
 	    local vehicles = {}
