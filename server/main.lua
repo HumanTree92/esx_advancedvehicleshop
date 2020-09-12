@@ -1,6 +1,7 @@
 ESX = nil
 local categoriesaj, vehiclesaj = {}, {}
 local categoriespj, vehiclespj = {}, {}
+local categoriesmj, vehiclesmj = {}, {}
 local categoriesa, vehiclesa = {}, {}
 local categoriesb, vehiclesb = {}, {}
 local categoriesc, vehiclesc = {}, {}
@@ -10,9 +11,9 @@ local categoriesv, vehiclesv = {}, {}
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 Citizen.CreateThread(function()
-	local char = Config.PlateLetters
-	char = char + Config.PlateNumbers
-	if Config.PlateUseSpace then char = char + 1 end
+	local char = Config.Main.PlateLetters
+	char = char + Config.Main.PlateNumbers
+	if Config.Main.PlateUseSpace then char = char + 1 end
 
 	if char > 8 then
 		print(('[esx_advancedvehicleshop] [^3WARNING^7] Plate character count reached, %s/8 characters!'):format(char))
@@ -26,7 +27,7 @@ function RemoveOwnedVehicle(plate)
 end
 
 MySQL.ready(function()
-	if Config.UseAmbulanceShop then
+	if Config.Ambulance.Shop then
 		MySQL.Async.fetchAll('SELECT * FROM vs_ambulance_categories', {}, function(_categories)
 			categoriesaj = _categories
 
@@ -49,7 +50,7 @@ MySQL.ready(function()
 		end)
 	end
 
-	if Config.UsePoliceShop then
+	if Config.Police.Shop then
 		MySQL.Async.fetchAll('SELECT * FROM vs_police_categories', {}, function(_categories)
 			categoriespj = _categories
 
@@ -72,7 +73,30 @@ MySQL.ready(function()
 		end)
 	end
 
-	if Config.UseAircraftShop then
+	if Config.Mechanic.Shop then
+		MySQL.Async.fetchAll('SELECT * FROM vs_mecano_categories', {}, function(_categories)
+			categoriesmj = _categories
+
+			MySQL.Async.fetchAll('SELECT * FROM vs_mecano', {}, function(_vehicles)
+				vehiclesmj = _vehicles
+
+				for k,v in ipairs(vehiclesmj) do
+					for k2,v2 in ipairs(categoriesmj) do
+						if v2.name == v.category then
+							vehiclesmj[k].categoryLabel = v2.label
+							break
+						end
+					end
+				end
+
+				-- send information after db has loaded, making sure everyone gets vehicle information
+				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesMJ', -1, categoriesmj)
+				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesMJ', -1, vehiclesmj)
+			end)
+		end)
+	end
+
+	if Config.Aircraft.Shop then
 		MySQL.Async.fetchAll('SELECT * FROM vs_aircraft_categories', {}, function(_categories)
 			categoriesa = _categories
 
@@ -95,7 +119,7 @@ MySQL.ready(function()
 		end)
 	end
 
-	if Config.UseBoatShop then
+	if Config.Boat.Shop then
 		MySQL.Async.fetchAll('SELECT * FROM vs_boat_categories', {}, function(_categories)
 			categoriesb = _categories
 
@@ -118,7 +142,7 @@ MySQL.ready(function()
 		end)
 	end
 
-	if Config.UseCarShop then
+	if Config.Car.Shop then
 		MySQL.Async.fetchAll('SELECT * FROM vs_car_categories', {}, function(_categories)
 			categoriesc = _categories
 
@@ -141,7 +165,7 @@ MySQL.ready(function()
 		end)
 	end
 
-	if Config.UseTruckShop then
+	if Config.Truck.Shop then
 		MySQL.Async.fetchAll('SELECT * FROM vs_truck_categories', {}, function(_categories)
 			categoriest = _categories
 
@@ -164,7 +188,7 @@ MySQL.ready(function()
 		end)
 	end
 
-	if Config.UseVIPShop then
+	if Config.VIP.Shop then
 		MySQL.Async.fetchAll('SELECT * FROM vs_vip_categories', {}, function(_categories)
 			categoriesv = _categories
 
@@ -211,7 +235,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(sour
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		if model == Config.AmbulanceHeli or model == Config.AmbulanceHeli2 then
+		if model == Config.Ambulance.Heli or model == Config.Ambulance.Heli2 then
 			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job) VALUES (@owner, @plate, @vehicle, @type, @job)', {
 				['@owner'] = xPlayer.identifier,
 				['@plate'] = plate,
@@ -245,7 +269,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleAJ', function(s
 	-- calculate the resell price
 	for i=1, #vehiclesaj, 1 do
 		if GetHashKey(vehiclesaj[i].model) == model then
-			resellPrice = ESX.Math.Round(vehiclesaj[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(vehiclesaj[i].price / 100 * Config.Ambulance.ResellPerc)
 			vehicleName = vehiclesaj[i].model
 			break
 		end
@@ -306,7 +330,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(sour
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		if model == Config.PoliceHeli then
+		if model == Config.Police.Heli then
 			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job) VALUES (@owner, @plate, @vehicle, @type, @job)', {
 				['@owner'] = xPlayer.identifier,
 				['@plate'] = plate,
@@ -340,8 +364,90 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehiclePJ', function(s
 	-- calculate the resell price
 	for i=1, #vehiclespj, 1 do
 		if GetHashKey(vehiclespj[i].model) == model then
-			resellPrice = ESX.Math.Round(vehiclespj[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(vehiclespj[i].price / 100 * Config.Police.ResellPerc)
 			vehicleName = vehiclespj[i].model
+			break
+		end
+	end
+
+	if not resellPrice then
+		print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an unknown vehicle!'):format(GetPlayerIdentifiers(source)[1]))
+		cb(false)
+	else
+		MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE owner = @owner AND @plate = plate', {
+			['@owner'] = xPlayer.identifier,
+			['@plate'] = plate
+		}, function(result)
+			if result[1] then -- does the owner match?
+				local vehicle = json.decode(result[1].vehicle)
+
+				if vehicle.model == model then
+					if vehicle.plate == plate then
+						xPlayer.addMoney(resellPrice)
+						RemoveOwnedVehicle(plate)
+
+						cb(true)
+					else
+						print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with plate mismatch!'):format(xPlayer.identifier))
+						cb(false)
+					end
+				else
+					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
+					cb(false)
+				end
+			else
+				cb(false)
+			end
+		end)
+	end
+end)
+
+-- Mechanic Shop
+ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesMJ', function(source, cb)
+	cb(categoriesmj)
+end)
+
+ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesMJ', function(source, cb)
+	cb(vehiclesmj)
+end)
+
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(source, cb, model, plate)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local modelPrice
+
+	for k,v in ipairs(vehiclesmj) do
+		if model == v.model then
+			modelPrice = v.price
+			break
+		end
+	end
+
+	if modelPrice and xPlayer.getMoney() >= modelPrice then
+		xPlayer.removeMoney(modelPrice)
+
+		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job) VALUES (@owner, @plate, @vehicle, @type, @job)', {
+			['@owner'] = xPlayer.identifier,
+			['@plate'] = plate,
+			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
+			['@type'] = 'car',
+			['@job'] = 'mechanic'
+		}, function(rowsChanged)
+			xPlayer.showNotification(_U('mechanic_belongs', plate))
+			cb(true)
+		end)
+	else
+		cb(false)
+	end
+end)
+
+ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleMJ', function(source, cb, plate, model)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
+
+	-- calculate the resell price
+	for i=1, #vehiclesmj, 1 do
+		if GetHashKey(vehiclesmj[i].model) == model then
+			resellPrice = ESX.Math.Round(vehiclesmj[i].price / 100 * Config.Mechanic.ResellPerc)
+			vehicleName = vehiclesmj[i].model
 			break
 		end
 	end
@@ -421,7 +527,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleA', function(so
 	-- calculate the resell price
 	for i=1, #vehiclesa, 1 do
 		if GetHashKey(vehiclesa[i].model) == model then
-			resellPrice = ESX.Math.Round(vehiclesa[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(vehiclesa[i].price / 100 * Config.Aircraft.ResellPerc)
 			vehicleName = vehiclesa[i].model
 			break
 		end
@@ -502,7 +608,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleB', function(so
 	-- calculate the resell price
 	for i=1, #vehiclesb, 1 do
 		if GetHashKey(vehiclesb[i].model) == model then
-			resellPrice = ESX.Math.Round(vehiclesb[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(vehiclesb[i].price / 100 * Config.Boat.ResellPerc)
 			vehicleName = vehiclesb[i].model
 			break
 		end
@@ -583,7 +689,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleC', function(so
 	-- calculate the resell price
 	for i=1, #vehiclesc, 1 do
 		if GetHashKey(vehiclesc[i].model) == model then
-			resellPrice = ESX.Math.Round(vehiclesc[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(vehiclesc[i].price / 100 * Config.Car.ResellPerc)
 			vehicleName = vehiclesc[i].model
 			break
 		end
@@ -664,7 +770,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleT', function(so
 	-- calculate the resell price
 	for i=1, #vehiclest, 1 do
 		if GetHashKey(vehiclest[i].model) == model then
-			resellPrice = ESX.Math.Round(vehiclest[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(vehiclest[i].price / 100 * Config.Truck.ResellPerc)
 			vehicleName = vehiclest[i].model
 			break
 		end
@@ -745,7 +851,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleV', function(so
 	-- calculate the resell price
 	for i=1, #vehiclesv, 1 do
 		if GetHashKey(vehiclesv[i].model) == model then
-			resellPrice = ESX.Math.Round(vehiclesv[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(vehiclesv[i].price / 100 * Config.VIP.ResellPerc)
 			vehicleName = vehiclesv[i].model
 			break
 		end

@@ -17,13 +17,13 @@ Citizen.CreateThread(function()
 
 	ESX.PlayerData = ESX.GetPlayerData()
 
-	if Config.UseAmbulanceBlip or Config.UsePoliceBlip then
+	if Config.Ambulance.Blips or Config.Police.Blips or Config.Mechanic.Blips then
 		RefreshJobBlips()
 	end
 
 	Citizen.Wait(10000)
 
-	if Config.UseAmbulanceShop then
+	if Config.Ambulance.Shop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesAJ', function(categoriesaj)
 			CategoriesAJ = categoriesaj
 		end)
@@ -33,7 +33,7 @@ Citizen.CreateThread(function()
 		end)
 	end
 
-	if Config.UsePoliceShop then
+	if Config.Police.Shop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesPJ', function(categoriespj)
 			CategoriesPJ = categoriespj
 		end)
@@ -43,7 +43,17 @@ Citizen.CreateThread(function()
 		end)
 	end
 
-	if Config.UseAircraftShop then
+	if Config.Mechanic.Shop then
+		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesMJ', function(categoriesmj)
+			CategoriesMJ = categoriesmj
+		end)
+
+		ESX.TriggerServerCallback('esx_advancedvehicleshop:getVehiclesMJ', function(vehiclesmj)
+			VehiclesMJ = vehiclesmj
+		end)
+	end
+
+	if Config.Aircraft.Shop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesA', function(categoriesa)
 			CategoriesA = categoriesa
 		end)
@@ -53,7 +63,7 @@ Citizen.CreateThread(function()
 		end)
 	end
 
-	if Config.UseBoatShop then
+	if Config.Boat.Shop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesB', function(categoriesb)
 			CategoriesB = categoriesb
 		end)
@@ -63,7 +73,7 @@ Citizen.CreateThread(function()
 		end)
 	end
 
-	if Config.UseCarShop then
+	if Config.Car.Shop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesC', function(categoriesc)
 			CategoriesC = categoriesc
 		end)
@@ -73,7 +83,7 @@ Citizen.CreateThread(function()
 		end)
 	end
 
-	if Config.UseTruckShop then
+	if Config.Truck.Shop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesT', function(categoriest)
 			CategoriesT = categoriest
 		end)
@@ -83,7 +93,7 @@ Citizen.CreateThread(function()
 		end)
 	end
 
-	if Config.UseVIPShop then
+	if Config.VIP.Shop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesV', function(categoriesv)
 			CategoriesV = categoriesv
 		end)
@@ -98,7 +108,7 @@ RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.PlayerData = xPlayer
 
-	if Config.UseAmbulanceBlip or Config.UsePoliceBlip then
+	if Config.Ambulance.Blips or Config.Police.Blips or Config.Mechanic.Blips then
 		RefreshJobBlips()
 	end
 end)
@@ -107,7 +117,7 @@ RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
     ESX.PlayerData.job = job
 
-	if Config.UseAmbulanceBlip or Config.UsePoliceBlip then
+	if Config.Ambulance.Blips or Config.Police.Blips or Config.Mechanic.Blips then
 		DeleteJobBlips()
 		RefreshJobBlips()
 	end
@@ -133,6 +143,17 @@ end)
 RegisterNetEvent('esx_advancedvehicleshop:sendVehiclesPJ')
 AddEventHandler('esx_advancedvehicleshop:sendVehiclesPJ', function(vehiclespj)
 	VehiclesPJ = vehiclespj
+end)
+
+-- Mechanic Shop
+RegisterNetEvent('esx_advancedvehicleshop:sendCategoriesMJ')
+AddEventHandler('esx_advancedvehicleshop:sendCategoriesMJ', function(categoriesmj)
+	CategoriesMJ = categoriesmj
+end)
+
+RegisterNetEvent('esx_advancedvehicleshop:sendVehiclesMJ')
+AddEventHandler('esx_advancedvehicleshop:sendVehiclesMJ', function(vehiclesmj)
+	VehiclesMJ = vehiclesmj
 end)
 
 -- Aircraft Shop
@@ -286,14 +307,14 @@ function BuyAmbulanceMenu()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'ambulance_buy', {
 		title = _U('ambulance_dealer'),
-		align = Config.MenuAlign,
+		align = Config.Main.MenuAlign,
 		elements = elements
 	}, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'ambulance_confirm', {
 			title = _U('buy_vehicle', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
-			align = Config.MenuAlign,
+			align = Config.Main.MenuAlign,
 			elements = {
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
@@ -309,7 +330,7 @@ function BuyAmbulanceMenu()
 							menu.close()
 							DeleteDisplayVehicleInsideShop()
 
-							if vehicleData.model == Config.AmbulanceHeli or vehicleData.model == Config.AmbulanceHeli2 then
+							if vehicleData.model == Config.Ambulance.Heli or vehicleData.model == Config.Ambulance.Heli2 then
 								ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideAmbulanceHeli.Pos, Config.Zones.ShopOutsideAmbulanceHeli.Heading, function(vehicle)
 									TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 									SetVehicleNumberPlateText(vehicle, generatedPlate)
@@ -448,14 +469,14 @@ function BuyPoliceMenu()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'police_buy', {
 		title = _U('police_dealer'),
-		align = Config.MenuAlign,
+		align = Config.Main.MenuAlign,
 		elements = elements
 	}, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'police_confirm', {
 			title = _U('buy_vehicle', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
-			align = Config.MenuAlign,
+			align = Config.Main.MenuAlign,
 			elements = {
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
@@ -471,7 +492,7 @@ function BuyPoliceMenu()
 							menu.close()
 							DeleteDisplayVehicleInsideShop()
 
-							if vehicleData.model == Config.PoliceHeli then
+							if vehicleData.model == Config.Police.Heli then
 								ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsidePoliceHeli.Pos, Config.Zones.ShopOutsidePoliceHeli.Heading, function(vehicle)
 									TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 									SetVehicleNumberPlateText(vehicle, generatedPlate)
@@ -534,6 +555,158 @@ function BuyPoliceMenu()
 	WaitForVehicleToLoad(firstVehicleData.model)
 
 	ESX.Game.SpawnLocalVehicle(firstVehicleData.model, Config.Zones.ShopInsidePolice.Pos, Config.Zones.ShopInsidePolice.Heading, function(vehicle)
+		currentDisplayVehicle = vehicle
+		TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+		FreezeEntityPosition(vehicle, true)
+		SetModelAsNoLongerNeeded(firstVehicleData.model)
+	end)
+end
+
+-- Buy Mechanic Menu
+function BuyMechanicMenu()
+	if #VehiclesMJ == 0 then
+		print('[esx_advancedvehicleshop] [^3ERROR^7] No Mechanic Vehicles Found!!!')
+		return
+	end
+
+	IsInMainMenu = true
+
+	StartShopRestriction()
+	ESX.UI.Menu.CloseAll()
+
+	local playerPed = PlayerPedId()
+
+	FreezeEntityPosition(playerPed, true)
+	SetEntityVisible(playerPed, false)
+	SetEntityCoords(playerPed, Config.Zones.ShopInsideMechanic.Pos)
+
+	local vehiclesByCategory = {}
+	local elements = {}
+	local firstVehicleData = nil
+
+	for i=1, #CategoriesMJ, 1 do
+		vehiclesByCategory[CategoriesMJ[i].name] = {}
+	end
+
+	for i=1, #VehiclesMJ, 1 do
+		if IsModelInCdimage(GetHashKey(VehiclesMJ[i].model)) then
+			table.insert(vehiclesByCategory[VehiclesMJ[i].category], VehiclesMJ[i])
+		else
+			print(('[esx_advancedvehicleshop] [^3ERROR^7] Mechanic Vehicle "%s" does not exist'):format(VehiclesMJ[i].model))
+		end
+	end
+
+	for k,v in pairs(vehiclesByCategory) do
+		table.sort(v, function(a, b)
+			return a.name < b.name
+		end)
+	end
+
+	for i=1, #CategoriesMJ, 1 do
+		local category = CategoriesMJ[i]
+		local categoryVehicles = vehiclesByCategory[category.name]
+		local options = {}
+
+		for j=1, #categoryVehicles, 1 do
+			local vehicle = categoryVehicles[j]
+
+			if i == 1 and j == 1 then
+				firstVehicleData = vehicle
+			end
+
+			table.insert(options, ('%s <span style="color:green;">%s</span>'):format(vehicle.name, _U('generic_shopitem', ESX.Math.GroupDigits(vehicle.price))))
+		end
+
+		table.sort(options)
+
+		table.insert(elements, {
+			name = category.name,
+			label = category.label,
+			value = 0,
+			type = 'slider',
+			max = #CategoriesMJ[i],
+			options = options
+		})
+	end
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'mechanic_buy', {
+		title = _U('mechanic_dealer'),
+		align = Config.Main.MenuAlign,
+		elements = elements
+	}, function(data, menu)
+		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'mechanic_confirm', {
+			title = _U('buy_vehicle', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
+			align = Config.Main.MenuAlign,
+			elements = {
+				{label = _U('no'), value = 'no'},
+				{label = _U('yes'), value = 'yes'}
+		}}, function(data2, menu2)
+			if data2.current.value == 'yes' then
+				local generatedPlate = GeneratePlate()
+
+				if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' and ESX.PlayerData.job.grade_name == vehicleData.category then
+					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(success)
+						if success then
+							IsInMainMenu = false
+							menu2.close()
+							menu.close()
+							DeleteDisplayVehicleInsideShop()
+
+							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideMechanic.Pos, Config.Zones.ShopOutsideMechanic.Heading, function(vehicle)
+								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+								SetVehicleNumberPlateText(vehicle, generatedPlate)
+
+								FreezeEntityPosition(playerPed, false)
+								SetEntityVisible(playerPed, true)
+							end)
+						else
+							ESX.ShowNotification(_U('not_enough_money'))
+						end
+					end, vehicleData.model, generatedPlate)
+				else
+					ESX.ShowNotification(_U('your_rank'))
+				end
+			else
+				menu2.close()
+			end
+		end, function(data2, menu2)
+			menu2.close()
+		end)
+	end, function(data, menu)
+		menu.close()
+		DeleteDisplayVehicleInsideShop()
+		local playerPed = PlayerPedId()
+
+		CurrentAction = 'mechanic_menu'
+		CurrentActionMsg = _U('mechanic_menu')
+		CurrentActionData = {}
+
+		FreezeEntityPosition(playerPed, false)
+		SetEntityVisible(playerPed, true)
+		SetEntityCoords(playerPed, Config.Zones.ShopEnteringMechanic.Pos)
+
+		IsInMainMenu = false
+	end, function(data, menu)
+		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
+		local playerPed = PlayerPedId()
+
+		DeleteDisplayVehicleInsideShop()
+		WaitForVehicleToLoad(vehicleData.model)
+
+		ESX.Game.SpawnLocalVehicle(vehicleData.model, Config.Zones.ShopInsideMechanic.Pos, Config.Zones.ShopInsideMechanic.Heading, function(vehicle)
+			currentDisplayVehicle = vehicle
+			TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+			FreezeEntityPosition(vehicle, true)
+			SetModelAsNoLongerNeeded(vehicleData.model)
+		end)
+	end)
+
+	DeleteDisplayVehicleInsideShop()
+	WaitForVehicleToLoad(firstVehicleData.model)
+
+	ESX.Game.SpawnLocalVehicle(firstVehicleData.model, Config.Zones.ShopInsideMechanic.Pos, Config.Zones.ShopInsideMechanic.Heading, function(vehicle)
 		currentDisplayVehicle = vehicle
 		TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 		FreezeEntityPosition(vehicle, true)
@@ -610,14 +783,14 @@ function BuyAircraftMenu()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'aircraft_buy', {
 		title = _U('aircraft_dealer'),
-		align = Config.MenuAlign,
+		align = Config.Main.MenuAlign,
 		elements = elements
 	}, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'aircraft_confirm', {
 			title = _U('buy_vehicle', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
-			align = Config.MenuAlign,
+			align = Config.Main.MenuAlign,
 			elements = {
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
@@ -758,14 +931,14 @@ function BuyBoatMenu()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'boat_buy', {
 		title = _U('boat_dealer'),
-		align = Config.MenuAlign,
+		align = Config.Main.MenuAlign,
 		elements = elements
 	}, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'boat_confirm', {
 			title = _U('buy_vehicle', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
-			align = Config.MenuAlign,
+			align = Config.Main.MenuAlign,
 			elements = {
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
@@ -906,14 +1079,14 @@ function BuyCarMenu()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'car_buy', {
 		title = _U('car_dealer'),
-		align = Config.MenuAlign,
+		align = Config.Main.MenuAlign,
 		elements = elements
 	}, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'car_confirm', {
 			title = _U('buy_vehicle', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
-			align = Config.MenuAlign,
+			align = Config.Main.MenuAlign,
 			elements = {
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
@@ -1054,14 +1227,14 @@ function BuyTruckMenu()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'truck_buy', {
 		title = _U('truck_dealer'),
-		align = Config.MenuAlign,
+		align = Config.Main.MenuAlign,
 		elements = elements
 	}, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'truck_confirm', {
 			title = _U('buy_vehicle', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
-			align = Config.MenuAlign,
+			align = Config.Main.MenuAlign,
 			elements = {
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
@@ -1202,14 +1375,14 @@ function BuyVIPMenu()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vip_buy', {
 		title = _U('vip_dealer'),
-		align = Config.MenuAlign,
+		align = Config.Main.MenuAlign,
 		elements = elements
 	}, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vip_confirm', {
 			title = _U('buy_vehicle', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
-			align = Config.MenuAlign,
+			align = Config.Main.MenuAlign,
 			elements = {
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
@@ -1303,7 +1476,7 @@ end
 -- Entered Marker
 AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 	if zone == 'ShopEnteringAmbulance' then
-		if Config.UseAmbulanceShop then
+		if Config.Ambulance.Shop then
 			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
 				CurrentAction = 'ambulance_menu'
 				CurrentActionMsg = _U('ambulance_menu')
@@ -1311,7 +1484,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ResellVehicleAmbulance' then
-		if Config.UseAmbulanceShop then
+		if Config.Ambulance.Shop then
 			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
 				local playerPed = PlayerPedId()
 
@@ -1331,7 +1504,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							ESX.ShowNotification(_U('cant_sell'))
 							Citizen.Wait(10000)
 						else
-							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Ambulance.ResellPerc)
 							model = GetEntityModel(vehicle)
 							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1344,7 +1517,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ResellVehicleAmbulanceHeli' then
-		if Config.UseAmbulanceShop then
+		if Config.Ambulance.Shop then
 			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
 				local playerPed = PlayerPedId()
 
@@ -1364,7 +1537,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							ESX.ShowNotification(_U('cant_sell'))
 							Citizen.Wait(10000)
 						else
-							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Ambulance.ResellPerc)
 							model = GetEntityModel(vehicle)
 							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1377,7 +1550,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ShopEnteringPolice' then
-		if Config.UsePoliceShop then
+		if Config.Police.Shop then
 			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
 				CurrentAction = 'police_menu'
 				CurrentActionMsg = _U('police_menu')
@@ -1385,7 +1558,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ResellVehiclePolice' then
-		if Config.UsePoliceShop then
+		if Config.Police.Shop then
 			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
 				local playerPed = PlayerPedId()
 
@@ -1405,7 +1578,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							ESX.ShowNotification(_U('cant_sell'))
 							Citizen.Wait(10000)
 						else
-							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Police.ResellPerc)
 							model = GetEntityModel(vehicle)
 							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1418,7 +1591,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ResellVehiclePoliceHeli' then
-		if Config.UsePoliceShop then
+		if Config.Police.Shop then
 			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
 				local playerPed = PlayerPedId()
 
@@ -1438,7 +1611,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							ESX.ShowNotification(_U('cant_sell'))
 							Citizen.Wait(10000)
 						else
-							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Police.ResellPerc)
 							model = GetEntityModel(vehicle)
 							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1450,14 +1623,55 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 				end
 			end
 		end
+	elseif zone == 'ShopEnteringMechanic' then
+		if Config.Mechanic.Shop then
+			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
+				CurrentAction = 'mechanic_menu'
+				CurrentActionMsg = _U('mechanic_menu')
+				CurrentActionData = {}
+			end
+		end
+	elseif zone == 'ResellVehicleMechanic' then
+		if Config.Mechanic.Shop then
+			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
+				local playerPed = PlayerPedId()
+
+				if IsPedSittingInAnyVehicle(playerPed) then
+					local vehicle = GetVehiclePedIsIn(playerPed, false)
+					local vehicleData, model, resellPrice, plate
+
+					if GetPedInVehicleSeat(vehicle, -1) == playerPed then
+						for i=1, #VehiclesMJ, 1 do
+							if GetHashKey(VehiclesMJ[i].model) == GetEntityModel(vehicle) then
+								vehicleData = VehiclesMJ[i]
+								break
+							end
+						end
+
+						if vehicleData == nil then
+							ESX.ShowNotification(_U('cant_sell'))
+							Citizen.Wait(10000)
+						else
+							resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Mechanic.ResellPerc)
+							model = GetEntityModel(vehicle)
+							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+
+							CurrentAction    = 'mechanic_resell'
+							CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
+							CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
+						end
+					end
+				end
+			end
+		end
 	elseif zone == 'ShopEnteringAircraft' then
-		if Config.UseAircraftShop then
+		if Config.Aircraft.Shop then
 			CurrentAction = 'aircraft_menu'
 			CurrentActionMsg = _U('aircraft_menu')
 			CurrentActionData = {}
 		end
 	elseif zone == 'ResellVehicleAircraft' then
-		if Config.UseAircraftShop then
+		if Config.Aircraft.Shop then
 			local playerPed = PlayerPedId()
 
 			if IsPedSittingInAnyVehicle(playerPed) then
@@ -1476,7 +1690,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						ESX.ShowNotification(_U('cant_sell'))
 						Citizen.Wait(10000)
 					else
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Aircraft.ResellPerc)
 						model = GetEntityModel(vehicle)
 						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1488,13 +1702,13 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ShopEnteringBoat' then
-		if Config.UseBoatShop then
+		if Config.Boat.Shop then
 			CurrentAction = 'boat_menu'
 			CurrentActionMsg = _U('boat_menu')
 			CurrentActionData = {}
 		end
 	elseif zone == 'ResellVehicleBoat' then
-		if Config.UseBoatShop then
+		if Config.Boat.Shop then
 			local playerPed = PlayerPedId()
 
 			if IsPedSittingInAnyVehicle(playerPed) then
@@ -1513,7 +1727,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						ESX.ShowNotification(_U('cant_sell'))
 						Citizen.Wait(10000)
 					else
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Boat.ResellPerc)
 						model = GetEntityModel(vehicle)
 						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1525,13 +1739,13 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ShopEnteringCar' then
-		if Config.UseCarShop then
+		if Config.Car.Shop then
 			CurrentAction = 'car_menu'
 			CurrentActionMsg = _U('car_menu')
 			CurrentActionData = {}
 		end
 	elseif zone == 'ResellVehicleCar' then
-		if Config.UseCarShop then
+		if Config.Car.Shop then
 			local playerPed = PlayerPedId()
 
 			if IsPedSittingInAnyVehicle(playerPed) then
@@ -1550,7 +1764,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						ESX.ShowNotification(_U('cant_sell'))
 						Citizen.Wait(10000)
 					else
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Car.ResellPerc)
 						model = GetEntityModel(vehicle)
 						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1562,13 +1776,13 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ShopEnteringTruck' then
-		if Config.UseTruckShop then
+		if Config.Truck.Shop then
 			CurrentAction = 'truck_menu'
 			CurrentActionMsg = _U('truck_menu')
 			CurrentActionData = {}
 		end
 	elseif zone == 'ResellVehicleTruck' then
-		if Config.UseTruckShop then
+		if Config.Truck.Shop then
 			local playerPed = PlayerPedId()
 
 			if IsPedSittingInAnyVehicle(playerPed) then
@@ -1587,7 +1801,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						ESX.ShowNotification(_U('cant_sell'))
 						Citizen.Wait(10000)
 					else
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.Truck.ResellPerc)
 						model = GetEntityModel(vehicle)
 						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1599,13 +1813,13 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 			end
 		end
 	elseif zone == 'ShopEnteringVIP' then
-		if Config.UseVIPShop then
+		if Config.VIP.Shop then
 			CurrentAction = 'vip_menu'
 			CurrentActionMsg = _U('vip_menu')
 			CurrentActionData = {}
 		end
 	elseif zone == 'ResellVehicleVIP' then
-		if Config.UseVIPShop then
+		if Config.VIP.Shop then
 			local playerPed = PlayerPedId()
 
 			if IsPedSittingInAnyVehicle(playerPed) then
@@ -1624,7 +1838,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 						ESX.ShowNotification(_U('cant_sell'))
 						Citizen.Wait(10000)
 					else
-						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.ResellPercentage)
+						resellPrice = ESX.Math.Round(vehicleData.price / 100 * Config.VIP.ResellPerc)
 						model = GetEntityModel(vehicle)
 						plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
@@ -1665,84 +1879,74 @@ end)
 
 -- Create Blips
 Citizen.CreateThread(function()
-	if Config.UseAircraftShop then
-		if Config.UseAircraftBlip then
-			local blip = AddBlipForCoord(Config.AircraftBlip.Coords)
+	if Config.Aircraft.Shop and Config.Aircraft.Blips then
+		local blip = AddBlipForCoord(Config.Aircraft.Blip.Coords)
 
-			SetBlipSprite (blip, Config.AircraftBlip.Sprite)
-			SetBlipColour (blip, Config.AircraftBlip.Color)
-			SetBlipDisplay(blip, Config.AircraftBlip.Display)
-			SetBlipScale  (blip, Config.AircraftBlip.Scale)
-			SetBlipAsShortRange(blip, true)
+		SetBlipSprite (blip, Config.Aircraft.Blip.Sprite)
+		SetBlipColour (blip, Config.Aircraft.Blip.Color)
+		SetBlipDisplay(blip, Config.Aircraft.Blip.Display)
+		SetBlipScale  (blip, Config.Aircraft.Blip.Scale)
+		SetBlipAsShortRange(blip, true)
 
-			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentSubstringPlayerName(_U('aircraft_dealer'))
-			EndTextCommandSetBlipName(blip)
-		end
+		BeginTextCommandSetBlipName('STRING')
+		AddTextComponentSubstringPlayerName(_U('aircraft_dealer'))
+		EndTextCommandSetBlipName(blip)
 	end
 
-	if Config.UseBoatShop then
-		if Config.UseBoatBlip then
-			local blip = AddBlipForCoord(Config.BoatBlip.Coords)
+	if Config.Boat.Shop and Config.Boat.Blips then
+		local blip = AddBlipForCoord(Config.Boat.Blip.Coords)
 
-			SetBlipSprite (blip, Config.BoatBlip.Sprite)
-			SetBlipColour (blip, Config.BoatBlip.Color)
-			SetBlipDisplay(blip, Config.BoatBlip.Display)
-			SetBlipScale  (blip, Config.BoatBlip.Scale)
-			SetBlipAsShortRange(blip, true)
+		SetBlipSprite (blip, Config.Boat.Blip.Sprite)
+		SetBlipColour (blip, Config.Boat.Blip.Color)
+		SetBlipDisplay(blip, Config.Boat.Blip.Display)
+		SetBlipScale  (blip, Config.Boat.Blip.Scale)
+		SetBlipAsShortRange(blip, true)
 
-			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentSubstringPlayerName(_U('boat_dealer'))
-			EndTextCommandSetBlipName(blip)
-		end
+		BeginTextCommandSetBlipName('STRING')
+		AddTextComponentSubstringPlayerName(_U('boat_dealer'))
+		EndTextCommandSetBlipName(blip)
 	end
 
-	if Config.UseCarShop then
-		if Config.UseCarBlip then
-			local blip = AddBlipForCoord(Config.CarBlip.Coords)
+	if Config.Car.Shop and Config.Car.Blips then
+		local blip = AddBlipForCoord(Config.Car.Blip.Coords)
 
-			SetBlipSprite (blip, Config.CarBlip.Sprite)
-			SetBlipColour (blip, Config.CarBlip.Color)
-			SetBlipDisplay(blip, Config.CarBlip.Display)
-			SetBlipScale  (blip, Config.CarBlip.Scale)
-			SetBlipAsShortRange(blip, true)
+		SetBlipSprite (blip, Config.Car.Blip.Sprite)
+		SetBlipColour (blip, Config.Car.Blip.Color)
+		SetBlipDisplay(blip, Config.Car.Blip.Display)
+		SetBlipScale  (blip, Config.Car.Blip.Scale)
+		SetBlipAsShortRange(blip, true)
 
-			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentSubstringPlayerName(_U('car_dealer'))
-			EndTextCommandSetBlipName(blip)
-		end
+		BeginTextCommandSetBlipName('STRING')
+		AddTextComponentSubstringPlayerName(_U('car_dealer'))
+		EndTextCommandSetBlipName(blip)
 	end
 
-	if Config.UseTruckShop then
-		if Config.UseTruckBlip then
-			local blip = AddBlipForCoord(Config.TruckBlip.Coords)
+	if Config.Truck.Shop and Config.Truck.Blips then
+		local blip = AddBlipForCoord(Config.Truck.Blip.Coords)
 
-			SetBlipSprite (blip, Config.TruckBlip.Sprite)
-			SetBlipColour (blip, Config.TruckBlip.Color)
-			SetBlipDisplay(blip, Config.TruckBlip.Display)
-			SetBlipScale  (blip, Config.TruckBlip.Scale)
-			SetBlipAsShortRange(blip, true)
+		SetBlipSprite (blip, Config.Truck.Blip.Sprite)
+		SetBlipColour (blip, Config.Truck.Blip.Color)
+		SetBlipDisplay(blip, Config.Truck.Blip.Display)
+		SetBlipScale  (blip, Config.Truck.Blip.Scale)
+		SetBlipAsShortRange(blip, true)
 
-			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentSubstringPlayerName(_U('truck_dealer'))
-			EndTextCommandSetBlipName(blip)
-		end
+		BeginTextCommandSetBlipName('STRING')
+		AddTextComponentSubstringPlayerName(_U('truck_dealer'))
+		EndTextCommandSetBlipName(blip)
 	end
 
-	if Config.UseVIPShop then
-		if Config.UseVIPBlip then
-			local blip = AddBlipForCoord(Config.VIPBlip.Coords)
+	if Config.VIP.Shop and Config.VIP.Blips then
+		local blip = AddBlipForCoord(Config.VIP.Blip.Coords)
 
-			SetBlipSprite (blip, Config.VIPBlip.Sprite)
-			SetBlipColour (blip, Config.VIPBlip.Color)
-			SetBlipDisplay(blip, Config.VIPBlip.Display)
-			SetBlipScale  (blip, Config.VIPBlip.Scale)
-			SetBlipAsShortRange(blip, true)
+		SetBlipSprite (blip, Config.VIP.Blip.Sprite)
+		SetBlipColour (blip, Config.VIP.Blip.Color)
+		SetBlipDisplay(blip, Config.VIP.Blip.Display)
+		SetBlipScale  (blip, Config.VIP.Blip.Scale)
+		SetBlipAsShortRange(blip, true)
 
-			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentSubstringPlayerName(_U('vip_dealer'))
-			EndTextCommandSetBlipName(blip)
-		end
+		BeginTextCommandSetBlipName('STRING')
+		AddTextComponentSubstringPlayerName(_U('vip_dealer'))
+		EndTextCommandSetBlipName(blip)
 	end
 end)
 
@@ -1757,14 +1961,14 @@ function DeleteJobBlips()
 end
 
 function RefreshJobBlips()
-	if Config.UseAmbulanceBlip then
+	if Config.Ambulance.Shop and Config.Ambulance.Blips then
 		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-			local blip = AddBlipForCoord(Config.AmbulanceBlip.Coords)
+			local blip = AddBlipForCoord(Config.Ambulance.Blip.Coords)
 
-			SetBlipSprite (blip, Config.AmbulanceBlip.Sprite)
-			SetBlipColour (blip, Config.AmbulanceBlip.Color)
-			SetBlipDisplay(blip, Config.AmbulanceBlip.Display)
-			SetBlipScale  (blip, Config.AmbulanceBlip.Scale)
+			SetBlipSprite (blip, Config.Ambulance.Blip.Sprite)
+			SetBlipColour (blip, Config.Ambulance.Blip.Color)
+			SetBlipDisplay(blip, Config.Ambulance.Blip.Display)
+			SetBlipScale  (blip, Config.Ambulance.Blip.Scale)
 			SetBlipAsShortRange(blip, true)
 
 			BeginTextCommandSetBlipName('STRING')
@@ -1774,14 +1978,31 @@ function RefreshJobBlips()
 		end
 	end
 
-	if Config.UsePoliceBlip then
+	if Config.Police.Shop and Config.Police.Blips then
 		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-			local blip = AddBlipForCoord(Config.PoliceBlip.Coords)
+			local blip = AddBlipForCoord(Config.Police.Blip.Coords)
 
-			SetBlipSprite (blip, Config.PoliceBlip.Sprite)
-			SetBlipColour (blip, Config.PoliceBlip.Color)
-			SetBlipDisplay(blip, Config.PoliceBlip.Display)
-			SetBlipScale  (blip, Config.PoliceBlip.Scale)
+			SetBlipSprite (blip, Config.Police.Blip.Sprite)
+			SetBlipColour (blip, Config.Police.Blip.Color)
+			SetBlipDisplay(blip, Config.Police.Blip.Display)
+			SetBlipScale  (blip, Config.Police.Blip.Scale)
+			SetBlipAsShortRange(blip, true)
+
+			BeginTextCommandSetBlipName('STRING')
+			AddTextComponentSubstringPlayerName(_U('police_dealer'))
+			EndTextCommandSetBlipName(blip)
+			table.insert(JobBlips, blip)
+		end
+	end
+
+	if Config.Mechanic.Shop and Config.Mechanic.Blips then
+		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
+			local blip = AddBlipForCoord(Config.Mechanic.Blip.Coords)
+
+			SetBlipSprite (blip, Config.Mechanic.Blip.Sprite)
+			SetBlipColour (blip, Config.Mechanic.Blip.Color)
+			SetBlipDisplay(blip, Config.Mechanic.Blip.Display)
+			SetBlipScale  (blip, Config.Mechanic.Blip.Scale)
 			SetBlipAsShortRange(blip, true)
 
 			BeginTextCommandSetBlipName('STRING')
@@ -1802,12 +2023,12 @@ Citizen.CreateThread(function()
 		for k,v in pairs(Config.Zones) do
 			local distance = #(playerCoords - v.Pos)
 
-			if distance < Config.DrawDistance then
+			if distance < Config.Main.DrawDistance then
 				letSleep = false
 
 				if v.Type ~= -1 then
 					if v.ShopId == 1 then
-						if Config.UseAmbulanceShop then
+						if Config.Ambulance.Shop then
 							if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
 								DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
 							end
@@ -1815,7 +2036,7 @@ Citizen.CreateThread(function()
 					end
 
 					if v.ShopId == 2 then
-						if Config.UsePoliceShop then
+						if Config.Police.Shop then
 							if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
 								DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
 							end
@@ -1823,31 +2044,39 @@ Citizen.CreateThread(function()
 					end
 
 					if v.ShopId == 3 then
-						if Config.UseAircraftShop then
-							DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
+						if Config.Mechanic.Shop then
+							if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
+								DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
+							end
 						end
 					end
 
 					if v.ShopId == 4 then
-						if Config.UseBoatShop then
+						if Config.Aircraft.Shop then
 							DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
 						end
 					end
 
 					if v.ShopId == 5 then
-						if Config.UseCarShop then
+						if Config.Boat.Shop then
 							DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
 						end
 					end
 
 					if v.ShopId == 6 then
-						if Config.UseTruckShop then
+						if Config.Car.Shop then
 							DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
 						end
 					end
 
 					if v.ShopId == 7 then
-						if Config.UseVIPShop then
+						if Config.Truck.Shop then
+							DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
+						end
+					end
+
+					if v.ShopId == 8 then
+						if Config.VIP.Shop then
 							DrawMarker(v.Type, v.Pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Marker.r, v.Marker.g, v.Marker.b, 100, false, true, 2, false, nil, nil, false)
 						end
 					end
@@ -1886,9 +2115,9 @@ Citizen.CreateThread(function()
 
 			if IsControlJustReleased(0, 38) then
 				if CurrentAction == 'ambulance_menu' then
-					if Config.UseAmbulanceShop then
+					if Config.Ambulance.Shop then
 						if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-							if Config.LicenseEnable then
+							if Config.Ambulance.License then
 								ESX.TriggerServerCallback('esx_license:checkLicense', function(hasdriverLicense)
 									if hasdriverLicense then
 										BuyAmbulanceMenu()
@@ -1902,7 +2131,7 @@ Citizen.CreateThread(function()
 						end
 					end
 				elseif CurrentAction == 'ambulance_resell' then
-					if Config.UseAmbulanceShop then
+					if Config.Ambulance.Shop then
 						if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
 							ESX.TriggerServerCallback('esx_advancedvehicleshop:resellVehicleAJ', function(vehicleSold)
 								if vehicleSold then
@@ -1915,9 +2144,9 @@ Citizen.CreateThread(function()
 						end
 					end
 				elseif CurrentAction == 'police_menu' then
-					if Config.UsePoliceShop then
+					if Config.Police.Shop then
 						if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-							if Config.LicenseEnable then
+							if Config.Police.License then
 								ESX.TriggerServerCallback('esx_license:checkLicense', function(hasdriverLicense)
 									if hasdriverLicense then
 										BuyPoliceMenu()
@@ -1931,7 +2160,7 @@ Citizen.CreateThread(function()
 						end
 					end
 				elseif CurrentAction == 'police_resell' then
-					if Config.UsePoliceShop then
+					if Config.Police.Shop then
 						if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
 							ESX.TriggerServerCallback('esx_advancedvehicleshop:resellVehiclePJ', function(vehicleSold)
 								if vehicleSold then
@@ -1943,9 +2172,38 @@ Citizen.CreateThread(function()
 							end, CurrentActionData.plate, CurrentActionData.model)
 						end
 					end
+				elseif CurrentAction == 'mechanic_menu' then
+					if Config.Mechanic.Shop then
+						if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
+							if Config.Mechanic.License then
+								ESX.TriggerServerCallback('esx_license:checkLicense', function(hasdriverLicense)
+									if hasdriverLicense then
+										BuyMechanicMenu()
+									else
+										ESX.ShowNotification(_U('license_missing'))
+									end
+								end, GetPlayerServerId(PlayerId()), 'drive_truck')
+							else
+								BuyMechanicMenu()
+							end
+						end
+					end
+				elseif CurrentAction == 'mechanic_resell' then
+					if Config.Mechanic.Shop then
+						if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
+							ESX.TriggerServerCallback('esx_advancedvehicleshop:resellVehicleMJ', function(vehicleSold)
+								if vehicleSold then
+									ESX.Game.DeleteVehicle(CurrentActionData.vehicle)
+									ESX.ShowNotification(_U('sold_for', CurrentActionData.label, ESX.Math.GroupDigits(CurrentActionData.price)))
+								else
+									ESX.ShowNotification(_U('not_yours'))
+								end
+							end, CurrentActionData.plate, CurrentActionData.model)
+						end
+					end
 				elseif CurrentAction == 'aircraft_menu' then
-					if Config.UseAircraftShop then
-						if Config.LicenseEnable then
+					if Config.Aircraft.Shop then
+						if Config.Aircraft.License then
 							ESX.TriggerServerCallback('esx_license:checkLicense', function(hasAircraftLicense)
 								if hasAircraftLicense then
 									BuyAircraftMenu()
@@ -1959,7 +2217,7 @@ Citizen.CreateThread(function()
 						end
 					end
 				elseif CurrentAction == 'aircraft_resell' then
-					if Config.UseAircraftShop then
+					if Config.Aircraft.Shop then
 						ESX.TriggerServerCallback('esx_advancedvehicleshop:resellVehicleA', function(vehicleSold)
 							if vehicleSold then
 								ESX.Game.DeleteVehicle(CurrentActionData.vehicle)
@@ -1970,8 +2228,8 @@ Citizen.CreateThread(function()
 						end, CurrentActionData.plate, CurrentActionData.model)
 					end
 				elseif CurrentAction == 'boat_menu' then
-					if Config.UseBoatShop then
-						if Config.LicenseEnable then
+					if Config.Boat.Shop then
+						if Config.Boat.License then
 							ESX.TriggerServerCallback('esx_license:checkLicense', function(hasBoatingLicense)
 								if hasBoatingLicense then
 									BuyBoatMenu()
@@ -1985,7 +2243,7 @@ Citizen.CreateThread(function()
 						end
 					end
 				elseif CurrentAction == 'boat_resell' then
-					if Config.UseBoatShop then
+					if Config.Boat.Shop then
 						ESX.TriggerServerCallback('esx_advancedvehicleshop:resellVehicleB', function(vehicleSold)
 							if vehicleSold then
 								ESX.Game.DeleteVehicle(CurrentActionData.vehicle)
@@ -1996,8 +2254,8 @@ Citizen.CreateThread(function()
 						end, CurrentActionData.plate, CurrentActionData.model)
 					end
 				elseif CurrentAction == 'car_menu' then
-					if Config.UseCarShop then
-						if Config.LicenseEnable then
+					if Config.Car.Shop then
+						if Config.Car.License then
 							ESX.TriggerServerCallback('esx_license:checkLicense', function(hasdriverLicense)
 								if hasdriverLicense then
 									BuyCarMenu()
@@ -2010,7 +2268,7 @@ Citizen.CreateThread(function()
 						end
 					end
 				elseif CurrentAction == 'car_resell' then
-					if Config.UseCarShop then
+					if Config.Car.Shop then
 						ESX.TriggerServerCallback('esx_advancedvehicleshop:resellVehicleC', function(vehicleSold)
 							if vehicleSold then
 								ESX.Game.DeleteVehicle(CurrentActionData.vehicle)
@@ -2021,8 +2279,8 @@ Citizen.CreateThread(function()
 						end, CurrentActionData.plate, CurrentActionData.model)
 					end
 				elseif CurrentAction == 'truck_menu' then
-					if Config.UseTruckShop then
-						if Config.LicenseEnable then
+					if Config.Truck.Shop then
+						if Config.Truck.License then
 							ESX.TriggerServerCallback('esx_license:checkLicense', function(hasCommercialLicense)
 								if hasCommercialLicense then
 									BuyTruckMenu()
@@ -2035,7 +2293,7 @@ Citizen.CreateThread(function()
 						end
 					end
 				elseif CurrentAction == 'truck_resell' then
-					if Config.UseTruckShop then
+					if Config.Truck.Shop then
 						ESX.TriggerServerCallback('esx_advancedvehicleshop:resellVehicleT', function(vehicleSold)
 							if vehicleSold then
 								ESX.Game.DeleteVehicle(CurrentActionData.vehicle)
@@ -2046,9 +2304,9 @@ Citizen.CreateThread(function()
 						end, CurrentActionData.plate, CurrentActionData.model)
 					end
 				elseif CurrentAction == 'vip_menu' then
-					if Config.UseVIPShop then
-						if Config.LicenseEnable then
-							--[[ESX.TriggerServerCallback('VIPSCRIPT:VIPSCRIPT', function(success)
+					if Config.VIP.Shop then
+						if Config.VIP.License then
+							ESX.TriggerServerCallback('esx_whitelistblacklist:GetVIP', function(success)
 								if success then
 									ESX.TriggerServerCallback('esx_license:checkLicense', function(hasdriverLicense)
 										if hasdriverLicense then
@@ -2060,13 +2318,13 @@ Citizen.CreateThread(function()
 								else
 									ESX.ShowNotification(_U('vip_no'))
 								end
-							end)]]--
+							end)
 						else
 							BuyVIPMenu()
 						end
 					end
 				elseif CurrentAction == 'vip_resell' then
-					if Config.UseVIPShop then
+					if Config.VIP.Shop then
 						ESX.TriggerServerCallback('esx_advancedvehicleshop:resellVehicleV', function(vehicleSold)
 							if vehicleSold then
 								ESX.Game.DeleteVehicle(CurrentActionData.vehicle)

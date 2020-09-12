@@ -91,6 +91,44 @@ INSERT INTO `vs_police` (id, name, model, price, category) VALUES
 	(11,'Maverick','polmav',1000,'boss')
 ;
 
+CREATE TABLE `vs_mecano_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_mecano_categories` (name, label) VALUES
+	('recrue','Recruit'),
+	('novice','Novice'),
+	('experimente','Experienced'),
+	('chief','Chief'),
+	('boss','Boss')
+;
+
+CREATE TABLE `vs_mecano` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `vs_mecano` (id, name, model, price, category) VALUES
+	(1,'Flatbed','flatbed',500,'recrue'),
+	(2,'Tow Truck','towtruck2',750,'recrue'),
+	(3,'Flatbed','flatbed',500,'novice'),
+	(4,'Tow Truck','towtruck2',750,'novice'),
+	(5,'Flatbed','flatbed',500,'experimente'),
+	(6,'Tow Truck','towtruck2',750,'experimente'),
+	(7,'Flatbed','flatbed',500,'chief'),
+	(8,'Tow Truck','towtruck2',750,'chief'),
+	(9,'Flatbed','flatbed',500,'boss'),
+	(10,'Tow Truck','towtruck2',750,'boss')
+;
+
 CREATE TABLE `vs_aircraft_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,

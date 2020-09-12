@@ -24,6 +24,11 @@ Locales['en'] = {
   ['police_dealer'] = 'dealership | Police',
   ['police_belongs'] = 'an Police Vehicle with plate ~y~%s~s~ now belongs to ~b~you~s~',
   ['police_purchased'] = 'you bought a Police Vehicle',
+  -- Mechanic Shop
+  ['mechanic_menu'] = 'press ~INPUT_CONTEXT~ to access the ~o~Mechanic Shop',
+  ['mechanic_dealer'] = 'dealership | Mechanic',
+  ['mechanic_belongs'] = 'an Mechanic Vehicle with plate ~y~%s~s~ now belongs to ~b~you~s~',
+  ['mechanic_purchased'] = 'you bought a Mechanic Vehicle',
   -- Aircraft Shop
   ['aircraft_menu'] = 'press ~INPUT_CONTEXT~ to access the ~p~Aircraft Shop',
   ['aircraft_dealer'] = 'dealership | Aircraft',
