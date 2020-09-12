@@ -32,7 +32,7 @@ Config.Police = {
 Config.Mechanic = {
 	Shop = false, -- true = Use Mechanic Shop | false = Does Opposite
 	Blips = false, -- true = Use Mechanic Blip | false = Does Opposite
-	Blip = {Coords = vector3(374.14, -1608.57, 28.29), Sprite = 326, Color = 3, Display = 4, Scale = 1.0},
+	Blip = {Coords = vector3(-321.87, -137.64, 38.01), Sprite = 326, Color = 17, Display = 4, Scale = 1.0},
 	License = true, -- Requires License to Buy Mechanic Vehicles.
 	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 }
