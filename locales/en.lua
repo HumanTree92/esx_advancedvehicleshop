@@ -54,9 +54,9 @@ Locales['en'] = {
   ['truck_belongs'] = 'an Truck with plate ~y~%s~s~ now belongs to ~b~you~s~',
   ['truck_purchased'] = 'you bought a Truck',
   -- VIP Shop
-  ['vip_menu'] = 'press ~INPUT_CONTEXT~ to access the ~y~VIP Shop',
+  ['vip_menu'] = 'press ~INPUT_CONTEXT~ to access the ~y~VIP Vehicle Shop',
+  ['vipb_menu'] = 'press ~INPUT_CONTEXT~ to access the ~y~VIP Boat Shop',
   ['vip_dealer'] = 'dealership | VIP',
-  ['vip_missing'] = 'you don\'t have a driver\'s License!',
   ['vip_belongs'] = 'an VIP Vehicle with plate ~y~%s~s~ now belongs to ~b~you~s~',
   ['vip_purchased'] = 'you bought a VIP Vehicle',
   ['vip_no'] = 'you are ~r~NOT ~w~ a ~y~VIP!',

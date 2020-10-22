@@ -22,7 +22,7 @@ end)
 -- New Fix
 ESX.RegisterServerCallback('esx_lscustom:getVehiclesPrices', function(source, cb)
 	if not Vehicles then
-		MySQL.Async.fetchAll('SELECT model, price FROM vs_ambulance UNION SELECT model, price FROM vs_police UNION SELECT model, price FROM vs_mecano UNION SELECT model, price FROM vs_aircrafts UNION SELECT model, price FROM vs_boats UNION SELECT model, price FROM vs_cars UNION SELECT model, price FROM vs_trucks UNION SELECT model, price FROM vs_vips;', {}, function(result)
+		MySQL.Async.fetchAll('SELECT model, price FROM vs_ambulance UNION SELECT model, price FROM vs_police UNION SELECT model, price FROM vs_mecano UNION SELECT model, price FROM vs_aircrafts UNION SELECT model, price FROM vs_boats UNION SELECT model, price FROM vs_cars UNION SELECT model, price FROM vs_trucks UNION SELECT model, price FROM vs_vips UNION SELECT model, price FROM vs_vipboats;', {}, function(result)
 			local vehicles = {}
 
 			for i=1, #result, 1 do

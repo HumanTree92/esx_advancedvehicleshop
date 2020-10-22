@@ -2,7 +2,6 @@ Config = {}
 Config.Locale = 'en'
 
 Config.Main = {
-	MenuAlign = 'top-left',
 	DrawDistance = 20,
 	-- looks like this: 'LLL NNN' The maximum plate length is 8 chars (including spaces & symbols), don't go past it!
 	PlateLetters = 3,
@@ -15,9 +14,7 @@ Config.Ambulance = {
 	Blips = false, -- true = Use Ambulance Blip | false = Does Opposite
 	Blip = {Coords = vector3(371.66, -1611.45, 28.29), Sprite = 326, Color = 1, Display = 4, Scale = 1.0},
 	License = true, -- Requires License to Buy Ambulance Vehicles.
-	ResellPerc = 50, -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
-	Heli = 'polmav',
-	Heli2 = 'firehawk'
+	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 }
 
 Config.Police = {
@@ -25,8 +22,17 @@ Config.Police = {
 	Blips = false, -- true = Use Police Blip | false = Does Opposite
 	Blip = {Coords = vector3(374.14, -1608.57, 28.29), Sprite = 326, Color = 3, Display = 4, Scale = 1.0},
 	License = true, -- Requires License to Buy Police Vehicles.
-	ResellPerc = 50, -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
-	Heli = 'polmav'
+	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
+}
+
+Config.Divisions = {
+	Ambulance = {
+		Heli1 = 'polmav',
+		Heli2 = 'firehawk'
+	},
+	Police = {
+		Heli1 = 'polmav'
+	}
 }
 
 Config.Mechanic = {
@@ -78,6 +84,14 @@ Config.VIP = {
 	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 }
 
+Config.VIPBoat = {
+	Shop = false, -- true = Use VIP Shop | false = Does Opposite
+	Blips = false, -- true = Use VIP Blip | false = Does Opposite
+	Blip = {Coords = vector3(-806.8, -1354.04, 4.22), Sprite = 326, Color = 5, Display = 4, Scale = 1.0},
+	License = true, -- Requires License to Buy VIP Vehicles.
+	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
+}
+
 -- ShopEntering = Marker for Accessing Shop | ShopInside = Marker for Viewing Vehicles
 -- ShopOutside = Marker for Purchasing Vehicles | ResellVehicle = Marker for Selling Vehicles
 
@@ -91,9 +105,9 @@ Config.Zones = {
 		ShopId = 1
 	},
 	ShopInsideAmbulance = {
-		Pos     = vector3(334.89, -1639.38, 98.5),
+		Pos     = vector3(381.97, -1604.82, 39.85),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 320.14,
+		Heading = 231.25,
 		Type    = -1,
 		ShopId  = 1
 	},
@@ -134,9 +148,9 @@ Config.Zones = {
 		ShopId = 2
 	},
 	ShopInsidePolice = {
-		Pos     = vector3(334.89, -1639.38, 98.5),
+		Pos     = vector3(381.97, -1604.82, 39.85),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 320.14,
+		Heading = 231.25,
 		Type    = -1,
 		ShopId  = 2
 	},
@@ -315,31 +329,60 @@ Config.Zones = {
 	},
 	-- VIP Shop
 	ShopEnteringVIP = {
-		Pos    = vector3(-32.75, -1656.01, 28.49),
+		Pos    = vector3(-796.01, -220.09, 36.08),
 		Marker = {r = 255, g = 222, b = 0},
 		Size   = {x = 1.5, y = 1.5, z = 1.0},
 		Type   = 1,
 		ShopId = 8
 	},
 	ShopInsideVIP = {
-		Pos     = vector3(-37.54, -1664.57, 28.49),
+		Pos     = vector3(-771.53, -233.9, 36.08),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 138.9,
+		Heading = 211.31,
 		Type    = -1,
 		ShopId  = 8
 	},
 	ShopOutsideVIP = {
-		Pos     = vector3(-43.08, -1678.28, 28.42),
+		Pos     = vector3(-760.88, -243.24, 37.25),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 45.03,
+		Heading = 113.1,
 		Type    = -1,
 		ShopId  = 8
 	},
 	ResellVehicleVIP= {
-		Pos    = vector3(-21.1, -1678.0, 28.48),
+		Pos    = vector3(-760.56, -231.36, 36.28),
 		Marker = {r = 255, g = 222, b = 0},
 		Size   = {x = 3.0, y = 3.0, z = 1.0},
 		Type   = 1,
 		ShopId = 8
-	}
+	},
+	-- VIP Boat Shop
+	ShopEnteringVIPBoat = {
+		Pos    = vector3(-806.8, -1354.04, 4.22),
+		Marker = {r = 255, g = 222, b = 0},
+		Size   = {x = 1.5, y = 1.5, z = 1.0},
+		Type   = 1,
+		ShopId = 9
+	},
+	ShopInsideVIPBoat = {
+		Pos     = vector3(-768.66, -1393.84, 19.62),
+		Size    = {x = 1.5, y = 1.5, z = 1.0},
+		Heading = 136.83,
+		Type    = -1,
+		ShopId  = 9
+	},
+	ShopOutsideVIPBoat = {
+		Pos     = vector3(-855.04, -1410.41, -0.47),
+		Size    = {x = 1.5, y = 1.5, z = 1.0},
+		Heading = 201.31,
+		Type    = -1,
+		ShopId  = 9
+	},
+	ResellVehicleVIPBoat = {
+		Pos    = vector3(649.82, -3103.56, -0.4),
+		Marker = {r = 255, g = 222, b = 0},
+		Size   = {x = 3.0, y = 3.0, z = 1.0},
+		Type   = 1,
+		ShopId = 9
+	},
 }

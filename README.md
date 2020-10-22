@@ -8,15 +8,16 @@ Advanced Vehicle Shop for ESX V1 Final or EXM - Edited/Made by Human Tree92 ([Ve
 
 # Helpfull Info:
 * This Vehicle Shops works exactly like esx_vehicleshop.
-* Players can Buy/Sell Aircrafts, Boats, Cars, & Trucks.
-* Ambulance/Police can Buy/Sell Cars & Helicopters
-* This is mainly for those that don't want to have/use the esx_vehicleshop Car Dealer Job.
-  * I don't have the need to use Car Dealer Job. (This script will never support it.)
-* To make this Script fully work with `esx_policejob & esx_ambulancejob` edit `client/vehicle.lua` and do a search for `esx_vehicleshop` & change it to `esx_advancedvehicleshop` then edit the `fxmanifest.lua` & remove the dependency for `esx_vehicleshop`.
+* Currently has 9 Different Vehicle Shops.
+  * Ambulance, Police, Mechanic, Aircrafts, Boats, Cars, Trucks, & 2 VIP Shops (Boats & Cars)
+* To make this Script fully work with `esx_policejob & esx_ambulancejob`
+  * edit `client/vehicle.lua` and do a search for `esx_vehicleshop` & change it to `esx_advancedvehicleshop` then edit the `fxmanifest.lua` & remove the dependency for `esx_vehicleshop`.
 * You can only sell vehicles at the shop you bought it from.
   * Example: If you a buy a vehicle at the Truck Shop you won't be able to sell it at the Car Shop.
 * If you want to use the Ambulance or Police Shop you will need to Edit the sql to your needs before you upload it.
-* I have added my VIP Shop but you will need to setup that on your own. There will be no help from me.
+* I have added my VIP Boat & Car Shop but you will need to setup that on your own. There will be no help from me.
+* This works perfectly with my esx_advancedgarage. I suggest using it over any other garage system including esx_policejob & esx_ambulancejob Garages.
+* New System will pull Vehicle Name & Vehicle Category & save it in the Database. This way you don't need a vehicle_names.lua file.
 
 # Requirements:
 * Required:
@@ -27,17 +28,18 @@ Advanced Vehicle Shop for ESX V1 Final or EXM - Edited/Made by Human Tree92 ([Ve
   * [esx_advancedgarage](https://github.com/HumanTree92/esx_advancedgarage)
 
 # Download & Installation:
-1) Download the .zip.
-2) Extract the .zip or Open the .zip.
+1) Download Master or Release & Extract the .zip or Open the .zip.
+2) Edit the `config.lua` before starting the script. By default everything is turned off.
 3) Import the `esx_advancedvehicleshop.sql` into your database.
 4) Place `esx_advancedvehicleshop` in your ESX Directory
 5) Add `start esx_advancedvehicleshop` to your server.cfg
+6) Add `setr esx_MenuAlign "top-right"` to your server.cfg
 
 # How to use Ambulance or Police Shop
-1) For `vs_ambulance_categories` &/or `vs_police_categories`
+1) For `vs_ambulance_categories` & `vs_police_categories` & `vs_mecano_categories`
   * The column `name` should be the job_grades name
   * The column `label` should be the job_grades label
-2) For `vs_ambulance` &/or `vs_police`
+2) For `vs_ambulance` & `vs_police` & `vs_mecano`
   * The column `id` should start at 1 and so on.
   * The column `name` should be the vehicle name.
   * The column `model` should be spawn name.

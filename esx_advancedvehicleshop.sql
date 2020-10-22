@@ -11,6 +11,8 @@ CREATE TABLE `owned_vehicles` (
 	`vehicle` longtext,
 	`type` VARCHAR(20) NOT NULL DEFAULT 'car',
 	`job` VARCHAR(20) NOT NULL DEFAULT 'civ',
+	`category` VARCHAR(50) DEFAULT NULL,
+	`name` varchar(60) NOT NULL DEFAULT 'Unknown',
 	`stored` TINYINT(1) NOT NULL DEFAULT '0',
 
 	PRIMARY KEY (`plate`)
@@ -137,8 +139,8 @@ CREATE TABLE `vs_aircraft_categories` (
 );
 
 INSERT INTO `vs_aircraft_categories` (name, label) VALUES
-	('plane','Planes'),
-	('heli','Helicopters')
+	('helis','Helicopters'),
+	('planes','Planes')
 ;
 
 CREATE TABLE `vs_aircrafts` (
@@ -151,33 +153,33 @@ CREATE TABLE `vs_aircrafts` (
 );
 
 INSERT INTO `vs_aircrafts` (name, model, price, category) VALUES
-	('Alpha Z1','alphaz1',1121000,'plane'),
-	('Besra','besra',1000000,'plane'),
-	('Cuban 800','cuban800',240000,'plane'),
-	('Dodo','dodo',500000,'plane'),
-	('Duster','duster',175000,'plane'),
-	('Howard NX25','howard',975000,'plane'),
-	('Luxor','luxor',1500000,'plane'),
-	('Luxor Deluxe ','luxor2',1750000,'plane'),
-	('Mallard','stunt',250000,'plane'),
-	('Mammatus','mammatus',300000,'plane'),
-	('Nimbus','nimbus',900000,'plane'),
-	('Rogue','rogue',1000000,'plane'),
-	('Sea Breeze','seabreeze',850000,'plane'),
-	('Shamal','shamal',1150000,'plane'),
-	('Ultra Light','microlight',50000,'plane'),
-	('Velum','velum2',450000,'plane'),
-	('Vestra','vestra',950000,'plane'),
-	('Buzzard','buzzard2',500000,'heli'),
-	('Frogger','frogger',800000,'heli'),
-	('Havok','havok',250000,'heli'),
-	('Maverick','maverick',750000,'heli'),
-	('Sea Sparrow','seasparrow',815000,'heli'),
-	('SuperVolito','supervolito',1000000,'heli'),
-	('SuperVolito Carbon','supervolito2',1250000,'heli'),
-	('Swift','swift',1000000,'heli'),
-	('Swift Deluxe','swift2',1250000,'heli'),
-	('Volatus','volatus',1250000,'heli')
+	('Buzzard','buzzard2',500000,'helis'),
+	('Frogger','frogger',800000,'helis'),
+	('Havok','havok',250000,'helis'),
+	('Maverick','maverick',750000,'helis'),
+	('Sea Sparrow','seasparrow',815000,'helis'),
+	('SuperVolito','supervolito',1000000,'helis'),
+	('SuperVolito Carbon','supervolito2',1250000,'helis'),
+	('Swift','swift',1000000,'helis'),
+	('Swift Deluxe','swift2',1250000,'helis'),
+	('Volatus','volatus',1250000,'helis'),
+	('Alpha Z1','alphaz1',1121000,'planes'),
+	('Besra','besra',1000000,'planes'),
+	('Cuban 800','cuban800',240000,'planes'),
+	('Dodo','dodo',500000,'planes'),
+	('Duster','duster',175000,'planes'),
+	('Howard NX25','howard',975000,'planes'),
+	('Luxor','luxor',1500000,'planes'),
+	('Luxor Deluxe ','luxor2',1750000,'planes'),
+	('Mallard','stunt',250000,'planes'),
+	('Mammatus','mammatus',300000,'planes'),
+	('Nimbus','nimbus',900000,'planes'),
+	('Rogue','rogue',1000000,'planes'),
+	('Sea Breeze','seabreeze',850000,'planes'),
+	('Shamal','shamal',1150000,'planes'),
+	('Ultra Light','microlight',50000,'planes'),
+	('Velum','velum2',450000,'planes'),
+	('Vestra','vestra',950000,'planes')
 ;
 
 CREATE TABLE `vs_boat_categories` (
@@ -188,7 +190,7 @@ CREATE TABLE `vs_boat_categories` (
 );
 
 INSERT INTO `vs_boat_categories` (name, label) VALUES
-	('boat','Boats'),
+	('boats','Boats'),
 	('subs','Submersibles')
 ;
 
@@ -202,20 +204,20 @@ CREATE TABLE `vs_boats` (
 );
 
 INSERT INTO `vs_boats` (name, model, price, category) VALUES
-	('Dinghy 4Seat','dinghy',25000,'boat'),
-	('Dinghy 2Seat','dinghy2',20000,'boat'),
-	('Dinghy Yacht','dinghy4',25000,'boat'),
-	('Jetmax','jetmax',30000,'boat'),
-	('Marquis','marquis',45000,'boat'),
-	('Seashark','seashark',10000,'boat'),
-	('Seashark Yacht','seashark3',10000,'boat'),
-	('Speeder','speeder',40000,'boat'),
-	('Squalo','squalo',32000,'boat'),
-	('Suntrap','suntrap',34000,'boat'),
-	('Toro','toro',38000,'boat'),
-	('Toro Yacht','toro2',38000,'boat'),
-	('Tropic','tropic',27000,'boat'),
-	('Tropic Yacht','tropic2',27000,'boat'),
+	('Dinghy 4Seat','dinghy',25000,'boats'),
+	('Dinghy 2Seat','dinghy2',20000,'boats'),
+	('Dinghy Yacht','dinghy4',25000,'boats'),
+	('Jetmax','jetmax',30000,'boats'),
+	('Marquis','marquis',45000,'boats'),
+	('Seashark','seashark',10000,'boats'),
+	('Seashark Yacht','seashark3',10000,'boats'),
+	('Speeder','speeder',40000,'boats'),
+	('Squalo','squalo',32000,'boats'),
+	('Suntrap','suntrap',34000,'boats'),
+	('Toro','toro',38000,'boats'),
+	('Toro Yacht','toro2',38000,'boats'),
+	('Tropic','tropic',27000,'boats'),
+	('Tropic Yacht','tropic2',27000,'boats'),
 	('Kraken','submersible2',31000,'subs'),
 	('Submarine','submersible',29000,'subs')
 ;
@@ -233,12 +235,12 @@ INSERT INTO `vs_car_categories` (name, label) VALUES
 	('sedans','Sedans'),
 	('sports','Sports'),
 	('sportsclassics','Sports Classics'),
-	('super','Super'),
-	('muscle','Muscle'),
-	('offroad','Off Road'),
+	('supers','Supers'),
+	('muscles','Muscles'),
+	('offroads','Off-Roads'),
 	('suvs','SUVs'),
 	('vans','Vans'),
-	('motorcycles','Motos')
+	('motorcycles','Motorcycles')
 ;
 
 CREATE TABLE `vs_cars` (
@@ -251,33 +253,33 @@ CREATE TABLE `vs_cars` (
 );
 
 INSERT INTO `vs_cars` (name, model, price, category) VALUES
-	('Blade','blade',15000,'muscle'),
-	('Buccaneer','buccaneer',18000,'muscle'),
-	('Buccaneer Rider','buccaneer2',24000,'muscle'),
-	('Chino','chino',15000,'muscle'),
-	('Chino Luxe','chino2',19000,'muscle'),
-	('Coquette BlackFin','coquette3',55000,'muscle'),
-	('Dominator','dominator',35000,'muscle'),
-	('Dukes','dukes',28000,'muscle'),
-	('Gauntlet','gauntlet',30000,'muscle'),
-	('Hermes','hermes',535000,'muscle'),
-	('Hotknife','hotknife',125000,'muscle'),
-	('Hustler','hustler',625000,'muscle'),
-	('Faction','faction',20000,'muscle'),
-	('Faction Rider','faction2',30000,'muscle'),
-	('Faction XL','faction3',40000,'muscle'),
-	('Nightshade','nightshade',65000,'muscle'),
-	('Phoenix','phoenix',12500,'muscle'),
-	('Picador','picador',18000,'muscle'),
-	('Ruiner 2','ruiner2',5745600,'muscle'),
-	('Sabre Turbo','sabregt',20000,'muscle'),
-	('Sabre GT','sabregt2',25000,'muscle'),
-	('Slam Van','slamvan3',11500,'muscle'),
-	('Tampa','tampa',16000,'muscle'),
-	('Virgo','virgo',14000,'muscle'),
-	('Vigero','vigero',12500,'muscle'),
-	('Voodoo','voodoo',7200,'muscle'),
-	('Yosemite','yosemite',485000,'muscle'),
+	('Blade','blade',15000,'muscles'),
+	('Buccaneer','buccaneer',18000,'muscles'),
+	('Buccaneer Rider','buccaneer2',24000,'muscles'),
+	('Chino','chino',15000,'muscles'),
+	('Chino Luxe','chino2',19000,'muscles'),
+	('Coquette BlackFin','coquette3',55000,'muscles'),
+	('Dominator','dominator',35000,'muscles'),
+	('Dukes','dukes',28000,'muscles'),
+	('Gauntlet','gauntlet',30000,'muscles'),
+	('Hermes','hermes',535000,'muscles'),
+	('Hotknife','hotknife',125000,'muscles'),
+	('Hustler','hustler',625000,'muscles'),
+	('Faction','faction',20000,'muscles'),
+	('Faction Rider','faction2',30000,'muscles'),
+	('Faction XL','faction3',40000,'muscles'),
+	('Nightshade','nightshade',65000,'muscles'),
+	('Phoenix','phoenix',12500,'muscles'),
+	('Picador','picador',18000,'muscles'),
+	('Ruiner 2','ruiner2',5745600,'muscles'),
+	('Sabre Turbo','sabregt',20000,'muscles'),
+	('Sabre GT','sabregt2',25000,'muscles'),
+	('Slam Van','slamvan3',11500,'muscles'),
+	('Tampa','tampa',16000,'muscles'),
+	('Virgo','virgo',14000,'muscles'),
+	('Vigero','vigero',12500,'muscles'),
+	('Voodoo','voodoo',7200,'muscles'),
+	('Yosemite','yosemite',485000,'muscles'),
 	('Blista','blista',8000,'compacts'),
 	('Brioso R/A','brioso',18000,'compacts'),
 	('Issi','issi2',10000,'compacts'),
@@ -352,22 +354,22 @@ INSERT INTO `vs_cars` (name, model, price, category) VALUES
 	('Viseris','viseris',875000,'sportsclassics'),
 	('Z190','z190',900000,'sportsclassics'),
 	('Z-Type','ztype',220000,'sportsclassics'),
-	('Bifta','bifta',12000,'offroad'),
-	('Bf Injection','bfinjection',16000,'offroad'),
-	('Blazer','blazer',6500,'offroad'),
-	('Blazer Sport','blazer4',8500,'offroad'),
-	('blazer5', 'blazer5', 1755600, 'offroad'),
-	('Brawler','brawler',45000,'offroad'),
-	('Bubsta 6x6','dubsta3',120000,'offroad'),
-	('Dune Buggy','dune',8000,'offroad'),
-	('Guardian','guardian',45000,'offroad'),
-	('Kamacho', 'kamacho', 345000, 'offroad'),
-	('Rebel','rebel2',35000,'offroad'),
-	('Riata', 'riata', 380000, 'offroad'),
-	('Sandking','sandking',55000,'offroad'),
-	('The Liberator','monster',210000,'offroad'),
-	('Trophy Truck','trophytruck',60000,'offroad'),
-	('Trophy Truck Limited','trophytruck2',80000,'offroad'),
+	('Bifta','bifta',12000,'offroads'),
+	('Bf Injection','bfinjection',16000,'offroads'),
+	('Blazer','blazer',6500,'offroads'),
+	('Blazer Sport','blazer4',8500,'offroads'),
+	('blazer5', 'blazer5', 1755600, 'offroads'),
+	('Brawler','brawler',45000,'offroads'),
+	('Bubsta 6x6','dubsta3',120000,'offroads'),
+	('Dune Buggy','dune',8000,'offroads'),
+	('Guardian','guardian',45000,'offroads'),
+	('Kamacho', 'kamacho', 345000, 'offroads'),
+	('Rebel','rebel2',35000,'offroads'),
+	('Riata', 'riata', 380000, 'offroads'),
+	('Sandking','sandking',55000,'offroads'),
+	('The Liberator','monster',210000,'offroads'),
+	('Trophy Truck','trophytruck',60000,'offroads'),
+	('Trophy Truck Limited','trophytruck2',80000,'offroads'),
 	('Cognoscenti Cabrio','cogcabrio',55000,'coupes'),
 	('Exemplar','exemplar',32000,'coupes'),
 	('F620','f620',40000,'coupes'),
@@ -422,32 +424,32 @@ INSERT INTO `vs_cars` (name, model, price, category) VALUES
 	('Surano','surano',50000,'sports'),
 	('Tropos','tropos',40000,'sports'),
 	('Verlierer','verlierer2',70000,'sports'),
-	('Adder','adder',900000,'super'),
-	('Autarch','autarch',1955000,'super'),
-	('Banshee 900R','banshee2',255000,'super'),
-	('Bullet','bullet',90000,'super'),
-	('Cheetah','cheetah',375000,'super'),
-	('Cyclone','cyclone',1890000,'super'), 
-	('Entity XF','entityxf',425000,'super'),
-	('ETR1','sheava',220000,'super'),
-	('FMJ','fmj',185000,'super'),
-	('Infernus','infernus',180000,'super'),
-	('Oppressor','oppressor',3524500,'super'),
-	('Osiris','osiris',160000,'super'),
-	('Pfister','pfister811',85000,'super'),
-	('RE-7B','le7b',325000,'super'),
-	('Reaper','reaper',150000,'super'),
-	('SC 1','sc1',1603000,'super'),
-	('Sultan RS','sultanrs',65000,'super'),
-	('T20','t20',300000,'super'),
-	('Turismo R','turismor',350000,'super'),
-	('Tyrus','tyrus',600000,'super'),
-	('Vacca','vacca',120000,'super'),
-	('Visione','visione',2250000,'super'),
-	('Voltic','voltic',90000,'super'),
-	('Voltic 2','voltic2',3830400,'super'),
-	('X80 Proto','prototipo',2500000,'super'),
-	('Zentorno','zentorno',1500000,'super'),
+	('Adder','adder',900000,'supers'),
+	('Autarch','autarch',1955000,'supers'),
+	('Banshee 900R','banshee2',255000,'supers'),
+	('Bullet','bullet',90000,'supers'),
+	('Cheetah','cheetah',375000,'supers'),
+	('Cyclone','cyclone',1890000,'supers'), 
+	('Entity XF','entityxf',425000,'supers'),
+	('ETR1','sheava',220000,'supers'),
+	('FMJ','fmj',185000,'supers'),
+	('Infernus','infernus',180000,'supers'),
+	('Oppressor','oppressor',3524500,'supers'),
+	('Osiris','osiris',160000,'supers'),
+	('Pfister','pfister811',85000,'supers'),
+	('RE-7B','le7b',325000,'supers'),
+	('Reaper','reaper',150000,'supers'),
+	('SC 1','sc1',1603000,'supers'),
+	('Sultan RS','sultanrs',65000,'supers'),
+	('T20','t20',300000,'supers'),
+	('Turismo R','turismor',350000,'supers'),
+	('Tyrus','tyrus',600000,'supers'),
+	('Vacca','vacca',120000,'supers'),
+	('Visione','visione',2250000,'supers'),
+	('Voltic','voltic',90000,'supers'),
+	('Voltic 2','voltic2',3830400,'supers'),
+	('X80 Proto','prototipo',2500000,'supers'),
+	('Zentorno','zentorno',1500000,'supers'),
 	('Akuma','AKUMA',7500,'motorcycles'),
 	('Avarus','avarus',18000,'motorcycles'),
 	('Bagger','bagger',13500,'motorcycles'),
@@ -569,5 +571,29 @@ CREATE TABLE `vs_vips` (
 
 INSERT INTO `vs_vips` (name, model, price, category) VALUES
 	('Shotaro','shotaro',30000,'motorcycles')
+;
+
+CREATE TABLE `vs_vipboat_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_vipboat_categories` (name, label) VALUES
+	('boats','Boats')
+;
+
+CREATE TABLE `vs_vipboats` (
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`model`)
+);
+
+INSERT INTO `vs_vipboats` (name, model, price, category) VALUES
+	('Tropic Yacht','tropic2',27000,'boats'),
 ;
 

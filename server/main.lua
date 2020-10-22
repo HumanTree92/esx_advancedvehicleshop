@@ -7,6 +7,7 @@ local categoriesb, vehiclesb = {}, {}
 local categoriesc, vehiclesc = {}, {}
 local categoriest, vehiclest = {}, {}
 local categoriesv, vehiclesv = {}, {}
+local categoriesvb, vehiclesvb = {}, {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
@@ -210,6 +211,29 @@ MySQL.ready(function()
 			end)
 		end)
 	end
+
+	if Config.VIPBoat.Shop then
+		MySQL.Async.fetchAll('SELECT * FROM vs_vipboat_categories', {}, function(_categories)
+			categoriesvb = _categories
+
+			MySQL.Async.fetchAll('SELECT * FROM vs_vipboats', {}, function(_vehicles)
+				vehiclesvb = _vehicles
+
+				for k,v in ipairs(vehiclesvb) do
+					for k2,v2 in ipairs(categoriesvb) do
+						if v2.name == v.category then
+							vehiclesvb[k].categoryLabel = v2.label
+							break
+						end
+					end
+				end
+
+				-- send information after db has loaded, making sure everyone gets vehicle information
+				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesvb', -1, categoriesvb)
+				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesvb', -1, vehiclesvb)
+			end)
+		end)
+	end
 end)
 
 -- Ambulance Shop
@@ -221,7 +245,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesAJ', function(sou
 	cb(vehiclesaj)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(source, cb, model, plate)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(source, cb, model, plate, name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -235,24 +259,28 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(sour
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		if model == Config.Ambulance.Heli or model == Config.Ambulance.Heli2 then
-			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job) VALUES (@owner, @plate, @vehicle, @type, @job)', {
+		if model == Config.Divisions.Ambulance.Heli1 or model == Config.Divisions.Ambulance.Heli2 then
+			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job, category, name) VALUES (@owner, @plate, @vehicle, @type, @job, @category, @name)', {
 				['@owner'] = xPlayer.identifier,
 				['@plate'] = plate,
 				['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 				['@type'] = 'aircraft',
-				['@job'] = 'ambulance'
+				['@job'] = 'ambulance',
+				['@category'] = 'helis',
+				['@name'] = name
 			}, function(rowsChanged)
 				xPlayer.showNotification(_U('ambulance_belongs', plate))
 				cb(true)
 			end)
 		else
-			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job) VALUES (@owner, @plate, @vehicle, @type, @job)', {
+			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job, category, name) VALUES (@owner, @plate, @vehicle, @type, @job, @category, @name)', {
 				['@owner'] = xPlayer.identifier,
 				['@plate'] = plate,
 				['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 				['@type'] = 'car',
-				['@job'] = 'ambulance'
+				['@job'] = 'ambulance',
+				['@category'] = 'cars',
+				['@name'] = name
 			}, function(rowsChanged)
 				xPlayer.showNotification(_U('ambulance_belongs', plate))
 				cb(true)
@@ -316,7 +344,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesPJ', function(sou
 	cb(vehiclespj)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(source, cb, model, plate)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(source, cb, model, plate, name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -330,24 +358,28 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(sour
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		if model == Config.Police.Heli then
-			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job) VALUES (@owner, @plate, @vehicle, @type, @job)', {
+		if model == Config.Divisions.Police.Heli1 then
+			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job, category, name) VALUES (@owner, @plate, @vehicle, @type, @job, @category, @name)', {
 				['@owner'] = xPlayer.identifier,
 				['@plate'] = plate,
 				['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 				['@type'] = 'aircraft',
-				['@job'] = 'police'
+				['@job'] = 'police',
+				['@category'] = 'helis',
+				['@name'] = name
 			}, function(rowsChanged)
 				xPlayer.showNotification(_U('police_belongs', plate))
 				cb(true)
 			end)
 		else
-			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job) VALUES (@owner, @plate, @vehicle, @type, @job)', {
+			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job, category, name) VALUES (@owner, @plate, @vehicle, @type, @job, @category, @name)', {
 				['@owner'] = xPlayer.identifier,
 				['@plate'] = plate,
 				['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 				['@type'] = 'car',
-				['@job'] = 'police'
+				['@job'] = 'police',
+				['@category'] = 'cars',
+				['@name'] = name
 			}, function(rowsChanged)
 				xPlayer.showNotification(_U('police_belongs', plate))
 				cb(true)
@@ -411,7 +443,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesMJ', function(sou
 	cb(vehiclesmj)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(source, cb, model, plate)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(source, cb, model, plate, name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -425,12 +457,14 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(sour
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job) VALUES (@owner, @plate, @vehicle, @type, @job)', {
+		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, job, category, name) VALUES (@owner, @plate, @vehicle, @type, @job, @category, @name)', {
 			['@owner'] = xPlayer.identifier,
 			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 			['@type'] = 'car',
-			['@job'] = 'mechanic'
+			['@job'] = 'mechanic',
+			['@category'] = 'cars',
+			['@name'] = name
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('mechanic_belongs', plate))
 			cb(true)
@@ -493,7 +527,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesA', function(sour
 	cb(vehiclesa)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleA', function(source, cb, model, plate)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleA', function(source, cb, model, plate, category, name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -507,11 +541,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleA', function(sourc
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
+		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, category, name) VALUES (@owner, @plate, @vehicle, @type, @category, @name)', {
 			['@owner'] = xPlayer.identifier,
 			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type'] = 'aircraft'
+			['@type'] = 'aircraft',
+			['@category'] = category,
+			['@name'] = name
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('aircraft_belongs', plate))
 			cb(true)
@@ -574,7 +610,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesB', function(sour
 	cb(vehiclesb)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleB', function(source, cb, model, plate)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleB', function(source, cb, model, plate, category, name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -588,11 +624,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleB', function(sourc
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
+		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, category, name) VALUES (@owner, @plate, @vehicle, @type, @category, @name)', {
 			['@owner'] = xPlayer.identifier,
 			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type'] = 'boat'
+			['@type'] = 'boat',
+			['@category'] = category,
+			['@name'] = name
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('boat_belongs', plate))
 			cb(true)
@@ -655,7 +693,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesC', function(sour
 	cb(vehiclesc)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleC', function(source, cb, model, plate)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleC', function(source, cb, model, plate, category, name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -669,11 +707,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleC', function(sourc
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
+		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, category, name) VALUES (@owner, @plate, @vehicle, @type, @category, @name)', {
 			['@owner'] = xPlayer.identifier,
 			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type'] = 'car'
+			['@type'] = 'car',
+			['@category'] = category,
+			['@name'] = name
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('car_belongs', plate))
 			cb(true)
@@ -736,7 +776,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesT', function(sour
 	cb(vehiclest)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleT', function(source, cb, model, plate)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleT', function(source, cb, model, plate, category, name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -750,11 +790,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleT', function(sourc
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
+		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, category, name) VALUES (@owner, @plate, @vehicle, @type, @category, @name)', {
 			['@owner'] = xPlayer.identifier,
 			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type'] = 'car'
+			['@type'] = 'car',
+			['@category'] = category,
+			['@name'] = name
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('truck_belongs', plate))
 			cb(true)
@@ -817,7 +859,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesV', function(sour
 	cb(vehiclesv)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleV', function(source, cb, model, plate)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleV', function(source, cb, model, plate, category, name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -831,11 +873,13 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleV', function(sourc
 	if modelPrice and xPlayer.getMoney() >= modelPrice then
 		xPlayer.removeMoney(modelPrice)
 
-		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type) VALUES (@owner, @plate, @vehicle, @type)', {
+		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, category, name) VALUES (@owner, @plate, @vehicle, @type, @category, @name)', {
 			['@owner'] = xPlayer.identifier,
 			['@plate'] = plate,
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
-			['@type'] = 'car'
+			['@type'] = 'car',
+			['@category'] = category,
+			['@name'] = name
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('vip_belongs', plate))
 			cb(true)
@@ -853,6 +897,89 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleV', function(so
 		if GetHashKey(vehiclesv[i].model) == model then
 			resellPrice = ESX.Math.Round(vehiclesv[i].price / 100 * Config.VIP.ResellPerc)
 			vehicleName = vehiclesv[i].model
+			break
+		end
+	end
+
+	if not resellPrice then
+		print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an unknown vehicle!'):format(GetPlayerIdentifiers(source)[1]))
+		cb(false)
+	else
+		MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE owner = @owner AND @plate = plate', {
+			['@owner'] = xPlayer.identifier,
+			['@plate'] = plate
+		}, function(result)
+			if result[1] then -- does the owner match?
+				local vehicle = json.decode(result[1].vehicle)
+
+				if vehicle.model == model then
+					if vehicle.plate == plate then
+						xPlayer.addMoney(resellPrice)
+						RemoveOwnedVehicle(plate)
+
+						cb(true)
+					else
+						print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with plate mismatch!'):format(xPlayer.identifier))
+						cb(false)
+					end
+				else
+					print(('[esx_advancedvehicleshop] [^3WARNING^7] %s attempted to sell an vehicle with model mismatch!'):format(xPlayer.identifier))
+					cb(false)
+				end
+			else
+				cb(false)
+			end
+		end)
+	end
+end)
+
+-- VIP Boat Shop
+ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesVB', function(source, cb)
+	cb(categoriesvb)
+end)
+
+ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesVB', function(source, cb)
+	cb(vehiclesvb)
+end)
+
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleVB', function(source, cb, model, plate, category, name)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local modelPrice
+
+	for k,v in ipairs(vehiclesvb) do
+		if model == v.model then
+			modelPrice = v.price
+			break
+		end
+	end
+
+	if modelPrice and xPlayer.getMoney() >= modelPrice then
+		xPlayer.removeMoney(modelPrice)
+
+		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, category, name) VALUES (@owner, @plate, @vehicle, @type, @category, @name)', {
+			['@owner'] = xPlayer.identifier,
+			['@plate'] = plate,
+			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
+			['@type'] = 'boat',
+			['@category'] = category,
+			['@name'] = name
+		}, function(rowsChanged)
+			xPlayer.showNotification(_U('vip_belongs', plate))
+			cb(true)
+		end)
+	else
+		cb(false)
+	end
+end)
+
+ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleVB', function(source, cb, plate, model)
+	local xPlayer, resellPrice, vehicleName = ESX.GetPlayerFromId(source)
+
+	-- calculate the resell price
+	for i=1, #vehiclesvb, 1 do
+		if GetHashKey(vehiclesvb[i].model) == model then
+			resellPrice = ESX.Math.Round(vehiclesvb[i].price / 100 * Config.VIPBoat.ResellPerc)
+			vehicleName = vehiclesvb[i].model
 			break
 		end
 	end
