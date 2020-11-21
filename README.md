@@ -54,7 +54,6 @@ Advanced Vehicle Shop for ESX V1 Final or EXM - Edited/Made by Human Tree92 ([Ve
 # Other Scripts:
 If you like this please check out some of my other stuff like
 * [esx_advancedbanking](https://github.com/HumanTree92/esx_advancedbanking)
-* [esx_advancedfuel](https://github.com/HumanTree92/esx_advancedfuel)
 * [esx_advancedgarage](https://github.com/HumanTree92/esx_advancedgarage)
 * [esx_advancedholdup](https://github.com/HumanTree92/esx_advancedholdup)
 * [esx_advancedhospital](https://github.com/HumanTree92/esx_advancedhospital)
