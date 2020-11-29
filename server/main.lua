@@ -206,8 +206,8 @@ MySQL.ready(function()
 				end
 
 				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesv', -1, categoriesv)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesv', -1, vehiclesv)
+				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesV', -1, categoriesv)
+				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesV', -1, vehiclesv)
 			end)
 		end)
 	end
@@ -229,8 +229,8 @@ MySQL.ready(function()
 				end
 
 				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesvb', -1, categoriesvb)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesvb', -1, vehiclesvb)
+				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesVB', -1, categoriesvb)
+				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesVB', -1, vehiclesvb)
 			end)
 		end)
 	end
