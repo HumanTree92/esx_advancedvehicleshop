@@ -12,7 +12,8 @@ Locales['en'] = {
   ['sold_for'] = 'the ~b~%s~s~ has been ~y~sold~s~ for ~g~$%s~s~',
   ['license_missing'] = 'License Missing',
   ['go_to'] = 'you must go to a License Shop to purchase Licenses.',
-  ['your_rank'] = 'This vehicle is not for your rank!',
+  ['your_rank'] = 'This vehicle is not for your Rank!',
+  ['your_job'] = 'This Vehicle is not for your Job!',
   ['cant_sell'] = 'You must sell this Vehicle where you bought it from.',
   -- Ambulance Shop
   ['ambulance_menu'] = 'press ~INPUT_CONTEXT~ to access the ~r~Ambulance Shop',
@@ -24,6 +25,11 @@ Locales['en'] = {
   ['police_dealer'] = 'dealership | Police',
   ['police_belongs'] = 'an Police Vehicle with plate ~y~%s~s~ now belongs to ~b~you~s~',
   ['police_purchased'] = 'you bought a Police Vehicle',
+  -- Division Shop
+  ['division_menu'] = 'press ~INPUT_CONTEXT~ to access the ~b~Division Shop',
+  ['division_dealer'] = 'dealership | Division',
+  ['division_belongs'] = 'an Division Vehicle with plate ~y~%s~s~ now belongs to ~b~you~s~',
+  ['division_purchased'] = 'you bought a Division Vehicle',
   -- Mechanic Shop
   ['mechanic_menu'] = 'press ~INPUT_CONTEXT~ to access the ~o~Mechanic Shop',
   ['mechanic_dealer'] = 'dealership | Mechanic',

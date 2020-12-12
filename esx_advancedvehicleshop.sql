@@ -51,8 +51,7 @@ INSERT INTO `vs_ambulance` (id, name, model, price, category) VALUES
 	(5,'Ambulance','ambulance',500,'chief_doctor'),
 	(6,'Fire Truck','firetruk',750,'chief_doctor'),
 	(7,'Ambulance','ambulance',500,'boss'),
-	(8,'Fire Truck','firetruk',750,'boss'),
-	(9,'Maverick','polmav',1000,'boss')
+	(8,'Fire Truck','firetruk',750,'boss')
 ;
 
 CREATE TABLE `vs_police_categories` (
@@ -90,8 +89,32 @@ INSERT INTO `vs_police` (id, name, model, price, category) VALUES
 	(7,'Police Cruiser','police',500,'lieutenant'),
 	(8,'Police Cruiser','police2',750,'lieutenant'),
 	(9,'Police Cruiser','police',500,'boss'),
-	(10,'Police Cruiser','police2',750,'boss'),
-	(11,'Maverick','polmav',1000,'boss')
+	(10,'Police Cruiser','police2',750,'boss')
+;
+
+CREATE TABLE `vs_division_categories` (
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`name`)
+);
+
+INSERT INTO `vs_division_categories` (name, label) VALUES
+	('aviation','Aviation')
+;
+
+CREATE TABLE `vs_divisions` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `vs_divisions` (id, name, model, price, category) VALUES
+	(1,'Maverick','polmav',1000,'aviation')
 ;
 
 CREATE TABLE `vs_mecano_categories` (
@@ -451,7 +474,7 @@ INSERT INTO `vs_cars` (name, model, price, category) VALUES
 	('Voltic 2','voltic2',3830400,'supers'),
 	('X80 Proto','prototipo',2500000,'supers'),
 	('Zentorno','zentorno',1500000,'supers'),
-	('Akuma','AKUMA',7500,'motorcycles'),
+	('Akuma','akuma',7500,'motorcycles'),
 	('Avarus','avarus',18000,'motorcycles'),
 	('Bagger','bagger',13500,'motorcycles'),
 	('Bati 801','bati',12000,'motorcycles'),
