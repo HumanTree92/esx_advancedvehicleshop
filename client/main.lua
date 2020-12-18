@@ -1,7 +1,7 @@
 local CurrentActionData, JobBlips = {}, {}
 local CategoriesAJ, CategoriesPJ, CategoriesD, CategoriesMJ, CategoriesA, CategoriesB, CategoriesC, CategoriesT, CategoriesV, CategoriesVB = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
 local VehiclesAJ, VehiclesPJ, VehiclesD, VehiclesMJ, VehiclesA, VehiclesB, VehiclesC, VehiclesT, VehiclesV, VehiclesVB = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
-local HasAlreadyEnteredMarker, IsInMainMenu = false, false
+local HasAlreadyEnteredMarker, IsInMainMenu, YesAlready = false, false, false
 local LastZone, CurrentAction, CurrentActionMsg, currentDisplayVehicle, CurrentVehicleData
 ESX = nil
 
@@ -361,13 +361,14 @@ function BuyAmbulanceMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' and ESX.PlayerData.job.grade_name == vehicleData.category then
 					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(success)
 						if success then
-							IsInMainMenu = false
+							IsInMainMenu, YesAlready = false, false
 							menu2.close()
 							menu.close()
 							DeleteDisplayVehicleInsideShop()
@@ -405,7 +406,7 @@ function BuyAmbulanceMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringAmbulance.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -513,13 +514,14 @@ function BuyPoliceMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' and ESX.PlayerData.job.grade_name == vehicleData.category then
 					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(success)
 						if success then
-							IsInMainMenu = false
+							IsInMainMenu, YesAlready = false, false
 							menu2.close()
 							menu.close()
 							DeleteDisplayVehicleInsideShop()
@@ -557,7 +559,7 @@ function BuyPoliceMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringPolice.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -665,13 +667,14 @@ function BuyDivisionMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				if vehicleData.model == Config.Division.Heli1 then
 					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleD', function(success)
 						if success then
-							IsInMainMenu = false
+							IsInMainMenu, YesAlready = false, false
 							menu2.close()
 							menu.close()
 							DeleteDisplayVehicleInsideShop()
@@ -690,7 +693,7 @@ function BuyDivisionMenu()
 				else
 					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleD', function(success)
 						if success then
-							IsInMainMenu = false
+							IsInMainMenu, YesAlready = false, false
 							menu2.close()
 							menu.close()
 							DeleteDisplayVehicleInsideShop()
@@ -726,7 +729,7 @@ function BuyDivisionMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringDivision.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -834,13 +837,14 @@ function BuyMechanicMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' and ESX.PlayerData.job.grade_name == vehicleData.category then
 					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(success)
 						if success then
-							IsInMainMenu = false
+							IsInMainMenu, YesAlready = false, false
 							menu2.close()
 							menu.close()
 							DeleteDisplayVehicleInsideShop()
@@ -878,7 +882,7 @@ function BuyMechanicMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringMechanic.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -986,12 +990,13 @@ function BuyAircraftMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleA', function(success)
 					if success then
-						IsInMainMenu = false
+						IsInMainMenu, YesAlready = false, false
 						menu2.close()
 						menu.close()
 						DeleteDisplayVehicleInsideShop()
@@ -1026,7 +1031,7 @@ function BuyAircraftMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringAircraft.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -1134,12 +1139,13 @@ function BuyBoatMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleB', function(success)
 					if success then
-						IsInMainMenu = false
+						IsInMainMenu, YesAlready = false, false
 						menu2.close()
 						menu.close()
 						DeleteDisplayVehicleInsideShop()
@@ -1174,7 +1180,7 @@ function BuyBoatMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringBoat.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -1282,12 +1288,13 @@ function BuyCarMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleC', function(success)
 					if success then
-						IsInMainMenu = false
+						IsInMainMenu, YesAlready = false, false
 						menu2.close()
 						menu.close()
 						DeleteDisplayVehicleInsideShop()
@@ -1322,7 +1329,7 @@ function BuyCarMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringCar.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -1430,12 +1437,13 @@ function BuyTruckMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleT', function(success)
 					if success then
-						IsInMainMenu = false
+						IsInMainMenu, YesAlready = false, false
 						menu2.close()
 						menu.close()
 						DeleteDisplayVehicleInsideShop()
@@ -1470,7 +1478,7 @@ function BuyTruckMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringTruck.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -1578,12 +1586,13 @@ function BuyVIPMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleV', function(success)
 					if success then
-						IsInMainMenu = false
+						IsInMainMenu, YesAlready = false, false
 						menu2.close()
 						menu.close()
 						DeleteDisplayVehicleInsideShop()
@@ -1618,7 +1627,7 @@ function BuyVIPMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringVIP.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -1726,12 +1735,13 @@ function BuyVIPBoatMenu()
 				{label = _U('no'), value = 'no'},
 				{label = _U('yes'), value = 'yes'}
 		}}, function(data2, menu2)
-			if data2.current.value == 'yes' then
+			if data2.current.value == 'yes' and not YesAlready then
+				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
 				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleVB', function(success)
 					if success then
-						IsInMainMenu = false
+						IsInMainMenu, YesAlready = false, false
 						menu2.close()
 						menu.close()
 						DeleteDisplayVehicleInsideShop()
@@ -1766,7 +1776,7 @@ function BuyVIPBoatMenu()
 		SetEntityVisible(playerPed, true)
 		SetEntityCoords(playerPed, Config.Zones.ShopEnteringVIPBoat.Pos)
 
-		IsInMainMenu = false
+		IsInMainMenu, YesAlready = false, false
 	end, function(data, menu)
 		local vehicleData = vehiclesByCategory[data.current.name][data.current.value + 1]
 		local playerPed = PlayerPedId()
@@ -1888,7 +1898,7 @@ AddEventHandler('esx_advancedvehicleshop:hasEnteredMarker', function(zone)
 							model = GetEntityModel(vehicle)
 							plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 
-							CurrentAction    = 'police_resell'
+							CurrentAction = 'police_resell'
 							CurrentActionMsg = _U('sell_menu', vehicleData.name, ESX.Math.GroupDigits(resellPrice))
 							CurrentActionData = {vehicle = vehicle, label = vehicleData.name, price = resellPrice, model = model, plate = plate}
 						end
@@ -2252,7 +2262,6 @@ AddEventHandler('onResourceStop', function(resource)
 			ESX.UI.Menu.CloseAll()
 
 			local playerPed = PlayerPedId()
-
 			FreezeEntityPosition(playerPed, false)
 			SetEntityVisible(playerPed, true)
 		end
