@@ -20,239 +20,78 @@ function RemoveOwnedVehicle(plate)
 	})
 end
 
-MySQL.ready(function()
-	if Config.Ambulance.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_ambulance_categories', {}, function(_categories)
-			categoriesaj = _categories
+AddEventHandler('onResourceStart', function(resource)
+	Wait(10000)
+	if resource == GetCurrentResourceName() then
+		if Config.Ambulance.Shop then
+			mysqlAmbulance()
+		end
 
-			MySQL.Async.fetchAll('SELECT * FROM vs_ambulance', {}, function(_vehicles)
-				vehiclesaj = _vehicles
+		if Config.Police.Shop then
+			mysqlPolice()
+		end
 
-				for k,v in ipairs(vehiclesaj) do
-					for k2,v2 in ipairs(categoriesaj) do
-						if v2.name == v.category then
-							vehiclesaj[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
+		if Config.Division.Shop then
+			mysqlDivision()
+		end
 
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesAJ', -1, categoriesaj)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesAJ', -1, vehiclesaj)
-			end)
-		end)
-	end
+		if Config.Mechanic.Shop then
+			mysqlMechanic()
+		end
 
-	if Config.Police.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_police_categories', {}, function(_categories)
-			categoriespj = _categories
+		if Config.Aircraft.Shop then
+			mysqlAircraft()
+		end
 
-			MySQL.Async.fetchAll('SELECT * FROM vs_police', {}, function(_vehicles)
-				vehiclespj = _vehicles
+		if Config.Boat.Shop then
+			mysqlBoat()
+		end
 
-				for k,v in ipairs(vehiclespj) do
-					for k2,v2 in ipairs(categoriespj) do
-						if v2.name == v.category then
-							vehiclespj[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
+		if Config.Car.Shop then
+			mysqlCar()
+		end
 
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesPJ', -1, categoriespj)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesPJ', -1, vehiclespj)
-			end)
-		end)
-	end
+		if Config.Truck.Shop then
+			mysqlTruck()
+		end
 
-	if Config.Division.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_division_categories', {}, function(_categories)
-			categoriesd = _categories
+		if Config.VIP.Shop then
+			mysqlVIP()
+		end
 
-			MySQL.Async.fetchAll('SELECT * FROM vs_divisions', {}, function(_vehicles)
-				vehiclesd = _vehicles
-
-				for k,v in ipairs(vehiclesd) do
-					for k2,v2 in ipairs(categoriesd) do
-						if v2.name == v.category then
-							vehiclesd[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesD', -1, categoriesd)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesD', -1, vehiclesd)
-			end)
-		end)
-	end
-
-	if Config.Mechanic.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_mecano_categories', {}, function(_categories)
-			categoriesmj = _categories
-
-			MySQL.Async.fetchAll('SELECT * FROM vs_mecano', {}, function(_vehicles)
-				vehiclesmj = _vehicles
-
-				for k,v in ipairs(vehiclesmj) do
-					for k2,v2 in ipairs(categoriesmj) do
-						if v2.name == v.category then
-							vehiclesmj[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesMJ', -1, categoriesmj)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesMJ', -1, vehiclesmj)
-			end)
-		end)
-	end
-
-	if Config.Aircraft.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_aircraft_categories', {}, function(_categories)
-			categoriesa = _categories
-
-			MySQL.Async.fetchAll('SELECT * FROM vs_aircrafts', {}, function(_vehicles)
-				vehiclesa = _vehicles
-
-				for k,v in ipairs(vehiclesa) do
-					for k2,v2 in ipairs(categoriesa) do
-						if v2.name == v.category then
-							vehiclesa[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesA', -1, categoriesa)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesA', -1, vehiclesa)
-			end)
-		end)
-	end
-
-	if Config.Boat.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_boat_categories', {}, function(_categories)
-			categoriesb = _categories
-
-			MySQL.Async.fetchAll('SELECT * FROM vs_boats', {}, function(_vehicles)
-				vehiclesb = _vehicles
-
-				for k,v in ipairs(vehiclesb) do
-					for k2,v2 in ipairs(categoriesb) do
-						if v2.name == v.category then
-							vehiclesb[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesB', -1, categoriesb)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesB', -1, vehiclesb)
-			end)
-		end)
-	end
-
-	if Config.Car.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_car_categories', {}, function(_categories)
-			categoriesc = _categories
-
-			MySQL.Async.fetchAll('SELECT * FROM vs_cars', {}, function(_vehicles)
-				vehiclesc = _vehicles
-
-				for k,v in ipairs(vehiclesc) do
-					for k2,v2 in ipairs(categoriesc) do
-						if v2.name == v.category then
-							vehiclesc[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesC', -1, categoriesc)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesC', -1, vehiclesc)
-			end)
-		end)
-	end
-
-	if Config.Truck.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_truck_categories', {}, function(_categories)
-			categoriest = _categories
-
-			MySQL.Async.fetchAll('SELECT * FROM vs_trucks', {}, function(_vehicles)
-				vehiclest = _vehicles
-
-				for k,v in ipairs(vehiclest) do
-					for k2,v2 in ipairs(categoriest) do
-						if v2.name == v.category then
-							vehiclest[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesT', -1, categoriest)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesT', -1, vehiclest)
-			end)
-		end)
-	end
-
-	if Config.VIP.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_vip_categories', {}, function(_categories)
-			categoriesv = _categories
-
-			MySQL.Async.fetchAll('SELECT * FROM vs_vips', {}, function(_vehicles)
-				vehiclesv = _vehicles
-
-				for k,v in ipairs(vehiclesv) do
-					for k2,v2 in ipairs(categoriesv) do
-						if v2.name == v.category then
-							vehiclesv[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesV', -1, categoriesv)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesV', -1, vehiclesv)
-			end)
-		end)
-	end
-
-	if Config.VIPBoat.Shop then
-		MySQL.Async.fetchAll('SELECT * FROM vs_vipboat_categories', {}, function(_categories)
-			categoriesvb = _categories
-
-			MySQL.Async.fetchAll('SELECT * FROM vs_vipboats', {}, function(_vehicles)
-				vehiclesvb = _vehicles
-
-				for k,v in ipairs(vehiclesvb) do
-					for k2,v2 in ipairs(categoriesvb) do
-						if v2.name == v.category then
-							vehiclesvb[k].categoryLabel = v2.label
-							break
-						end
-					end
-				end
-
-				-- send information after db has loaded, making sure everyone gets vehicle information
-				TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesVB', -1, categoriesvb)
-				TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesVB', -1, vehiclesvb)
-			end)
-		end)
+		if Config.VIPBoat.Shop then
+			mysqlVIPBoat()
+		end
 	end
 end)
 
 -- Ambulance Shop
+function mysqlAmbulance()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_ambulance_categories`', {}, function(_categories)
+		categoriesaj = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_ambulance`', {}, function(_vehicles)
+			vehiclesaj = _vehicles
+			GetAmbulance(categoriesaj, vehiclesaj)
+		end)
+	end)
+end
+
+function GetAmbulance(categoriesaj, vehiclesaj)
+	for k,v in ipairs(vehiclesaj) do
+		for k2,v2 in ipairs(categoriesaj) do
+			if v2.name == v.category then
+				vehiclesaj[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesAJ', -1, categoriesaj)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesAJ', -1, vehiclesaj)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesAJ', function(source, cb)
 	cb(categoriesaj)
 end)
@@ -337,6 +176,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleAJ', function(s
 end)
 
 -- Police Shop
+function mysqlPolice()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_police_categories`', {}, function(_categories)
+		categoriespj = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_police`', {}, function(_vehicles)
+			vehiclespj = _vehicles
+			GetPolice(categoriespj, vehiclespj)
+		end)
+	end)
+end
+
+function GetPolice(categoriespj, vehiclespj)
+	for k,v in ipairs(vehiclespj) do
+		for k2,v2 in ipairs(categoriespj) do
+			if v2.name == v.category then
+				vehiclespj[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesPJ', -1, categoriespj)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesPJ', -1, vehiclespj)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesPJ', function(source, cb)
 	cb(categoriespj)
 end)
@@ -421,6 +286,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehiclePJ', function(s
 end)
 
 -- Division Shop
+function mysqlDivision()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_division_categories`', {}, function(_categories)
+		categoriesd = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_divisions`', {}, function(_vehicles)
+			vehiclesd = _vehicles
+			GetDivision(categoriesd, vehiclesd)
+		end)
+	end)
+end
+
+function GetDivision(categoriesd, vehiclesd)
+	for k,v in ipairs(vehiclesd) do
+		for k2,v2 in ipairs(categoriesd) do
+			if v2.name == v.category then
+				vehiclesd[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesD', -1, categoriesd)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesD', -1, vehiclesd)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesD', function(source, cb)
 	cb(categoriesd)
 end)
@@ -550,6 +441,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleD', function(so
 end)
 
 -- Mechanic Shop
+function mysqlMechanic()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_mecano_categories`', {}, function(_categories)
+		categoriesmj = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_mecano`', {}, function(_vehicles)
+			vehiclesmj = _vehicles
+			GetMechanic(categoriesmj, vehiclesmj)
+		end)
+	end)
+end
+
+function GetMechanic(categoriesmj, vehiclesmj)
+	for k,v in ipairs(vehiclesmj) do
+		for k2,v2 in ipairs(categoriesmj) do
+			if v2.name == v.category then
+				vehiclesmj[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesMJ', -1, categoriesmj)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesMJ', -1, vehiclesmj)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesMJ', function(source, cb)
 	cb(categoriesmj)
 end)
@@ -634,6 +551,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleMJ', function(s
 end)
 
 -- Aircraft Shop
+function mysqlAircraft()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_aircraft_categories`', {}, function(_categories)
+		categoriesa = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_aircrafts`', {}, function(_vehicles)
+			vehiclesa = _vehicles
+			GetAircraft(categoriesa, vehiclesa)
+		end)
+	end)
+end
+
+function GetAircraft(categoriesa, vehiclesa)
+	for k,v in ipairs(vehiclesa) do
+		for k2,v2 in ipairs(categoriesa) do
+			if v2.name == v.category then
+				vehiclesa[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesA', -1, categoriesa)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesA', -1, vehiclesa)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesA', function(source, cb)
 	cb(categoriesa)
 end)
@@ -717,6 +660,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleA', function(so
 end)
 
 -- Boat Shop
+function mysqlBoat()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_boat_categories`', {}, function(_categories)
+		categoriesb = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_boats`', {}, function(_vehicles)
+			vehiclesb = _vehicles
+			GetBoat(categoriesb, vehiclesb)
+		end)
+	end)
+end
+
+function GetBoat(categoriesb, vehiclesb)
+	for k,v in ipairs(vehiclesb) do
+		for k2,v2 in ipairs(categoriesb) do
+			if v2.name == v.category then
+				vehiclesb[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesB', -1, categoriesb)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesB', -1, vehiclesb)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesB', function(source, cb)
 	cb(categoriesb)
 end)
@@ -800,6 +769,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleB', function(so
 end)
 
 -- Car Shop
+function mysqlCar()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_car_categories`', {}, function(_categories)
+		categoriesc = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_cars`', {}, function(_vehicles)
+			vehiclesc = _vehicles
+			GetCar(categoriesc, vehiclesc)
+		end)
+	end)
+end
+
+function GetCar(categoriesc, vehiclesc)
+	for k,v in ipairs(vehiclesc) do
+		for k2,v2 in ipairs(categoriesc) do
+			if v2.name == v.category then
+				vehiclesc[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesC', -1, categoriesc)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesC', -1, vehiclesc)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesC', function(source, cb)
 	cb(categoriesc)
 end)
@@ -883,6 +878,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleC', function(so
 end)
 
 -- Truck Shop
+function mysqlTruck()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_truck_categories`', {}, function(_categories)
+		categoriest = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_trucks`', {}, function(_vehicles)
+			vehiclest = _vehicles
+			GetTruck(categoriest, vehiclest)
+		end)
+	end)
+end
+
+function GetTruck(categoriest, vehiclest)
+	for k,v in ipairs(vehiclest) do
+		for k2,v2 in ipairs(categoriest) do
+			if v2.name == v.category then
+				vehiclest[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesT', -1, categoriest)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesT', -1, vehiclest)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesT', function(source, cb)
 	cb(categoriest)
 end)
@@ -966,6 +987,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleT', function(so
 end)
 
 -- VIP Shop
+function mysqlVIP()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_vip_categories`', {}, function(_categories)
+		categoriesv = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_vips`', {}, function(_vehicles)
+			vehiclesv = _vehicles
+			GetVIP(categoriesv, vehiclesv)
+		end)
+	end)
+end
+
+function GetVIP(categoriesv, vehiclesv)
+	for k,v in ipairs(vehiclesv) do
+		for k2,v2 in ipairs(categoriesv) do
+			if v2.name == v.category then
+				vehiclesv[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesV', -1, categoriesv)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesV', -1, vehiclesv)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesV', function(source, cb)
 	cb(categoriesv)
 end)
@@ -1049,6 +1096,32 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:resellVehicleV', function(so
 end)
 
 -- VIP Boat Shop
+function mysqlVIPBoat()
+	MySQL.Async.fetchAll('SELECT * FROM `vs_vipboat_categories`', {}, function(_categories)
+		categoriesvb = _categories
+
+		MySQL.Async.fetchAll('SELECT * FROM `vs_vipboats`', {}, function(_vehicles)
+			vehiclesvb = _vehicles
+			GetVIPBoat(categoriesvb, vehiclesvb)
+		end)
+	end)
+end
+
+function GetVIPBoat(categoriesvb, vehiclesvb)
+	for k,v in ipairs(vehiclesvb) do
+		for k2,v2 in ipairs(categoriesvb) do
+			if v2.name == v.category then
+				vehiclesvb[k].categoryLabel = v2.label
+				break
+			end
+		end
+	end
+
+	-- send information after db has loaded
+	TriggerClientEvent('esx_advancedvehicleshop:sendCategoriesVB', -1, categoriesvb)
+	TriggerClientEvent('esx_advancedvehicleshop:sendVehiclesVB', -1, vehiclesvb)
+end
+
 ESX.RegisterServerCallback('esx_advancedvehicleshop:getCategoriesVB', function(source, cb)
 	cb(categoriesvb)
 end)

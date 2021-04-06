@@ -366,24 +366,33 @@ function BuyAmbulanceMenu()
 				local generatedPlate = GeneratePlate()
 
 				if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' and ESX.PlayerData.job.grade_name == vehicleData.category then
-					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(success)
-						if success then
-							IsInMainMenu, YesAlready = false, false
-							menu2.close()
-							menu.close()
-							DeleteDisplayVehicleInsideShop()
+					if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideAmbulance.Pos, 5.0) then
+						ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(success)
+							if success then
+								IsInMainMenu, YesAlready = false, false
+								menu2.close()
+								menu.close()
+								DeleteDisplayVehicleInsideShop()
 
-							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideAmbulance.Pos, Config.Zones.ShopOutsideAmbulance.Heading, function(vehicle)
-								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-								SetVehicleNumberPlateText(vehicle, generatedPlate)
+								ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideAmbulance.Pos, Config.Zones.ShopOutsideAmbulance.Heading, function(vehicle)
+									TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+									SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-								FreezeEntityPosition(playerPed, false)
-								SetEntityVisible(playerPed, true)
-							end)
-						else
-							ESX.ShowNotification(_U('not_enough_money'))
-						end
-					end, vehicleData.model, generatedPlate, vehicleData.name)
+									if Config.Main.LegacyFuel then
+										exports["LegacyFuel"]:SetFuel(vehicle, 100)
+									end
+
+									FreezeEntityPosition(playerPed, false)
+									SetEntityVisible(playerPed, true)
+								end)
+							else
+								ESX.ShowNotification(_U('not_enough_money'))
+							end
+						end, vehicleData.model, generatedPlate, vehicleData.name)
+					else
+						YesAlready = false
+						ESX.ShowNotification(_U('spawnpoint_blocked'))
+					end
 				else
 					ESX.ShowNotification(_U('your_rank'))
 				end
@@ -519,24 +528,33 @@ function BuyPoliceMenu()
 				local generatedPlate = GeneratePlate()
 
 				if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' and ESX.PlayerData.job.grade_name == vehicleData.category then
-					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(success)
-						if success then
-							IsInMainMenu, YesAlready = false, false
-							menu2.close()
-							menu.close()
-							DeleteDisplayVehicleInsideShop()
+					if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsidePolice.Pos, 5.0) then
+						ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(success)
+							if success then
+								IsInMainMenu, YesAlready = false, false
+								menu2.close()
+								menu.close()
+								DeleteDisplayVehicleInsideShop()
 
-							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsidePolice.Pos, Config.Zones.ShopOutsidePolice.Heading, function(vehicle)
-								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-								SetVehicleNumberPlateText(vehicle, generatedPlate)
+								ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsidePolice.Pos, Config.Zones.ShopOutsidePolice.Heading, function(vehicle)
+									TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+									SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-								FreezeEntityPosition(playerPed, false)
-								SetEntityVisible(playerPed, true)
-							end)
-						else
-							ESX.ShowNotification(_U('not_enough_money'))
-						end
-					end, vehicleData.model, generatedPlate, vehicleData.name)
+									if Config.Main.LegacyFuel then
+										exports["LegacyFuel"]:SetFuel(vehicle, 100)
+									end
+
+									FreezeEntityPosition(playerPed, false)
+									SetEntityVisible(playerPed, true)
+								end)
+							else
+								ESX.ShowNotification(_U('not_enough_money'))
+							end
+						end, vehicleData.model, generatedPlate, vehicleData.name)
+					else
+						YesAlready = false
+						ESX.ShowNotification(_U('spawnpoint_blocked'))
+					end
 				else
 					ESX.ShowNotification(_U('your_rank'))
 				end
@@ -672,43 +690,61 @@ function BuyDivisionMenu()
 				local generatedPlate = GeneratePlate()
 
 				if vehicleData.model == Config.Division.Heli1 then
-					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleD', function(success)
-						if success then
-							IsInMainMenu, YesAlready = false, false
-							menu2.close()
-							menu.close()
-							DeleteDisplayVehicleInsideShop()
+					if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideDivisionHeli.Pos, 5.0) then
+						ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleD', function(success)
+							if success then
+								IsInMainMenu, YesAlready = false, false
+								menu2.close()
+								menu.close()
+								DeleteDisplayVehicleInsideShop()
 
-							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideDivisionHeli.Pos, Config.Zones.ShopOutsideDivisionHeli.Heading, function(vehicle)
-								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-								SetVehicleNumberPlateText(vehicle, generatedPlate)
+								ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideDivisionHeli.Pos, Config.Zones.ShopOutsideDivisionHeli.Heading, function(vehicle)
+									TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+									SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-								FreezeEntityPosition(playerPed, false)
-								SetEntityVisible(playerPed, true)
-							end)
-						else
-							ESX.ShowNotification(_U('not_enough_money'))
-						end
-					end, vehicleData.model, generatedPlate, vehicleData.name)
+									if Config.Main.LegacyFuel then
+										exports["LegacyFuel"]:SetFuel(vehicle, 100)
+									end
+
+									FreezeEntityPosition(playerPed, false)
+									SetEntityVisible(playerPed, true)
+								end)
+							else
+								ESX.ShowNotification(_U('not_enough_money'))
+							end
+						end, vehicleData.model, generatedPlate, vehicleData.name)
+					else
+						YesAlready = false
+						ESX.ShowNotification(_U('spawnpoint_blocked'))
+					end
 				else
-					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleD', function(success)
-						if success then
-							IsInMainMenu, YesAlready = false, false
-							menu2.close()
-							menu.close()
-							DeleteDisplayVehicleInsideShop()
+					if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideDivision.Pos, 5.0) then
+						ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleD', function(success)
+							if success then
+								IsInMainMenu, YesAlready = false, false
+								menu2.close()
+								menu.close()
+								DeleteDisplayVehicleInsideShop()
 
-							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideDivision.Pos, Config.Zones.ShopOutsideDivision.Heading, function(vehicle)
-								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-								SetVehicleNumberPlateText(vehicle, generatedPlate)
+								ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideDivision.Pos, Config.Zones.ShopOutsideDivision.Heading, function(vehicle)
+									TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+									SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-								FreezeEntityPosition(playerPed, false)
-								SetEntityVisible(playerPed, true)
-							end)
-						else
-							ESX.ShowNotification(_U('not_enough_money'))
-						end
-					end, vehicleData.model, generatedPlate, vehicleData.name)
+									if Config.Main.LegacyFuel then
+										exports["LegacyFuel"]:SetFuel(vehicle, 100)
+									end
+
+									FreezeEntityPosition(playerPed, false)
+									SetEntityVisible(playerPed, true)
+								end)
+							else
+								ESX.ShowNotification(_U('not_enough_money'))
+							end
+						end, vehicleData.model, generatedPlate, vehicleData.name)
+					else
+						YesAlready = false
+						ESX.ShowNotification(_U('spawnpoint_blocked'))
+					end
 				end
 			else
 				menu2.close()
@@ -842,24 +878,33 @@ function BuyMechanicMenu()
 				local generatedPlate = GeneratePlate()
 
 				if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' and ESX.PlayerData.job.grade_name == vehicleData.category then
-					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(success)
-						if success then
-							IsInMainMenu, YesAlready = false, false
-							menu2.close()
-							menu.close()
-							DeleteDisplayVehicleInsideShop()
+					if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideMechanic.Pos, 5.0) then
+						ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(success)
+							if success then
+								IsInMainMenu, YesAlready = false, false
+								menu2.close()
+								menu.close()
+								DeleteDisplayVehicleInsideShop()
 
-							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideMechanic.Pos, Config.Zones.ShopOutsideMechanic.Heading, function(vehicle)
-								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-								SetVehicleNumberPlateText(vehicle, generatedPlate)
+								ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideMechanic.Pos, Config.Zones.ShopOutsideMechanic.Heading, function(vehicle)
+									TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+									SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-								FreezeEntityPosition(playerPed, false)
-								SetEntityVisible(playerPed, true)
-							end)
-						else
-							ESX.ShowNotification(_U('not_enough_money'))
-						end
-					end, vehicleData.model, generatedPlate, vehicleData.name)
+									if Config.Main.LegacyFuel then
+										exports["LegacyFuel"]:SetFuel(vehicle, 100)
+									end
+
+									FreezeEntityPosition(playerPed, false)
+									SetEntityVisible(playerPed, true)
+								end)
+							else
+								ESX.ShowNotification(_U('not_enough_money'))
+							end
+						end, vehicleData.model, generatedPlate, vehicleData.name)
+					else
+						YesAlready = false
+						ESX.ShowNotification(_U('spawnpoint_blocked'))
+					end
 				else
 					ESX.ShowNotification(_U('your_rank'))
 				end
@@ -994,24 +1039,33 @@ function BuyAircraftMenu()
 				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
-				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleA', function(success)
-					if success then
-						IsInMainMenu, YesAlready = false, false
-						menu2.close()
-						menu.close()
-						DeleteDisplayVehicleInsideShop()
+				if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideAircraft.Pos, 5.0) then
+					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleA', function(success)
+						if success then
+							IsInMainMenu, YesAlready = false, false
+							menu2.close()
+							menu.close()
+							DeleteDisplayVehicleInsideShop()
 
-						ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideAircraft.Pos, Config.Zones.ShopOutsideAircraft.Heading, function(vehicle)
-							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-							SetVehicleNumberPlateText(vehicle, generatedPlate)
+							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideAircraft.Pos, Config.Zones.ShopOutsideAircraft.Heading, function(vehicle)
+								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+								SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-							FreezeEntityPosition(playerPed, false)
-							SetEntityVisible(playerPed, true)
-						end)
-					else
-						ESX.ShowNotification(_U('not_enough_money'))
-					end
-				end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+								if Config.Main.LegacyFuel then
+									exports["LegacyFuel"]:SetFuel(vehicle, 100)
+								end
+
+								FreezeEntityPosition(playerPed, false)
+								SetEntityVisible(playerPed, true)
+							end)
+						else
+							ESX.ShowNotification(_U('not_enough_money'))
+						end
+					end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+				else
+					YesAlready = false
+					ESX.ShowNotification(_U('spawnpoint_blocked'))
+				end
 			else
 				menu2.close()
 			end
@@ -1143,24 +1197,33 @@ function BuyBoatMenu()
 				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
-				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleB', function(success)
-					if success then
-						IsInMainMenu, YesAlready = false, false
-						menu2.close()
-						menu.close()
-						DeleteDisplayVehicleInsideShop()
+				if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideBoat.Pos, 5.0) then
+					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleB', function(success)
+						if success then
+							IsInMainMenu, YesAlready = false, false
+							menu2.close()
+							menu.close()
+							DeleteDisplayVehicleInsideShop()
 
-						ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideBoat.Pos, Config.Zones.ShopOutsideBoat.Heading, function(vehicle)
-							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-							SetVehicleNumberPlateText(vehicle, generatedPlate)
+							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideBoat.Pos, Config.Zones.ShopOutsideBoat.Heading, function(vehicle)
+								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+								SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-							FreezeEntityPosition(playerPed, false)
-							SetEntityVisible(playerPed, true)
-						end)
-					else
-						ESX.ShowNotification(_U('not_enough_money'))
-					end
-				end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+								if Config.Main.LegacyFuel then
+									exports["LegacyFuel"]:SetFuel(vehicle, 100)
+								end
+
+								FreezeEntityPosition(playerPed, false)
+								SetEntityVisible(playerPed, true)
+							end)
+						else
+							ESX.ShowNotification(_U('not_enough_money'))
+						end
+					end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+				else
+					YesAlready = false
+					ESX.ShowNotification(_U('spawnpoint_blocked'))
+				end
 			else
 				menu2.close()
 			end
@@ -1292,24 +1355,33 @@ function BuyCarMenu()
 				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
-				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleC', function(success)
-					if success then
-						IsInMainMenu, YesAlready = false, false
-						menu2.close()
-						menu.close()
-						DeleteDisplayVehicleInsideShop()
+				if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideCar.Pos, 5.0) then
+					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleC', function(success)
+						if success then
+							IsInMainMenu, YesAlready = false, false
+							menu2.close()
+							menu.close()
+							DeleteDisplayVehicleInsideShop()
 
-						ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideCar.Pos, Config.Zones.ShopOutsideCar.Heading, function(vehicle)
-							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-							SetVehicleNumberPlateText(vehicle, generatedPlate)
+							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideCar.Pos, Config.Zones.ShopOutsideCar.Heading, function(vehicle)
+								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+								SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-							FreezeEntityPosition(playerPed, false)
-							SetEntityVisible(playerPed, true)
-						end)
-					else
-						ESX.ShowNotification(_U('not_enough_money'))
-					end
-				end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+								if Config.Main.LegacyFuel then
+									exports["LegacyFuel"]:SetFuel(vehicle, 100)
+								end
+
+								FreezeEntityPosition(playerPed, false)
+								SetEntityVisible(playerPed, true)
+							end)
+						else
+							ESX.ShowNotification(_U('not_enough_money'))
+						end
+					end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+				else
+					YesAlready = false
+					ESX.ShowNotification(_U('spawnpoint_blocked'))
+				end
 			else
 				menu2.close()
 			end
@@ -1441,24 +1513,33 @@ function BuyTruckMenu()
 				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
-				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleT', function(success)
-					if success then
-						IsInMainMenu, YesAlready = false, false
-						menu2.close()
-						menu.close()
-						DeleteDisplayVehicleInsideShop()
+				if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideTruck.Pos, 5.0) then
+					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleT', function(success)
+						if success then
+							IsInMainMenu, YesAlready = false, false
+							menu2.close()
+							menu.close()
+							DeleteDisplayVehicleInsideShop()
 
-						ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideTruck.Pos, Config.Zones.ShopOutsideTruck.Heading, function(vehicle)
-							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-							SetVehicleNumberPlateText(vehicle, generatedPlate)
+							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideTruck.Pos, Config.Zones.ShopOutsideTruck.Heading, function(vehicle)
+								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+								SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-							FreezeEntityPosition(playerPed, false)
-							SetEntityVisible(playerPed, true)
-						end)
-					else
-						ESX.ShowNotification(_U('not_enough_money'))
-					end
-				end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+								if Config.Main.LegacyFuel then
+									exports["LegacyFuel"]:SetFuel(vehicle, 100)
+								end
+
+								FreezeEntityPosition(playerPed, false)
+								SetEntityVisible(playerPed, true)
+							end)
+						else
+							ESX.ShowNotification(_U('not_enough_money'))
+						end
+					end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+				else
+					YesAlready = false
+					ESX.ShowNotification(_U('spawnpoint_blocked'))
+				end
 			else
 				menu2.close()
 			end
@@ -1590,24 +1671,33 @@ function BuyVIPMenu()
 				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
-				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleV', function(success)
-					if success then
-						IsInMainMenu, YesAlready = false, false
-						menu2.close()
-						menu.close()
-						DeleteDisplayVehicleInsideShop()
+				if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideVIP.Pos, 5.0) then
+					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleV', function(success)
+						if success then
+							IsInMainMenu, YesAlready = false, false
+							menu2.close()
+							menu.close()
+							DeleteDisplayVehicleInsideShop()
 
-						ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideVIP.Pos, Config.Zones.ShopOutsideVIP.Heading, function(vehicle)
-							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-							SetVehicleNumberPlateText(vehicle, generatedPlate)
+							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideVIP.Pos, Config.Zones.ShopOutsideVIP.Heading, function(vehicle)
+								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+								SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-							FreezeEntityPosition(playerPed, false)
-							SetEntityVisible(playerPed, true)
-						end)
-					else
-						ESX.ShowNotification(_U('not_enough_money'))
-					end
-				end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+								if Config.Main.LegacyFuel then
+									exports["LegacyFuel"]:SetFuel(vehicle, 100)
+								end
+
+								FreezeEntityPosition(playerPed, false)
+								SetEntityVisible(playerPed, true)
+							end)
+						else
+							ESX.ShowNotification(_U('not_enough_money'))
+						end
+					end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+				else
+					YesAlready = false
+					ESX.ShowNotification(_U('spawnpoint_blocked'))
+				end
 			else
 				menu2.close()
 			end
@@ -1739,24 +1829,33 @@ function BuyVIPBoatMenu()
 				YesAlready = true
 				local generatedPlate = GeneratePlate()
 
-				ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleVB', function(success)
-					if success then
-						IsInMainMenu, YesAlready = false, false
-						menu2.close()
-						menu.close()
-						DeleteDisplayVehicleInsideShop()
+				if ESX.Game.IsSpawnPointClear(Config.Zones.ShopOutsideVIPBoat.Pos, 5.0) then
+					ESX.TriggerServerCallback('esx_advancedvehicleshop:buyVehicleVB', function(success)
+						if success then
+							IsInMainMenu, YesAlready = false, false
+							menu2.close()
+							menu.close()
+							DeleteDisplayVehicleInsideShop()
 
-						ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideVIPBoat.Pos, Config.Zones.ShopOutsideVIPBoat.Heading, function(vehicle)
-							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-							SetVehicleNumberPlateText(vehicle, generatedPlate)
+							ESX.Game.SpawnVehicle(vehicleData.model, Config.Zones.ShopOutsideVIPBoat.Pos, Config.Zones.ShopOutsideVIPBoat.Heading, function(vehicle)
+								TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+								SetVehicleNumberPlateText(vehicle, generatedPlate)
 
-							FreezeEntityPosition(playerPed, false)
-							SetEntityVisible(playerPed, true)
-						end)
-					else
-						ESX.ShowNotification(_U('not_enough_money'))
-					end
-				end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+								if Config.Main.LegacyFuel then
+									exports["LegacyFuel"]:SetFuel(vehicle, 100)
+								end
+
+								FreezeEntityPosition(playerPed, false)
+								SetEntityVisible(playerPed, true)
+							end)
+						else
+							ESX.ShowNotification(_U('not_enough_money'))
+						end
+					end, vehicleData.model, generatedPlate, vehicleData.category, vehicleData.name)
+				else
+					YesAlready = false
+					ESX.ShowNotification(_U('spawnpoint_blocked'))
+				end
 			else
 				menu2.close()
 			end

@@ -6,13 +6,14 @@ Config.Main = {
 	-- looks like this: 'LLL NNN' The maximum plate length is 8 chars (including spaces & symbols), don't go past it!
 	PlateLetters = 3,
 	PlateNumbers = 3,
-	PlateUseSpace = true
+	PlateUseSpace = true,
+	LegacyFuel = false
 }
 
 Config.Ambulance = {
 	Shop = false, -- true = Use Ambulance Shop | false = Does Opposite
 	Blips = false, -- true = Use Ambulance Blip | false = Does Opposite
-	Blip = {Coords = vector3(371.66, -1611.45, 28.29), Sprite = 326, Color = 1, Display = 4, Scale = 1.0},
+	Blip = {Coords = vector3(416.63, -1099.95, 29.06), Sprite = 326, Color = 1, Display = 4, Scale = 1.0},
 	License = true, -- Requires License to Buy Ambulance Vehicles.
 	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 }
@@ -20,7 +21,7 @@ Config.Ambulance = {
 Config.Police = {
 	Shop = false, -- true = Use Police Shop | false = Does Opposite
 	Blips = false, -- true = Use Police Blip | false = Does Opposite
-	Blip = {Coords = vector3(374.14, -1608.57, 28.29), Sprite = 326, Color = 3, Display = 4, Scale = 1.0},
+	Blip = {Coords = vector3(416.63, -1093.59, 29.06), Sprite = 326, Color = 3, Display = 4, Scale = 1.0},
 	License = true, -- Requires License to Buy Police Vehicles.
 	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 }
@@ -28,7 +29,7 @@ Config.Police = {
 Config.Division = {
 	Shop = false, -- true = Use Division Shop | false = Does Opposite
 	Blips = false, -- true = Use Division Blip | false = Does Opposite
-	Blip = {Coords = vector3(374.08, -1614.06, 28.29), Sprite = 326, Color = 3, Display = 4, Scale = 1.0},
+	Blip = {Coords = vector3(416.77, -1096.54, 29.06), Sprite = 326, Color = 3, Display = 4, Scale = 1.0},
 	License = true, -- Requires License to Buy Division Vehicles.
 	ResellPerc = 50, -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 	Heli1 = 'polmav'
@@ -61,7 +62,7 @@ Config.Boat = {
 Config.Car = {
 	Shop = false, -- true = Use Car Shop | false = Does Opposite
 	Blips = false, -- true = Use Car Blip | false = Does Opposite
-	Blip = {Coords = vector3(-33.7, -1102.0, 25.4), Sprite = 326, Color = 2, Display = 4, Scale = 1.0},
+	Blip = {Coords = vector3(-55.04, -1095.87, 25.42), Sprite = 326, Color = 2, Display = 4, Scale = 1.0},
 	License = true, -- Requires License to Buy Cars.
 	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 }
@@ -78,7 +79,7 @@ Config.Truck = {
 Config.VIP = {
 	Shop = false, -- true = Use VIP Shop | false = Does Opposite
 	Blips = false, -- true = Use VIP Blip | false = Does Opposite
-	Blip = {Coords = vector3(-796.01, -220.09, 36.08), Sprite = 326, Color = 5, Display = 4, Scale = 1.0},
+	Blip = {Coords = vector3(-796.51, -219.35, 36.08), Sprite = 326, Color = 5, Display = 4, Scale = 1.0},
 	License = true, -- Requires License to Buy VIP Vehicles.
 	ResellPerc = 50 -- The Resell % of Vehicles Sold | Example: $10,000 / 50% = $5,000 Back
 }
@@ -97,28 +98,28 @@ Config.VIPBoat = {
 Config.Zones = {
 	-- Ambulance Shop
 	ShopEnteringAmbulance = {
-		Pos    = vector3(371.66, -1611.45, 28.29),
+		Pos    = vector3(416.63, -1099.95, 29.06),
 		Marker = {r = 255, g = 0, b = 0},
 		Size   = {x = 1.5, y = 1.5, z = 1.0},
 		Type   = 1,
 		ShopId = 1
 	},
 	ShopInsideAmbulance = {
-		Pos     = vector3(370.04, -1595.37, 28.29),
+		Pos     = vector3(432.78, -1094.29, 28.22),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 225.06,
+		Heading = 359.74,
 		Type    = -1,
 		ShopId  = 1
 	},
 	ShopOutsideAmbulance = {
-		Pos     = vector3(391.74, -1619.0, 28.29),
+		Pos     = vector3(480.95, -1109.62, 28.2),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 318.34,
+		Heading = 180.01,
 		Type    = -1,
 		ShopId  = 1
 	},
 	ResellVehicleAmbulance = {
-		Pos    = vector3(385.08, -1634.17, 28.29),
+		Pos    = vector3(485.47, -1097.45, 28.2),
 		Marker = {r = 255, g = 0, b = 0},
 		Size   = {x = 3.0, y = 3.0, z = 1.0},
 		Type   = 1,
@@ -126,28 +127,28 @@ Config.Zones = {
 	},
 	-- Police Shop
 	ShopEnteringPolice = {
-		Pos    = vector3(374.14, -1608.57, 28.29),
+		Pos    = vector3(416.63, -1093.59, 29.06),
 		Marker = {r = 0, g = 0, b = 255},
 		Size   = {x = 1.5, y = 1.5, z = 1.0},
 		Type   = 1,
 		ShopId = 2
 	},
 	ShopInsidePolice = {
-		Pos     = vector3(370.04, -1595.37, 28.29),
+		Pos     = vector3(432.78, -1094.29, 28.22),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 225.06,
+		Heading = 359.74,
 		Type    = -1,
 		ShopId  = 2
 	},
 	ShopOutsidePolice = {
-		Pos     = vector3(391.74, -1619.0, 28.29),
+		Pos     = vector3(465.18, -1108.62, 28.2),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 318.34,
+		Heading = 177.5,
 		Type    = -1,
 		ShopId  = 2
 	},
 	ResellVehiclePolice = {
-		Pos    = vector3(387.82, -1636.33, 28.29),
+		Pos    = vector3(485.47, -1097.45, 28.2),
 		Marker = {r = 0, g = 0, b = 255},
 		Size   = {x = 3.0, y = 3.0, z = 1.0},
 		Type   = 1,
@@ -155,44 +156,44 @@ Config.Zones = {
 	},
 	-- Division Shop
 	ShopEnteringDivision = {
-		Pos    = vector3(374.08, -1614.06, 28.29),
+		Pos    = vector3(416.77, -1096.54, 29.06),
 		Marker = {r = 0, g = 0, b = 255},
 		Size   = {x = 1.5, y = 1.5, z = 1.0},
 		Type   = 1,
 		ShopId = 3
 	},
 	ShopInsideDivision = {
-		Pos     = vector3(370.04, -1595.37, 28.29),
+		Pos     = vector3(432.78, -1094.29, 28.22),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 225.06,
+		Heading = 359.74,
 		Type    = -1,
 		ShopId  = 3
 	},
 	ShopOutsideDivision = {
-		Pos     = vector3(391.74, -1619.0, 28.29),
+		Pos     = vector3(465.18, -1108.62, 28.2),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 318.34,
+		Heading = 177.5,
 		Type    = -1,
 		ShopId  = 3
 	},
 	ShopOutsideDivisionHeli = {
-		Pos     = vector3(362.75, -1598.33, 35.95),
+		Pos     = vector3(465.13, -1095.78, 42.08),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = 311.87,
+		Heading = 177.21,
 		Type    = -1,
 		ShopId  = 3
 	},
 	ResellVehicleDivision = {
-		Pos    = vector3(385.12, -1633.91, 28.29),
+		Pos    = vector3(458.58, -1104.11, 28.2),
 		Marker = {r = 0, g = 0, b = 255},
 		Size   = {x = 3.0, y = 3.0, z = 1.0},
 		Type   = 1,
 		ShopId = 3
 	},
 	ResellVehicleDivisionHeli = {
-		Pos    = vector3(371.38, -1592.91, 35.95),
+		Pos    = vector3(476.74, -1106.44, 42.08),
 		Marker = {r = 0, g = 0, b = 255},
-		Size   = {x = 3.0, y = 3.0, z = 1.0},
+		Size   = {x = 6.0, y = 6.0, z = 1.0},
 		Type   = 1,
 		ShopId = 3
 	},
@@ -285,7 +286,7 @@ Config.Zones = {
 	},
 	-- Car Shop
 	ShopEnteringCar = {
-		Pos    = vector3(-33.7, -1102.0, 25.4),
+		Pos    = vector3(-55.04, -1095.87, 25.42),
 		Marker = {r = 0, g = 255, b = 0},
 		Size   = {x = 1.5, y = 1.5, z = 1.0},
 		Type   = 1,
@@ -343,7 +344,7 @@ Config.Zones = {
 	},
 	-- VIP Shop
 	ShopEnteringVIP = {
-		Pos    = vector3(-796.01, -220.09, 36.08),
+		Pos    = vector3(-796.51, -219.35, 36.08),
 		Marker = {r = 255, g = 222, b = 0},
 		Size   = {x = 1.5, y = 1.5, z = 1.0},
 		Type   = 1,

@@ -15,6 +15,7 @@ Locales['en'] = {
   ['your_rank'] = 'This vehicle is not for your Rank!',
   ['your_job'] = 'This Vehicle is not for your Job!',
   ['cant_sell'] = 'You must sell this Vehicle where you bought it from.',
+  ['spawnpoint_blocked'] = 'Vehicle spawn point is ~r~blocked~s~!',
   -- Ambulance Shop
   ['ambulance_menu'] = 'press ~INPUT_CONTEXT~ to access the ~r~Ambulance Shop',
   ['ambulance_dealer'] = 'dealership | Ambulance',
