@@ -100,7 +100,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesAJ', function(sou
 	cb(vehiclesaj)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(source, cb, model, plate, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(source, cb, model, plate, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -121,7 +121,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleAJ', function(sour
 			['@type'] = 'car',
 			['@job'] = 'ambulance',
 			['@category'] = 'cars',
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('ambulance_belongs', plate))
 			cb(true)
@@ -210,7 +211,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesPJ', function(sou
 	cb(vehiclespj)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(source, cb, model, plate, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(source, cb, model, plate, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -231,7 +232,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehiclePJ', function(sour
 			['@type'] = 'car',
 			['@job'] = 'police',
 			['@category'] = 'cars',
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('police_belongs', plate))
 			cb(true)
@@ -320,7 +322,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesD', function(sour
 	cb(vehiclesd)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleD', function(source, cb, model, plate, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleD', function(source, cb, model, plate, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -343,7 +345,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleD', function(sourc
 					['@type'] = 'aircraft',
 					['@job'] = 'ambulance',
 					['@category'] = 'helis',
-					['@name'] = name
+					['@name'] = name,
+					['@image'] = image
 				}, function(rowsChanged)
 					xPlayer.showNotification(_U('division_belongs', plate))
 					cb(true)
@@ -356,7 +359,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleD', function(sourc
 					['@type'] = 'car',
 					['@job'] = 'ambulance',
 					['@category'] = 'cars',
-					['@name'] = name
+					['@name'] = name,
+					['@image'] = image
 				}, function(rowsChanged)
 					xPlayer.showNotification(_U('division_belongs', plate))
 					cb(true)
@@ -371,7 +375,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleD', function(sourc
 					['@type'] = 'aircraft',
 					['@job'] = 'police',
 					['@category'] = 'helis',
-					['@name'] = name
+					['@name'] = name,
+					['@image'] = image
 				}, function(rowsChanged)
 					xPlayer.showNotification(_U('division_belongs', plate))
 					cb(true)
@@ -384,7 +389,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleD', function(sourc
 					['@type'] = 'car',
 					['@job'] = 'police',
 					['@category'] = 'cars',
-					['@name'] = name
+					['@name'] = name,
+					['@image'] = image
 				}, function(rowsChanged)
 					xPlayer.showNotification(_U('division_belongs', plate))
 					cb(true)
@@ -475,7 +481,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesMJ', function(sou
 	cb(vehiclesmj)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(source, cb, model, plate, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(source, cb, model, plate, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -496,7 +502,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleMJ', function(sour
 			['@type'] = 'car',
 			['@job'] = 'mechanic',
 			['@category'] = 'cars',
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('mechanic_belongs', plate))
 			cb(true)
@@ -585,7 +592,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesA', function(sour
 	cb(vehiclesa)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleA', function(source, cb, model, plate, category, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleA', function(source, cb, model, plate, category, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -605,7 +612,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleA', function(sourc
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 			['@type'] = 'aircraft',
 			['@category'] = category,
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('aircraft_belongs', plate))
 			cb(true)
@@ -694,7 +702,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesB', function(sour
 	cb(vehiclesb)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleB', function(source, cb, model, plate, category, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleB', function(source, cb, model, plate, category, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -714,7 +722,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleB', function(sourc
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 			['@type'] = 'boat',
 			['@category'] = category,
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('boat_belongs', plate))
 			cb(true)
@@ -803,7 +812,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesC', function(sour
 	cb(vehiclesc)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleC', function(source, cb, model, plate, category, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleC', function(source, cb, model, plate, category, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -823,7 +832,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleC', function(sourc
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 			['@type'] = 'car',
 			['@category'] = category,
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('car_belongs', plate))
 			cb(true)
@@ -912,7 +922,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesT', function(sour
 	cb(vehiclest)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleT', function(source, cb, model, plate, category, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleT', function(source, cb, model, plate, category, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -932,7 +942,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleT', function(sourc
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 			['@type'] = 'car',
 			['@category'] = category,
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('truck_belongs', plate))
 			cb(true)
@@ -1021,7 +1032,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesV', function(sour
 	cb(vehiclesv)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleV', function(source, cb, model, plate, category, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleV', function(source, cb, model, plate, category, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -1041,7 +1052,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleV', function(sourc
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 			['@type'] = 'car',
 			['@category'] = category,
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('vip_belongs', plate))
 			cb(true)
@@ -1130,7 +1142,7 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:getVehiclesVB', function(sou
 	cb(vehiclesvb)
 end)
 
-ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleVB', function(source, cb, model, plate, category, name)
+ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleVB', function(source, cb, model, plate, category, name, image)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local modelPrice
 
@@ -1150,7 +1162,8 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicleVB', function(sour
 			['@vehicle'] = json.encode({model = GetHashKey(model), plate = plate}),
 			['@type'] = 'boat',
 			['@category'] = category,
-			['@name'] = name
+			['@name'] = name,
+			['@image'] = image
 		}, function(rowsChanged)
 			xPlayer.showNotification(_U('vip_belongs', plate))
 			cb(true)
