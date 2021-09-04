@@ -3,26 +3,8 @@ local CategoriesAJ, CategoriesPJ, CategoriesD, CategoriesMJ, CategoriesA, Catego
 local VehiclesAJ, VehiclesPJ, VehiclesD, VehiclesMJ, VehiclesA, VehiclesB, VehiclesC, VehiclesT, VehiclesV, VehiclesVB = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
 local HasAlreadyEnteredMarker, IsInMainMenu, YesAlready = false, false, false
 local LastZone, CurrentAction, CurrentActionMsg, currentDisplayVehicle, CurrentVehicleData
-ESX = nil
 
-Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
-	end
-
-	while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
-	end
-
-	ESX.PlayerData = ESX.GetPlayerData()
-
-	if Config.Ambulance.Blips or Config.Police.Blips or Config.Mechanic.Blips then
-		RefreshJobBlips()
-	end
-
-	Citizen.Wait(10000)
-
+function getVehicles()
 	if Config.Ambulance.Shop then
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:getCategoriesAJ', function(categoriesaj)
 			CategoriesAJ = categoriesaj
@@ -122,7 +104,7 @@ Citizen.CreateThread(function()
 			VehiclesVB = vehiclesvb
 		end)
 	end
-end)
+end
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
@@ -133,6 +115,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 	end
 
 	CreateBlips()
+	getVehicles()
 end)
 
 RegisterNetEvent('esx:setJob')
