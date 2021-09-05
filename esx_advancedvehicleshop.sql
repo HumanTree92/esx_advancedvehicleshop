@@ -8,7 +8,7 @@ INSERT INTO `licenses` (`type`, `label`) VALUES
 CREATE TABLE `owned_vehicles` (
 	`owner` varchar(40) NOT NULL,
 	`plate` varchar(12) NOT NULL,
-	`vehicle` longtext,
+	`vehicle` longtext NOT NULL,
 	`type` VARCHAR(20) NOT NULL DEFAULT 'car',
 	`job` VARCHAR(20) NOT NULL DEFAULT 'civ',
 	`category` VARCHAR(50) DEFAULT NULL,
