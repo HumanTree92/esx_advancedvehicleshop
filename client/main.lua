@@ -1285,7 +1285,7 @@ function BuyCarMenu()
 		if IsModelInCdimage(GetHashKey(VehiclesC[i].model)) then
 			table.insert(vehiclesByCategory[VehiclesC[i].category], VehiclesC[i])
 		else
-			print(('[esx_advancedvehicleshop] [^3ERROR^7] Boat "%s" does not exist'):format(VehiclesC[i].model))
+			print(('[esx_advancedvehicleshop] [^3ERROR^7] Car "%s" does not exist'):format(VehiclesC[i].model))
 		end
 	end
 
