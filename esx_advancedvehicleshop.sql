@@ -8,7 +8,7 @@ INSERT INTO `licenses` (`type`, `label`) VALUES
 CREATE TABLE `owned_vehicles` (
 	`owner` varchar(40) NOT NULL,
 	`plate` varchar(12) NOT NULL,
-	`vehicle` longtext NOT NULL,
+	`vehicle` longtext,
 	`type` VARCHAR(20) NOT NULL DEFAULT 'car',
 	`job` VARCHAR(20) NOT NULL DEFAULT 'civ',
 	`category` VARCHAR(50) DEFAULT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `vs_ambulance_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_ambulance_categories` (id, name, label) VALUES
@@ -62,7 +62,7 @@ CREATE TABLE `vs_police_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_police_categories` (id, name, label) VALUES
@@ -102,7 +102,7 @@ CREATE TABLE `vs_division_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_division_categories` (id, name, label) VALUES
@@ -129,7 +129,7 @@ CREATE TABLE `vs_mecano_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_mecano_categories` (id, name, label) VALUES
@@ -174,7 +174,7 @@ CREATE TABLE `vs_aircraft_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_aircraft_categories` (id, name, label) VALUES
@@ -190,7 +190,7 @@ CREATE TABLE `vs_aircrafts` (
 	`category` varchar(60) DEFAULT NULL,
 	`image` text DEFAULT NULL,
 
-	PRIMARY KEY (`model`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_aircrafts` (id, name, model, price, category, image) VALUES
@@ -229,7 +229,7 @@ CREATE TABLE `vs_boat_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_boat_categories` (id, name, label) VALUES
@@ -245,7 +245,7 @@ CREATE TABLE `vs_boats` (
 	`category` varchar(60) DEFAULT NULL,
 	`image` text DEFAULT NULL,
 
-	PRIMARY KEY (`model`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_boats` (id, name, model, price, category, image) VALUES
@@ -276,7 +276,7 @@ CREATE TABLE `vs_car_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_car_categories` (id, name, label) VALUES
@@ -302,7 +302,7 @@ CREATE TABLE `vs_cars` (
 	`category` varchar(60) DEFAULT NULL,
 	`image` text DEFAULT NULL,
 
-	PRIMARY KEY (`model`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_cars` (id, name, model, price, category, image) VALUES
@@ -475,6 +475,7 @@ INSERT INTO `vs_cars` (id, name, model, price, category, image) VALUES
 	(283, 'Savestra', 'savestra', 35000, 'sportsclassics', 'https://wiki.rage.mp/images/thumb/2/26/Savestra.png/800px-Savestra.png'),
 	(284, 'Stinger', 'stinger', 35000, 'sportsclassics', 'https://wiki.rage.mp/images/thumb/b/b6/Stinger.png/800px-Stinger.png'),
 	(285, 'Stinger GT', 'stingergt', 40000, 'sportsclassics', 'https://wiki.rage.mp/images/thumb/8/8d/Stingergt.png/800px-Stingergt.png'),
+	(286, 'Swinger', 'swinger', 50000, 'sportsclassics', 'https://wiki.rage.mp/images/8/86/Swinger.png'),
 	(287, 'Torero', 'torero', 50000, 'sportsclassics', 'https://wiki.rage.mp/images/thumb/5/5f/Torero.png/800px-Torero.png'),
 	(288, 'Tornado', 'tornado', 35000, 'sportsclassics', 'https://wiki.rage.mp/images/thumb/4/40/Tornado.png/800px-Tornado.png'),
 	(289, 'Tornado 2', 'tornado2', 35000, 'sportsclassics', 'https://wiki.rage.mp/images/thumb/0/05/Tornado2.png/800px-Tornado2.png'),
@@ -733,7 +734,7 @@ CREATE TABLE `vs_truck_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_truck_categories` (id, name, label) VALUES
@@ -751,7 +752,7 @@ CREATE TABLE `vs_trucks` (
 	`category` varchar(60) DEFAULT NULL,
 	`image` text DEFAULT NULL,
 
-	PRIMARY KEY (`model`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_trucks` (id, name, model, price, category, image) VALUES
@@ -793,7 +794,7 @@ CREATE TABLE `vs_vip_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_vip_categories` (id, name, label) VALUES
@@ -808,7 +809,7 @@ CREATE TABLE `vs_vips` (
 	`category` varchar(60) DEFAULT NULL,
 	`image` text DEFAULT NULL,
 
-	PRIMARY KEY (`model`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_vips` (id, name, model, price, category, image) VALUES
@@ -820,7 +821,7 @@ CREATE TABLE `vs_vipboat_categories` (
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
 
-	PRIMARY KEY (`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_vipboat_categories` (id, name, label) VALUES
@@ -835,7 +836,7 @@ CREATE TABLE `vs_vipboats` (
 	`category` varchar(60) DEFAULT NULL,
 	`image` text DEFAULT NULL,
 
-	PRIMARY KEY (`model`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `vs_vipboats` (id, name, model, price, category, image) VALUES
