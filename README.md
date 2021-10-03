@@ -21,6 +21,8 @@ Advanced Vehicle Shop for ESX Legacy - Edited/Made by Human Tree92 ([Velociti En
 
 # Requirements:
 * Required:
+  * FiveM Client/Server Build 4267 or Higher
+  * Set Game Build to Tuner Update `+set sv_enforceGameBuild tuner`
   * [ESX Legacy]( https://github.com/esx-framework/esx-legacy )
   * [esx_dmvschool]( https://github.com/esx-framework/esx-legacy/tree/main/%5Besx_addons%5D/esx_dmvschool )
   * [esx_licenseshop]( https://github.com/HumanTree92/esx_licenseshop )
