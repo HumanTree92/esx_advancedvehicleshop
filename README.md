@@ -18,6 +18,8 @@ Advanced Vehicle Shop for ESX Legacy - Edited/Made by Human Tree92 ([Velociti En
 * I have added my VIP Aircraft, Boat & Car Shop but you will need to setup that on your own. There will be no help from me.
 * This works perfectly with my esx_advancedgarage. I suggest using it over any other garage system including esx_policejob & esx_ambulancejob Garages.
 * New System will pull Vehicle Name & Vehicle Category & save it in the Database. This way you don't need a vehicle_names.lua file.
+* In order to Migrate Vehicle go to fxmanifest.lua and uncomment the 'server/migrate.lua'
+* Config.Main.PlateUseSpace will add a Double Space in between the Letters and Numbers.
 
 # Requirements:
 * Required:
