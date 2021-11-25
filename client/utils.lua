@@ -12,10 +12,12 @@ function GeneratePlate()
 	while true do
 		Citizen.Wait(2)
 		math.randomseed(GetGameTimer())
+
+		-- The Maximum Plate Length is 8 Characters (including Spaces & Symbols), DON'T GO PAST IT!!!
 		if Config.Main.PlateUseSpace then
-			generatedPlate = string.upper(GetRandomLetter(Config.Main.PlateLetters) .. ' ' .. GetRandomNumber(Config.Main.PlateNumbers))
+			generatedPlate = string.upper(GetRandomLetter(3) .. '  ' .. GetRandomNumber(3))
 		else
-			generatedPlate = string.upper(GetRandomLetter(Config.Main.PlateLetters) .. GetRandomNumber(Config.Main.PlateNumbers))
+			generatedPlate = string.upper(GetRandomLetter(4) .. GetRandomNumber(4))
 		end
 
 		ESX.TriggerServerCallback('esx_advancedvehicleshop:isPlateTaken', function (isPlateTaken)

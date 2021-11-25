@@ -28,9 +28,7 @@ client_scripts {
 }
 
 dependencies {
-	'es_extended',
-	'esx_dmvschool',
-	'esx_licenseshop'
+	'es_extended'
 }
 
 export 'GeneratePlate'

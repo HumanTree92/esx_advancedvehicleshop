@@ -3,10 +3,7 @@ Config.Locale = 'en'
 
 Config.Main = {
 	DrawDistance = 20,
-	-- looks like this: 'LLL NNN' The maximum plate length is 8 chars (including spaces & symbols), don't go past it!
-	PlateLetters = 3,
-	PlateNumbers = 3,
-	PlateUseSpace = true,
+	PlateUseSpace = true, -- true = 'LLL  NNN' | false = 'LLLLNNNN' | Where L is a Random Letter & N is a Random Number.
 	LegacyFuel = false
 }
 
@@ -25,11 +22,11 @@ Config.Ambulance = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 326, Color = 1, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 255, g = 0, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Red Color / Standard Size Circle.
-		Resell = {Type = 1, r = 255, g = 0, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Red Color / Medium Size Circle.
+		Enter = {Type = 1, r = 255, g = 0, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 255, g = 0, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
@@ -47,11 +44,11 @@ Config.Police = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 326, Color = 3, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 0, g = 0, b = 255, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 0, g = 0, b = 255, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 0, g = 0, b = 255, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 0, g = 0, b = 255, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
@@ -69,11 +66,11 @@ Config.Division = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 326, Color = 3, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 0, g = 0, b = 255, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 0, g = 0, b = 255, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 0, g = 0, b = 255, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 0, g = 0, b = 255, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
@@ -95,11 +92,33 @@ Config.Mechanic = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 326, Color = 17, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 255, g = 165, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 255, g = 165, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 255, g = 165, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 255, g = 165, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
+	},
+	Locations = {
+		Los_Santos = {
+			Enter = vector3(0.37, -1658.99, 28.48),
+			Inside = vector3(-17.27, -1658.88, 38.62),
+			Outside = vector3(-48.61, -1690.86, 28.43),
+			Resell = vector3(-17.96, -1680.72, 28.49),
+			InsideH = 46.47,
+			OutsideH = 297.7
+		}
+	}
+}
+
+Config.Taxi = {
+	Shop = false,
+	Blips = false,
+	Blip = {Sprite = 326, Color = 17, Display = 4, Scale = 1.0},
+	License = false,
+	ResellPerc = 50,
+	Markers = {
+		Enter = {Type = 1, r = 255, g = 165, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 255, g = 165, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
@@ -117,15 +136,15 @@ Config.Aircraft = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 90, Color = 4, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 145, g = 0, b = 255, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 145, g = 0, b = 255, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 145, g = 0, b = 255, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 145, g = 0, b = 255, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
-			Enter = vector3(-940.0, -2963.1, 18.8),
+			Enter = vector3(-941.6, -2956.1, 12.9),
 			Inside = vector3(-1874.7, -3137.5, 14.9), -- vector3(-1075.0, -2933.2, 14.5),
 			Outside = vector3(-965.2, -2983.5, 14.5),
 			Resell = vector3(-1003.2, -2920.7, 12.9),
@@ -139,11 +158,11 @@ Config.Boat = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 410, Color = 3, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 0, g = 17, b = 255, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 0, g = 17, b = 255, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 0, g = 17, b = 255, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 0, g = 17, b = 255, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
@@ -161,11 +180,11 @@ Config.Car = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 326, Color = 2, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 0, g = 255, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 0, g = 255, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 0, g = 255, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 0, g = 255, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
@@ -183,11 +202,11 @@ Config.Truck = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 67, Color = 2, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 0, g = 255, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 0, g = 255, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 0, g = 255, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 0, g = 255, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
@@ -201,25 +220,25 @@ Config.Truck = {
 	}
 }
 
--- You will need to setup your own callback for VIP Shop
-Config.VIP = {
+-- You will need to Setup your Own Stuff for the VIP Shops. I will NOT be providing support to help with this.
+Config.VIPAircraft = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 326, Color = 5, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 255, g = 222, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 255, g = 222, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 255, g = 222, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 255, g = 222, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
-			Enter = vector3(-796.51, -219.35, 36.08),
-			Inside = vector3(-771.53, -233.9, 36.08),
-			Outside = vector3(-760.88, -243.24, 37.25),
-			Resell = vector3(-760.56, -231.36, 36.28),
-			InsideH = 211.31,
-			OutsideH = 113.1
+			Enter = vector3(0.0, 0.0, 0.0),
+			Inside = vector3(0.0, 0.0, 0.0),
+			Outside = vector3(0.0, 0.0, 0.0),
+			Resell = vector3(0.0, 0.0, 0.0),
+			InsideH = 0.0,
+			OutsideH = 0.0
 		}
 	}
 }
@@ -228,20 +247,42 @@ Config.VIPBoat = {
 	Shop = false,
 	Blips = false,
 	Blip = {Sprite = 326, Color = 5, Display = 4, Scale = 1.0},
-	License = true,
+	License = false,
 	ResellPerc = 50,
 	Markers = {
-		Enter = {Type = 1, r = 255, g = 222, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Blue Color / Standard Size Circle.
-		Resell = {Type = 1, r = 255, g = 222, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Blue Color / Medium Size Circle.
+		Enter = {Type = 1, r = 255, g = 222, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 255, g = 222, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
 	},
 	Locations = {
 		Los_Santos = {
-			Enter = vector3(-806.8, -1354.04, 4.22),
-			Inside = vector3(-768.66, -1393.84, 19.62),
-			Outside = vector3(-855.04, -1410.41, -0.47),
-			Resell = vector3(649.82, -3103.56, -0.4),
-			InsideH = 136.83,
-			OutsideH = 201.31
+			Enter = vector3(0.0, 0.0, 0.0),
+			Inside = vector3(0.0, 0.0, 0.0),
+			Outside = vector3(0.0, 0.0, 0.0),
+			Resell = vector3(0.0, 0.0, 0.0),
+			InsideH = 0.0,
+			OutsideH = 0.0
+		}
+	}
+}
+
+Config.VIPCar = {
+	Shop = false,
+	Blips = false,
+	Blip = {Sprite = 326, Color = 5, Display = 4, Scale = 1.0},
+	License = false,
+	ResellPerc = 50,
+	Markers = {
+		Enter = {Type = 1, r = 255, g = 222, b = 0, x = 1.5, y = 1.5, z = 1.0}, -- Standard Size Circle.
+		Resell = {Type = 1, r = 255, g = 222, b = 0, x = 3.0, y = 3.0, z = 1.0} -- Medium Size Circle.
+	},
+	Locations = {
+		Los_Santos = {
+			Enter = vector3(0.0, 0.0, 0.0),
+			Inside = vector3(0.0, 0.0, 0.0),
+			Outside = vector3(0.0, 0.0, 0.0),
+			Resell = vector3(0.0, 0.0, 0.0),
+			InsideH = 0.0,
+			OutsideH = 0.0
 		}
 	}
 }

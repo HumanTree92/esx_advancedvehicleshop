@@ -6,7 +6,7 @@ INSERT INTO `licenses` (`type`, `label`) VALUES
 ;
 
 CREATE TABLE `owned_vehicles` (
-	`owner` varchar(40) NOT NULL,
+	`owner` varchar(60) NOT NULL,
 	`plate` varchar(12) NOT NULL,
 	`vehicle` longtext,
 	`type` VARCHAR(20) NOT NULL DEFAULT 'car',
@@ -124,7 +124,7 @@ INSERT INTO `vs_divisions` (id, name, model, price, category, image) VALUES
 	(1, 'Maverick', 'polmav', 1000, 'aviation', 'https://wiki.rage.mp/images/thumb/f/fc/Polmav.png/800px-Polmav.png')
 ;
 
-CREATE TABLE `vs_mecano_categories` (
+CREATE TABLE `vs_mechanic_categories` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
@@ -132,7 +132,7 @@ CREATE TABLE `vs_mecano_categories` (
 	PRIMARY KEY (`id`)
 );
 
-INSERT INTO `vs_mecano_categories` (id, name, label) VALUES
+INSERT INTO `vs_mechanic_categories` (id, name, label) VALUES
 	(1, 'recrue', 'Recruit'),
 	(2, 'novice', 'Novice'),
 	(3, 'experimente', 'Experienced'),
@@ -140,7 +140,7 @@ INSERT INTO `vs_mecano_categories` (id, name, label) VALUES
 	(5, 'boss', 'Boss')
 ;
 
-CREATE TABLE `vs_mecano` (
+CREATE TABLE `vs_mechanic` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` varchar(60) NOT NULL,
 	`model` varchar(60) NOT NULL,
@@ -151,11 +151,11 @@ CREATE TABLE `vs_mecano` (
 	PRIMARY KEY (`id`)
 );
 
-INSERT INTO `vs_mecano` (id, name, model, price, category, image) VALUES
+INSERT INTO `vs_mechanic` (id, name, model, price, category, image) VALUES
 	(1, 'Flatbed', 'flatbed', 1000, 'recrue', 'https://wiki.rage.mp/images/thumb/c/c2/Flatbed.png/800px-Flatbed.png'),
 	(2, 'Tow Truck', 'towtruck', 750, 'recrue', 'https://wiki.rage.mp/images/thumb/5/52/Towtruck.png/800px-Towtruck.png'),
 	(3, 'Tow Truck', 'towtruck2', 500, 'recrue', 'https://wiki.rage.mp/images/thumb/3/34/Towtruck2.png/800px-Towtruck2.png'),
-	(4, 'Flatbed','flatbed', 1000, 'novice', 'https://wiki.rage.mp/images/thumb/c/c2/Flatbed.png/800px-Flatbed.png'),
+	(4, 'Flatbed', 'flatbed', 1000, 'novice', 'https://wiki.rage.mp/images/thumb/c/c2/Flatbed.png/800px-Flatbed.png'),
 	(5, 'Tow Truck', 'towtruck', 750, 'novice', 'https://wiki.rage.mp/images/thumb/5/52/Towtruck.png/800px-Towtruck.png'),
 	(6, 'Tow Truck', 'towtruck2', 500, 'novice', 'https://wiki.rage.mp/images/thumb/3/34/Towtruck2.png/800px-Towtruck2.png'),
 	(7, 'Flatbed', 'flatbed', 1000, 'experimente', 'https://wiki.rage.mp/images/thumb/c/c2/Flatbed.png/800px-Flatbed.png'),
@@ -167,6 +167,41 @@ INSERT INTO `vs_mecano` (id, name, model, price, category, image) VALUES
 	(13, 'Flatbed', 'flatbed', 1000, 'boss', 'https://wiki.rage.mp/images/thumb/c/c2/Flatbed.png/800px-Flatbed.png'),
 	(14, 'Tow Truck', 'towtruck', 750, 'boss', 'https://wiki.rage.mp/images/thumb/5/52/Towtruck.png/800px-Towtruck.png'),
 	(15, 'Tow Truck', 'towtruck2', 500, 'boss', 'https://wiki.rage.mp/images/thumb/3/34/Towtruck2.png/800px-Towtruck2.png')
+;
+
+CREATE TABLE `vs_taxi_categories` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `vs_taxi_categories` (id, name, label) VALUES
+	(1, 'recrue', 'Recruit'),
+	(2, 'novice', 'Novice'),
+	(3, 'experimente', 'Experienced'),
+	(4, 'uber', 'Uber'),
+	(5, 'boss', 'Boss')
+;
+
+CREATE TABLE `vs_taxi` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+	`image` text DEFAULT NULL,
+
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `vs_taxi` (id, name, model, price, category, image) VALUES
+	(1, 'Taxi', 'taxi', 1000, 'recrue', 'https://wiki.rage.mp/images/a/a6/Taxi.png'),
+	(2, 'Taxi', 'taxi', 1000, 'novice', 'https://wiki.rage.mp/images/a/a6/Taxi.png'),
+	(3, 'Taxi', 'taxi', 1000, 'experimente', 'https://wiki.rage.mp/images/a/a6/Taxi.png'),
+	(4, 'Taxi', 'taxi', 1000, 'uber', 'https://wiki.rage.mp/images/a/a6/Taxi.png'),
+	(5, 'Taxi', 'taxi', 1000, 'boss', 'https://wiki.rage.mp/images/a/a6/Taxi.png')
 ;
 
 CREATE TABLE `vs_aircraft_categories` (
@@ -789,7 +824,7 @@ INSERT INTO `vs_trucks` (id, name, model, price, category, image) VALUES
 	(41, 'Tipper 2', 'tiptruck2', 30000, 'other', 'https://wiki.rage.mp/images/thumb/c/c9/TipTruck2.png/800px-TipTruck2.png')
 ;
 
-CREATE TABLE `vs_vip_categories` (
+CREATE TABLE `vs_vipaircraft_categories` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` varchar(60) NOT NULL,
 	`label` varchar(60) NOT NULL,
@@ -797,11 +832,12 @@ CREATE TABLE `vs_vip_categories` (
 	PRIMARY KEY (`id`)
 );
 
-INSERT INTO `vs_vip_categories` (id, name, label) VALUES
-	(1, 'motorcycles', 'Motos')
+INSERT INTO `vs_vipaircraft_categories` (id, name, label) VALUES
+	(1, 'helis', 'Helicopters'),
+	(2, 'planes', 'Planes')
 ;
 
-CREATE TABLE `vs_vips` (
+CREATE TABLE `vs_vipaircrafts` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` varchar(60) NOT NULL,
 	`model` varchar(60) NOT NULL,
@@ -812,8 +848,9 @@ CREATE TABLE `vs_vips` (
 	PRIMARY KEY (`id`)
 );
 
-INSERT INTO `vs_vips` (id, name, model, price, category, image) VALUES
-	(1, 'Shotaro', 'shotaro', 30000, 'motorcycles', 'https://wiki.rage.mp/images/thumb/e/e3/Shotaro.png/800px-Shotaro.png')
+INSERT INTO `vs_vipaircrafts` (id, name, model, price, category, image) VALUES
+	(1, 'Buzzard', 'buzzard2', 500000, 'helis', 'https://wiki.rage.mp/images/thumb/6/6e/Buzzard2.png/800px-Buzzard2.png'),
+	(2, 'Alpha Z1', 'alphaz1', 450000, 'planes', 'https://wiki.rage.mp/images/thumb/4/46/Alphaz1.png/800px-Alphaz1.png')
 ;
 
 CREATE TABLE `vs_vipboat_categories` (
@@ -825,7 +862,8 @@ CREATE TABLE `vs_vipboat_categories` (
 );
 
 INSERT INTO `vs_vipboat_categories` (id, name, label) VALUES
-	(1, 'boats', 'Boats')
+	(1, 'boats', 'Boats'),
+	(2, 'subs', 'Submersibles')
 ;
 
 CREATE TABLE `vs_vipboats` (
@@ -840,6 +878,33 @@ CREATE TABLE `vs_vipboats` (
 );
 
 INSERT INTO `vs_vipboats` (id, name, model, price, category, image) VALUES
-	(1, 'Tropic Yacht', 'tropic2', 27000, 'boats', 'https://wiki.rage.mp/images/thumb/a/a7/Tropic2.png/800px-Tropic2.png')
+	(1, 'Tropic Yacht', 'tropic2', 27000, 'boats', 'https://wiki.rage.mp/images/thumb/a/a7/Tropic2.png/800px-Tropic2.png'),
+	(2, 'Avisa', 'avisa', 35000, 'subs', 'https://wiki.rage.mp/images/thumb/1/19/0x9A474B5E.png/800px-0x9A474B5E.png')
 ;
 
+CREATE TABLE `vs_vipcar_categories` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(60) NOT NULL,
+	`label` varchar(60) NOT NULL,
+
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `vs_vipcar_categories` (id, name, label) VALUES
+	(1, 'motorcycles', 'Motos')
+;
+
+CREATE TABLE `vs_vipcars` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(60) NOT NULL,
+	`model` varchar(60) NOT NULL,
+	`price` int(11) NOT NULL,
+	`category` varchar(60) DEFAULT NULL,
+	`image` text DEFAULT NULL,
+
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `vs_vipcars` (id, name, model, price, category, image) VALUES
+	(1, 'Shotaro', 'shotaro', 30000, 'motorcycles', 'https://wiki.rage.mp/images/thumb/e/e3/Shotaro.png/800px-Shotaro.png')
+;
