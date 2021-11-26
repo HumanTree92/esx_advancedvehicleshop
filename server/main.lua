@@ -586,21 +586,24 @@ ESX.RegisterServerCallback('esx_advancedvehicleshop:buyVehicle', function(source
 			type = 'aircraft'
 			category = 'helis'
 		else
-			if sTypeS == 'aircraft' and vCatS == 'helis' or pJobS == 'civ' and sTypeS == 'vipaircraft' and vCatS == 'helis' then
+			if pJobS == 'ambulance' or pJobS == 'police' or pJobS == 'mechanic' or pJobS == 'taxi' then
+				type = 'car'
+				category = 'cars'
+			elseif pJobS == 'civ' and sTypeS == 'aircraft' and vCatS == 'helis' or pJobS == 'civ' and sTypeS == 'vipaircraft' and vCatS == 'helis' then
 				type = 'aircraft'
 				category = 'helis'
-			elseif sTypeS == 'aircraft' and vCatS == 'planes' or pJobS == 'civ' and sTypeS == 'vipaircraft' and vCatS == 'planes' then
+			elseif pJobS == 'civ' and sTypeS == 'aircraft' and vCatS == 'planes' or pJobS == 'civ' and sTypeS == 'vipaircraft' and vCatS == 'planes' then
 				type = 'aircraft'
 				category = 'planes'
-			elseif sTypeS == 'boat' and vCatS == 'boats' or pJobS == 'civ' and sTypeS == 'vipboat' and vCatS == 'boats' then
+			elseif pJobS == 'civ' and sTypeS == 'boat' and vCatS == 'boats' or pJobS == 'civ' and sTypeS == 'vipboat' and vCatS == 'boats' then
 				type = 'boat'
 				category = 'boats'
-			elseif sTypeS == 'boat' and vCatS == 'subs' or pJobS == 'civ' and sTypeS == 'vipboat' and vCatS == 'subs' then
+			elseif pJobS == 'civ' and sTypeS == 'boat' and vCatS == 'subs' or pJobS == 'civ' and sTypeS == 'vipboat' and vCatS == 'subs' then
 				type = 'boat'
 				category = 'subs'
 			else
 				type = 'car'
-				category = 'cars'
+				category = vCatS
 			end
 		end
 
